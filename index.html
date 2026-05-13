@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venice × Korea · Community Activation</title>
+<meta name="description" content="Buy $VVV on Upbit, sign up on Venice.ai, and enter the Korea community prize pool.">
+<meta property="og:title" content="Venice Korea Community Activation">
+<meta property="og:description" content="Buy $VVV · Sign up · Get rewarded.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0806">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23DD3300'/%3E%3Ctext x='32' y='44' font-family='serif' font-size='40' font-style='italic' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Pinyon+Script&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+/* ===== THEME TOKENS ===== */
+:root[data-theme="dark"]{
+  --bg:#0A0806; --bg-2:#120E0A; --panel:#1C1410; --panel-2:#231A13; --panel-3:#2A2018;
+  --border:rgba(240,232,220,0.08); --border-hi:rgba(240,232,220,0.18);
+  --border-red:rgba(221,51,0,0.32); --border-cream:rgba(240,232,220,0.22);
+  --red:#DD3300; --red-warm:#E84010; --red-glow:rgba(221,51,0,0.30);
+  --cream:#F0E8DF; --sub:rgba(240,232,220,0.65); --dim:rgba(240,232,220,0.38); --dimmer:rgba(240,232,220,0.20);
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+:root[data-theme="light"]{
+  --bg:#F9F5EF; --bg-2:#F2EDE5; --panel:#FFFFFF; --panel-2:#F7F2EA; --panel-3:#F4EDDF;
+  --border:rgba(26,18,9,0.10); --border-hi:rgba(26,18,9,0.22);
+  --border-red:rgba(221,51,0,0.28); --border-cream:rgba(26,18,9,0.18);
+  --red:#DD3300; --red-warm:#C82E00; --red-glow:rgba(221,51,0,0.16);
+  --cream:#1A1209; --sub:rgba(26,18,9,0.62); --dim:rgba(26,18,9,0.40); --dimmer:rgba(26,18,9,0.22);
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);min-height:100vh;font-family:'DM Sans',sans-serif;color:var(--cream);-webkit-font-smoothing:antialiased;letter-spacing:-0.005em;overflow-x:hidden;transition:background 0.3s,color 0.3s;}
+
+/* ===== PARTICLE CANVAS ===== */
+#particleCanvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+/* ===== BG MESH ===== */
+.bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;transition:opacity 0.4s;}
+.bg-mesh-1{background:radial-gradient(ellipse 60% 55% at 15% 20%,rgba(221,51,0,0.09) 0%,transparent 55%);}
+.bg-mesh-2{background:radial-gradient(ellipse 50% 60% at 88% 85%,rgba(221,51,0,0.12) 0%,transparent 55%);}
+.bg-grid{background-image:radial-gradient(circle,rgba(221,51,0,0.028) 1px,transparent 1.2px);background-size:30px 30px;mask-image:radial-gradient(ellipse at 50% 40%,#000 20%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse at 50% 40%,#000 20%,transparent 80%);}
+
+/* ===== NAV ===== */
+.nav{position:sticky;top:0;z-index:50;background:rgba(10,8,6,0.80);backdrop-filter:blur(20px) saturate(130%);border-bottom:1px solid var(--border);transition:background 0.3s;}
+[data-theme="light"] .nav{background:rgba(249,245,239,0.88);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo{height:28px;width:auto;display:block;}
+.nav-brand-sep{width:1px;height:20px;background:var(--border-hi);}
+.nav-brand-text{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;color:var(--sub);letter-spacing:0.04em;}
+.nav-right{display:flex;align-items:center;gap:10px;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);animation:pulse-live 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes pulse-live{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:0.5;}}
+.live-badge{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);padding:6px 12px;border:1px solid var(--border);border-radius:6px;}
+.icon-btn{display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--panel-2);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:15px;transition:all 0.15s;color:var(--sub);user-select:none;}
+.icon-btn:hover{border-color:var(--border-red);color:var(--red);}
+.lang-toggle{display:flex;align-items:center;gap:2px;background:var(--panel-2);border:1px solid var(--border);border-radius:6px;padding:3px;}
+.lang-btn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.08em;padding:5px 11px;border:none;background:transparent;color:var(--dim);cursor:pointer;border-radius:4px;transition:all 0.15s;}
+.lang-btn.active{background:var(--red);color:#fff;box-shadow:0 0 10px rgba(221,51,0,0.35);}
+.lang-btn:hover:not(.active){color:var(--cream);}
+
+/* ===== TICKER ===== */
+.ticker-wrap{width:100%;overflow:hidden;background:rgba(10,8,6,0.65);border-bottom:1px solid var(--border);position:relative;z-index:40;height:30px;display:flex;align-items:center;}
+[data-theme="light"] .ticker-wrap{background:rgba(249,245,239,0.65);}
+.ticker-wrap::before,.ticker-wrap::after{content:'';position:absolute;top:0;width:80px;height:100%;z-index:2;pointer-events:none;}
+.ticker-wrap::before{left:0;background:linear-gradient(90deg,var(--bg),transparent);}
+.ticker-wrap::after{right:0;background:linear-gradient(270deg,var(--bg),transparent);}
+.ticker-track{display:flex;align-items:center;white-space:nowrap;animation:ticker-scroll 34s linear infinite;}
+.ticker-track:hover{animation-play-state:paused;}
+.ticker-item{display:inline-flex;align-items:center;gap:7px;padding:0 22px;}
+.ticker-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:var(--dimmer);}
+.ticker-lnk{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--sub);text-decoration:none;transition:color 0.15s;}
+.ticker-lnk:hover{color:var(--red);}
+.ticker-lnk.hl{color:rgba(221,51,0,0.65);}
+.ticker-lnk.hl:hover{color:var(--red);}
+.ticker-dot{width:3px;height:3px;border-radius:50%;background:var(--border-hi);}
+.ticker-pipe{width:1px;height:11px;background:var(--border);margin:0 3px;}
+@keyframes ticker-scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* ===== WRAP ===== */
+.wrap{max-width:1200px;margin:0 auto;padding:56px 28px 100px;position:relative;z-index:1;}
+
+/* ===== HERO ===== */
+.hero{text-align:center;margin-bottom:48px;position:relative;}
+.hero-logo{display:flex;justify-content:center;margin-bottom:28px;}
+.hero-logo img{height:72px;width:auto;opacity:0.92;}
+[data-theme="light"] .hero-logo img{opacity:1;}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--red);padding:6px 14px;border:1px solid var(--border-red);border-radius:100px;background:rgba(221,51,0,0.05);margin-bottom:20px;}
+.eyebrow::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse-live 2s infinite;}
+h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(46px,6.5vw,82px);font-weight:600;line-height:0.94;letter-spacing:-0.02em;color:var(--cream);margin-bottom:22px;}
+h1 .accent{color:var(--red);}
+.hero-sub{font-size:17px;color:var(--sub);line-height:1.7;max-width:580px;margin:0 auto 32px;font-weight:300;}
+.hero-sub strong{color:var(--cream);font-weight:600;}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.cta-btn{display:inline-flex;align-items:center;gap:9px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:0.04em;padding:12px 22px;border-radius:8px;text-decoration:none;transition:all 0.2s var(--ease);cursor:pointer;}
+.cta-primary{background:var(--red);color:#fff;border:none;box-shadow:0 4px 0 #8B1800,0 8px 24px rgba(221,51,0,0.22);}
+.cta-primary:hover{background:var(--red-warm);transform:translateY(-2px);box-shadow:0 6px 0 #8B1800,0 12px 32px rgba(221,51,0,0.28);}
+.cta-primary:active{transform:translateY(1px);box-shadow:0 2px 0 #8B1800;}
+.cta-secondary{background:transparent;color:var(--cream);border:1px solid var(--border-hi);}
+.cta-secondary:hover{border-color:var(--border-red);color:var(--red);}
+.cta-btn svg{width:15px;height:15px;flex-shrink:0;}
+
+/* ===== STEPS ===== */
+.steps-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;position:relative;}
+.steps-bar::before{content:'';position:absolute;top:26px;left:calc(33.33% - 1px);right:calc(33.33% - 1px);height:1px;background:var(--border);z-index:0;pointer-events:none;}
+.step-card{position:relative;z-index:1;background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;overflow:hidden;transition:border-color 0.2s;}
+.step-card:hover{border-color:var(--border-red);}
+.step-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.step-card:nth-child(1)::before{background:var(--red);opacity:0.5;}
+.step-card:nth-child(2)::before{background:var(--red);opacity:0.75;}
+.step-card:nth-child(3)::before{background:var(--red);opacity:1;}
+.step-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
+.step-icon{width:36px;height:36px;border-radius:8px;background:rgba(221,51,0,0.08);border:1px solid var(--border-red);display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.step-icon svg{width:18px;height:18px;color:var(--red);}
+.step-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--cream);margin-bottom:4px;}
+.step-body{font-size:12px;color:var(--sub);line-height:1.55;}
+.step-link{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--red);text-decoration:none;transition:opacity 0.15s;}
+.step-link:hover{opacity:0.75;}
+.step-link svg{width:10px;height:10px;}
+
+/* ===== PRIZE BAR ===== */
+.prize-bar{display:grid;grid-template-columns:1fr 1px 1fr 1px auto;align-items:stretch;background:var(--panel);border:1px solid var(--border-red);border-radius:14px;overflow:hidden;margin-bottom:36px;box-shadow:0 0 40px rgba(221,51,0,0.07);}
+.prize-pill{display:flex;align-items:center;gap:14px;padding:20px 28px;}
+.prize-icon{font-size:22px;flex-shrink:0;}
+.prize-pill-text{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:500;color:var(--cream);line-height:1.4;}
+.prize-pill-text span{color:var(--red);font-size:19px;font-weight:700;}
+.prize-pill-text .sub{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;color:var(--sub);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-top:3px;}
+.prize-div{background:var(--border);width:1px;}
+.countdown-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 36px;background:rgba(221,51,0,0.04);}
+.countdown-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;}
+.countdown-digits{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--red);letter-spacing:0.04em;text-shadow:0 0 22px rgba(221,51,0,0.55);}
+.countdown-digits.urgent{animation:pulse-fire 0.8s ease-in-out infinite;}
+@keyframes pulse-fire{0%,100%{text-shadow:0 0 22px rgba(221,51,0,0.9);}50%{text-shadow:0 0 8px rgba(221,51,0,0.25);}}
+
+/* ===== FORM SECTION ===== */
+.form-section{max-width:820px;margin:0 auto;}
+.section-head{text-align:center;margin-bottom:28px;}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,36px);font-weight:600;color:var(--cream);}
+.section-sub{font-size:14px;color:var(--sub);margin-top:8px;line-height:1.6;}
+.form-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;overflow:hidden;}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-red),transparent);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-field{display:flex;flex-direction:column;gap:6px;}
+.form-field.full{grid-column:1/-1;}
+.form-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);}
+.form-input{background:var(--panel-2);border:1px solid var(--border);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:12px;padding:11px 13px;outline:none;border-radius:8px;transition:border-color 0.15s;width:100%;}
+.form-input:focus{border-color:var(--border-red);}
+.form-input::placeholder{color:var(--dimmer);}
+.form-select{background:var(--panel-2);border:1px solid var(--border);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:12px;padding:11px 13px;outline:none;border-radius:8px;cursor:pointer;width:100%;transition:border-color 0.15s;}
+.form-select:focus{border-color:var(--border-red);}
+.form-divider{grid-column:1/-1;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:6px 0;}
+
+/* ===== PROOF UPLOAD CARDS ===== */
+.proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;grid-column:1/-1;}
+.proof-card{background:var(--bg-2);border:1.5px dashed var(--border-hi);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s var(--ease);}
+.proof-card:hover,.proof-card.has-file{border-style:solid;border-color:var(--border-red);background:rgba(221,51,0,0.03);}
+.proof-card-head{padding:16px 16px 12px;border-bottom:1px solid var(--border);}
+.proof-card-platform{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.proof-card-platform svg{width:14px;height:14px;flex-shrink:0;}
+.proof-card-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--cream);margin-bottom:4px;}
+.proof-card-desc{font-size:11px;color:var(--sub);line-height:1.5;}
+.proof-card-desc li{list-style:none;display:flex;align-items:flex-start;gap:6px;margin-bottom:3px;}
+.proof-card-desc li::before{content:'—';color:var(--red);font-size:10px;flex-shrink:0;margin-top:1px;}
+.proof-illustration{padding:12px 16px;display:flex;align-items:center;justify-content:center;}
+.proof-dropzone{padding:14px 16px;border-top:1px solid var(--border);text-align:center;}
+.proof-dropzone-inner{display:flex;flex-direction:column;align-items:center;gap:5px;}
+.proof-dropzone-icon{width:30px;height:30px;border-radius:7px;background:rgba(221,51,0,0.08);border:1px solid var(--border-red);display:flex;align-items:center;justify-content:center;margin-bottom:2px;}
+.proof-dropzone-icon svg{width:14px;height:14px;color:var(--red);}
+.proof-dropzone-lbl{font-size:11.5px;font-weight:500;color:var(--cream);}
+.proof-dropzone-sub{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim);}
+.proof-filename{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);letter-spacing:0.1em;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;}
+
+/* ===== VVV NOTE ===== */
+.vvv-note{display:flex;align-items:center;gap:12px;padding:12px 16px;background:rgba(221,51,0,0.06);border:1px solid rgba(221,51,0,0.22);border-radius:8px;font-size:12px;color:var(--sub);line-height:1.6;grid-column:1/-1;}
+.vvv-note-icon{font-size:16px;flex-shrink:0;}
+
+/* ===== CONFIRM CHECKBOX ===== */
+.confirm-row{display:flex;align-items:flex-start;gap:12px;cursor:pointer;grid-column:1/-1;}
+.confirm-row input{margin-top:2px;accent-color:var(--red);width:16px;height:16px;flex-shrink:0;cursor:pointer;}
+.confirm-row span{font-size:13px;color:var(--sub);line-height:1.5;}
+
+/* ===== SUBMIT BTN ===== */
+.submit-btn{width:100%;background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:18px;cursor:pointer;border-radius:10px;margin-top:6px;box-shadow:0 4px 0 #8B1800,0 8px 24px rgba(221,51,0,0.20);transition:all 0.2s var(--ease);display:flex;align-items:center;justify-content:center;gap:10px;}
+.submit-btn:hover:not(:disabled){background:var(--red-warm);transform:translateY(-2px);box-shadow:0 6px 0 #8B1800,0 12px 32px rgba(221,51,0,0.28);}
+.submit-btn:active:not(:disabled){transform:translateY(1px);box-shadow:0 2px 0 #8B1800;}
+.submit-btn:disabled{opacity:0.4;cursor:not-allowed;box-shadow:0 4px 0 #8B1800;}
+.submit-btn svg{width:16px;height:16px;}
+#sf-error{display:none;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);letter-spacing:0.1em;grid-column:1/-1;margin-top:4px;}
+
+/* ===== STATES: SUCCESS + CLOSED ===== */
+.state-card{background:var(--panel);border:1px solid var(--border-red);border-radius:16px;padding:48px 36px;text-align:center;position:relative;overflow:hidden;}
+.state-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-red),transparent);}
+.state-icon{font-size:48px;margin-bottom:16px;line-height:1;}
+.state-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--red);margin-bottom:10px;}
+.state-body{font-size:14px;color:var(--sub);line-height:1.65;max-width:480px;margin:0 auto 24px;}
+.eco-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border);}
+.eco-link{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);border:1px solid var(--border-red);padding:7px 16px;border-radius:6px;text-decoration:none;transition:background 0.15s;}
+.eco-link:hover{background:rgba(221,51,0,0.08);}
+
+/* ===== POWERED BY ===== */
+.powered-by{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:24px 20px 0;margin-top:56px;border-top:1px solid var(--border);}
+.powered-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dimmer);}
+.powered-brand{display:flex;align-items:center;gap:8px;}
+.powered-name{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--dimmer);}
+.powered-x{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--dimmer);}
+.hh-logo{width:20px;height:20px;border-radius:50%;background:#fff;object-fit:cover;}
+
+/* ===== ADMIN STYLES ===== */
+.admin-tab{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:10px 18px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--dim);cursor:pointer;transition:all 0.15s;margin-bottom:-1px;}
+.admin-tab:hover{color:var(--cream);}
+.admin-tab.active{color:var(--red);border-bottom-color:var(--red);}
+.admin-entry-table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:11px;}
+.admin-entry-table th{text-align:left;padding:8px 12px;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--dim);border-bottom:1px solid var(--border);}
+.admin-entry-table td{padding:10px 12px;color:var(--sub);border-bottom:1px solid var(--border);vertical-align:middle;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.admin-entry-table tr:hover td{background:rgba(255,255,255,0.02);}
+.admin-row-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--panel);border:1px solid var(--border);border-radius:6px;}
+.admin-del-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(221,51,0,0.65);background:transparent;border:1px solid rgba(221,51,0,0.25);padding:4px 10px;cursor:pointer;border-radius:4px;transition:all 0.15s;}
+.admin-del-btn:hover{color:var(--red);border-color:var(--red);}
+#adminDeleteSelectedBtn{background:rgba(221,51,0,0.10);border:1px solid rgba(221,51,0,0.35);color:rgba(221,51,0,0.85);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:11px 20px;cursor:pointer;border-radius:6px;transition:all 0.15s;display:none;}
+#adminDeleteSelectedBtn.visible{display:inline-block;}
+.winner-del-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:var(--red);padding:4px 10px;border-radius:4px;cursor:pointer;transition:background 0.15s;}
+.winner-del-btn:hover{background:rgba(221,51,0,0.08);}
+
+@media(max-width:780px){.steps-bar{grid-template-columns:1fr;}.steps-bar::before{display:none;}.prize-bar{grid-template-columns:1fr;grid-template-rows:auto auto auto;}.prize-div{width:100%;height:1px;}.countdown-box{align-items:flex-start;padding:16px 20px;}.proof-grid{grid-template-columns:1fr;}.form-grid{grid-template-columns:1fr;}.hero-ctas{flex-direction:column;align-items:center;}}
+@media(max-width:560px){.nav-inner{padding:10px 16px;}.wrap{padding:32px 16px 80px;}.live-badge{display:none;}.form-card{padding:20px;}}
+</style>
+</head>
+<body>
+
+<!-- particle canvas -->
+<canvas id="particleCanvas"></canvas>
+<!-- bg mesh (tweakable) -->
+<div class="bg-mesh bg-mesh-1" id="bgMesh1"></div>
+<div class="bg-mesh bg-mesh-2" id="bgMesh2"></div>
+<div class="bg-mesh bg-grid" id="bgGrid"></div>
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="https://venice.ai" target="_blank" rel="noopener noreferrer" class="nav-brand">
+      <img src="assets/venice-keys-red.svg" alt="Venice" class="nav-logo">
+      <div class="nav-brand-sep"></div>
+      <span class="nav-brand-text" data-i18n="nav.sub">Korea Community Activation</span>
+    </a>
+    <div class="nav-right">
+      <div class="live-badge"><span class="live-dot"></span><span data-i18n="nav.live">Activation Live</span></div>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme"><span id="themeIcon">☀️</span></button>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button class="lang-btn active" data-lang="en" type="button">EN</button>
+        <button class="lang-btn" data-lang="ko" type="button">한국어</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker-wrap" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="ticker-lbl">Platform</span><div class="ticker-pipe"></div><a href="https://venice.ai/chat" class="ticker-lnk hl" target="_blank" rel="noopener noreferrer">venice.ai</a><div class="ticker-dot"></div><a href="https://venice.ai/chat" class="ticker-lnk" target="_blank" rel="noopener noreferrer" onclick="trackClick('chat','ticker')">Private AI Chat</a><div class="ticker-dot"></div><a href="https://venice.ai/image" class="ticker-lnk" target="_blank" rel="noopener noreferrer" onclick="trackClick('image','ticker')">Image Generation</a><div class="ticker-dot"></div><a href="https://venice.ai" class="ticker-lnk" target="_blank" rel="noopener noreferrer" onclick="trackClick('pro','ticker')">Venice Pro</a></div>
+    <div class="ticker-item"><span class="ticker-lbl">$VVV Token</span><div class="ticker-pipe"></div><span class="ticker-lnk" style="cursor:default;color:var(--dim);">Available on Upbit · Korea</span></div>
+    <div class="ticker-item"><span class="ticker-lbl">Privacy-First AI</span><div class="ticker-pipe"></div><span class="ticker-lnk" style="cursor:default;color:var(--dim);">Uncensored · On-Chain · Open Models</span></div>
+    <div class="ticker-item"><span class="ticker-lbl">Community</span><div class="ticker-pipe"></div><span class="ticker-lnk" style="cursor:default;color:var(--dim);">Korea Activation · Prize Pool Live</span></div>
+    <!-- duplicate for loop -->
+    <div class="ticker-item"><span class="ticker-lbl">Platform</span><div class="ticker-pipe"></div><a href="https://venice.ai/chat" class="ticker-lnk hl" target="_blank" rel="noopener noreferrer">venice.ai</a><div class="ticker-dot"></div><a href="https://venice.ai/chat" class="ticker-lnk" target="_blank" rel="noopener noreferrer">Private AI Chat</a><div class="ticker-dot"></div><a href="https://venice.ai/image" class="ticker-lnk" target="_blank" rel="noopener noreferrer">Image Generation</a><div class="ticker-dot"></div><a href="https://venice.ai" class="ticker-lnk" target="_blank" rel="noopener noreferrer">Venice Pro</a></div>
+    <div class="ticker-item"><span class="ticker-lbl">$VVV Token</span><div class="ticker-pipe"></div><span class="ticker-lnk" style="cursor:default;color:var(--dim);">Available on Upbit · Korea</span></div>
+    <div class="ticker-item"><span class="ticker-lbl">Privacy-First AI</span><div class="ticker-pipe"></div><span class="ticker-lnk" style="cursor:default;color:var(--dim);">Uncensored · On-Chain · Open Models</span></div>
+    <div class="ticker-item"><span class="ticker-lbl">Community</span><div class="ticker-pipe"></div><span class="ticker-lnk" style="cursor:default;color:var(--dim);">Korea Activation · Prize Pool Live</span></div>
+  </div>
+</div>
+
+<!-- ===== MAIN WRAP ===== -->
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-logo">
+      <img src="assets/venice-keys-red.svg" alt="Venice">
+    </div>
+    <div class="eyebrow" data-i18n="hero.eyebrow">Korea Community Activation · Live Now</div>
+    <h1 data-i18n-html="hero.title">Buy. Sign up.<br><span class="accent">Get rewarded.</span></h1>
+    <p class="hero-sub" data-i18n-html="hero.sub">Purchase <strong>$VVV</strong> on Upbit, create your <strong>Venice.ai</strong> account, and enter the Korea community prize pool.</p>
+    <div class="hero-ctas">
+      <a href="https://upbit.com" target="_blank" rel="noopener noreferrer" class="cta-btn cta-primary" onclick="trackClick('upbit','hero')" data-i18n-html="cta.upbit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+        Buy $VVV on Upbit
+      </a>
+      <a href="https://venice.ai" target="_blank" rel="noopener noreferrer" class="cta-btn cta-secondary" onclick="trackClick('signup','hero')" data-i18n-html="cta.venice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zM11 11V7M16 11V7"/></svg>
+        Sign up on Venice.ai
+      </a>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps-bar">
+    <div class="step-card">
+      <div class="step-num" data-i18n="step.n1">Step 01</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></div>
+      <div class="step-title" data-i18n="step.t1">Buy $VVV on Upbit</div>
+      <div class="step-body" data-i18n="step.b1">Purchase $VVV token on Upbit and take a screenshot of your purchase confirmation</div>
+      <a href="https://upbit.com" target="_blank" rel="noopener noreferrer" class="step-link" onclick="trackClick('upbit','step')">upbit.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="step-card">
+      <div class="step-num" data-i18n="step.n2">Step 02</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="step-title" data-i18n="step.t2">Sign up on Venice.ai</div>
+      <div class="step-body" data-i18n="step.b2">Create your Venice account and screenshot your profile page to confirm sign-up</div>
+      <a href="https://venice.ai" target="_blank" rel="noopener noreferrer" class="step-link" onclick="trackClick('venice','step')">venice.ai <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="step-card">
+      <div class="step-num" data-i18n="step.n3">Step 03</div>
+      <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <div class="step-title" data-i18n="step.t3">Submit your proof</div>
+      <div class="step-body" data-i18n="step.b3">Upload both screenshots below and enter the prize pool — 105 winners selected</div>
+    </div>
+  </div>
+
+  <!-- PRIZE BAR -->
+  <div class="prize-bar">
+    <div class="prize-pill"><div class="prize-icon">🏛️</div><div class="prize-pill-text"><span data-i18n="prize.p1.title">100 Winners</span><span class="sub" data-i18n="prize.p1.sub">$10 stables each</span></div></div>
+    <div class="prize-div"></div>
+    <div class="prize-pill"><div class="prize-icon">🔑</div><div class="prize-pill-text"><span data-i18n="prize.p2.title">5 Lucky Winners</span><span class="sub" data-i18n="prize.p2.sub">$100 in $VVV each</span></div></div>
+    <div class="prize-div"></div>
+    <div class="countdown-box">
+      <div class="countdown-lbl" data-i18n="prize.cd.label">Entries close in</div>
+      <div class="countdown-digits" id="countdownDisplay">--d --h --m --s</div>
+    </div>
+  </div>
+
+  <!-- FORM SECTION -->
+  <div class="form-section">
+    <div class="section-head">
+      <div class="section-label">03 — <span data-i18n="form.section.label">Enter the Prize Pool</span></div>
+      <div class="section-title" data-i18n="form.section.title">Submit your proof</div>
+      <div class="section-sub" data-i18n="form.section.sub">Fill in your details and upload both screenshots to qualify</div>
+    </div>
+
+    <!-- Main form card -->
+    <div id="formWrap">
+      <div class="form-card">
+        <div class="form-grid">
+
+          <div class="form-field">
+            <label class="form-label" for="sf-x_handle" data-i18n="field.x">X / Twitter Handle</label>
+            <input id="sf-x_handle" class="form-input" type="text" placeholder="@yourhandle" autocomplete="off">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="sf-telegram_handle" data-i18n="field.tg">Telegram Handle</label>
+            <input id="sf-telegram_handle" class="form-input" type="text" placeholder="@yourhandle" autocomplete="off">
+          </div>
+          <div class="form-field full">
+            <label class="form-label" for="sf-evm_wallet" data-i18n="field.wallet">EVM Wallet Address</label>
+            <input id="sf-evm_wallet" class="form-input" type="text" placeholder="0x..." autocomplete="off">
+          </div>
+
+          <div class="form-divider"></div>
+
+          <!-- Proof uploads -->
+          <div class="proof-grid">
+            <!-- Upbit Proof -->
+            <label class="proof-card" id="upbitCard">
+              <div class="proof-card-head">
+                <div class="proof-card-platform">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+                  Upbit
+                </div>
+                <div class="proof-card-title" data-i18n="proof.upbit.title">$VVV Purchase Proof</div>
+                <ul class="proof-card-desc">
+                  <li data-i18n="proof.upbit.l1">Show the purchase order details</li>
+                  <li data-i18n="proof.upbit.l2">Include token name, amount &amp; date</li>
+                  <li data-i18n="proof.upbit.l3">Your Upbit account must be visible</li>
+                </ul>
+              </div>
+              <!-- Mini illustration: phone with Upbit UI -->
+              <div class="proof-illustration">
+                <svg width="140" height="72" viewBox="0 0 140 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="4" width="132" height="64" rx="8" fill="var(--bg-2)" stroke="var(--border)" stroke-width="1"/>
+                  <rect x="12" y="12" width="60" height="6" rx="3" fill="var(--border-hi)"/>
+                  <rect x="12" y="22" width="40" height="4" rx="2" fill="var(--border)"/>
+                  <rect x="12" y="32" width="50" height="4" rx="2" fill="var(--border)"/>
+                  <rect x="12" y="42" width="35" height="4" rx="2" fill="var(--border)"/>
+                  <rect x="80" y="12" width="48" height="48" rx="6" fill="rgba(221,51,0,0.08)" stroke="rgba(221,51,0,0.20)" stroke-width="1"/>
+                  <text x="104" y="34" font-family="monospace" font-size="9" fill="#DD3300" text-anchor="middle">$VVV</text>
+                  <rect x="88" y="38" width="32" height="3" rx="1.5" fill="rgba(221,51,0,0.25)"/>
+                  <rect x="88" y="44" width="24" height="3" rx="1.5" fill="rgba(221,51,0,0.15)"/>
+                  <rect x="88" y="50" width="28" height="3" rx="1.5" fill="rgba(221,51,0,0.15)"/>
+                </svg>
+              </div>
+              <div class="proof-dropzone">
+                <div class="proof-dropzone-inner">
+                  <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
+                  <div class="proof-dropzone-lbl" id="upbitLbl" data-i18n="proof.upload">Click to upload</div>
+                  <div class="proof-dropzone-sub">PNG · JPG · max 2MB</div>
+                  <div class="proof-filename" id="upbitFilename"></div>
+                </div>
+                <input type="file" accept="image/*" id="sf-upbit_screenshot" style="display:none;" onchange="handleProofFile('upbit',this)">
+              </div>
+            </label>
+
+            <!-- Venice Proof -->
+            <label class="proof-card" id="veniceCard">
+              <div class="proof-card-head">
+                <div class="proof-card-platform">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Venice.ai
+                </div>
+                <div class="proof-card-title" data-i18n="proof.venice.title">Venice Sign-up Proof</div>
+                <ul class="proof-card-desc">
+                  <li data-i18n="proof.venice.l1">Screenshot of your Venice profile</li>
+                  <li data-i18n="proof.venice.l2">Username must be clearly visible</li>
+                  <li data-i18n="proof.venice.l3">Visit venice.ai/chat after signing up</li>
+                </ul>
+              </div>
+              <!-- Mini illustration: Venice UI -->
+              <div class="proof-illustration">
+                <svg width="140" height="72" viewBox="0 0 140 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="4" y="4" width="132" height="64" rx="8" fill="var(--bg-2)" stroke="var(--border)" stroke-width="1"/>
+                  <rect x="12" y="10" width="116" height="18" rx="4" fill="rgba(221,51,0,0.06)" stroke="rgba(221,51,0,0.15)" stroke-width="1"/>
+                  <text x="70" y="23" font-family="Georgia,serif" font-style="italic" font-size="11" fill="#DD3300" text-anchor="middle">Venice</text>
+                  <circle cx="28" cy="44" r="10" fill="rgba(221,51,0,0.10)" stroke="rgba(221,51,0,0.22)" stroke-width="1"/>
+                  <rect x="44" y="38" width="50" height="4" rx="2" fill="var(--border-hi)"/>
+                  <rect x="44" y="46" width="35" height="3" rx="1.5" fill="var(--border)"/>
+                  <rect x="100" y="36" width="28" height="20" rx="4" fill="rgba(221,51,0,0.08)" stroke="rgba(221,51,0,0.20)" stroke-width="1"/>
+                  <rect x="104" y="42" width="20" height="2" rx="1" fill="rgba(221,51,0,0.3)"/>
+                  <rect x="104" y="47" width="16" height="2" rx="1" fill="rgba(221,51,0,0.2)"/>
+                </svg>
+              </div>
+              <div class="proof-dropzone">
+                <div class="proof-dropzone-inner">
+                  <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
+                  <div class="proof-dropzone-lbl" id="veniceLbl" data-i18n="proof.upload">Click to upload</div>
+                  <div class="proof-dropzone-sub">PNG · JPG · max 2MB</div>
+                  <div class="proof-filename" id="veniceFilename"></div>
+                </div>
+                <input type="file" accept="image/*" id="sf-venice_screenshot" style="display:none;" onchange="handleProofFile('venice',this)">
+              </div>
+            </label>
+          </div>
+
+          <div class="form-divider"></div>
+
+          <div class="form-field full">
+            <label class="form-label" for="sf-kol" data-i18n="field.kol">Which KOL channel brought you here?</label>
+            <select id="sf-kol" class="form-select"><option value="" data-i18n="field.kol.placeholder">@kol_handle</option></select>
+          </div>
+
+          <div class="vvv-note">
+            <span class="vvv-note-icon">💬</span>
+            <span data-i18n="form.note">$VVV prize winners will receive a direct message on X. Stablecoin prizes sent to EVM wallet.</span>
+          </div>
+
+          <label class="confirm-row" for="sf-confirm">
+            <input type="checkbox" id="sf-confirm">
+            <span data-i18n="field.confirm">I confirm that both screenshots are authentic and belong to me.</span>
+          </label>
+
+          <div id="sf-error"></div>
+
+          <button class="submit-btn full" id="sf-btn" onclick="submitEntry()" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4z"/></svg>
+            <span data-i18n="form.submit">Submit My Entry</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Closed state -->
+    <div id="formClosed" style="display:none;">
+      <div class="state-card">
+        <div class="state-icon">🔒</div>
+        <div class="state-title" data-i18n="closed.title">Entries Closed</div>
+        <div class="state-body" data-i18n="closed.body">The submission window has ended. Keep an eye on the Venice community channels for winner announcements.</div>
+      </div>
+    </div>
+
+    <!-- Success state -->
+    <div id="sf-success" style="display:none;">
+      <div class="state-card">
+        <div class="state-icon" style="font-family:'Pinyon Script',cursive;font-size:64px;color:var(--red);margin-bottom:4px;">✓</div>
+        <div class="state-title" data-i18n="success.title">Entry Received</div>
+        <div class="state-body" data-i18n="success.body">Your proof has been submitted. Winners will be contacted via X DM. Good luck.</div>
+        <div class="eco-links">
+          <a href="https://venice.ai/chat" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('chat','success')">Try Venice Chat</a>
+          <a href="https://venice.ai/image" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('image','success')">Image Generation</a>
+          <a href="https://venice.ai" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('pro','success')">Venice Pro</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="powered-by">
+    <span class="powered-lbl" data-i18n="foot.powered">Powered by</span>
+    <div class="powered-brand">
+      <img src="assets/venice-keys-red.svg" alt="Venice" style="height:18px;width:auto;opacity:0.5;">
+      <span class="powered-name">Venice</span>
+    </div>
+    <span class="powered-x">×</span>
+    <div class="powered-brand">
+      <img src="assets/hh-logo.jpg" alt="Holo Hive" class="hh-logo">
+      <span class="powered-name">Holo Hive</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN OVERLAY ===== -->
+<div id="adminOverlay" style="display:none;position:fixed;inset:0;z-index:99999;background:var(--bg);overflow-y:auto;">
+  <div id="adminGate" style="display:flex;align-items:center;justify-content:center;min-height:100vh;">
+    <div style="max-width:360px;width:100%;padding:0 24px;text-align:center;">
+      <img src="assets/venice-keys-red.svg" alt="Venice" style="height:48px;margin-bottom:20px;opacity:0.7;">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--cream);margin-bottom:6px;">Admin Panel</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:24px;">Venice Community · Internal</div>
+      <input id="adminPwInput" type="password" placeholder="Admin password" style="width:100%;background:var(--panel);border:1px solid var(--border-hi);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:13px;padding:13px 16px;outline:none;border-radius:8px;text-align:center;margin-bottom:10px;">
+      <div id="adminPwError" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);min-height:14px;margin-bottom:10px;"></div>
+      <button onclick="adminLogin()" style="width:100%;background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:14px;cursor:pointer;border-radius:8px;">Enter</button>
+    </div>
+  </div>
+  <div id="adminUI" style="display:none;max-width:960px;margin:0 auto;padding:40px 28px 80px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+      <div><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--cream);">Admin Panel</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.2em;text-transform:uppercase;margin-top:4px;">Venice Community · Internal</div></div>
+      <button onclick="closeAdmin()" style="background:var(--panel);border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;padding:9px 16px;cursor:pointer;border-radius:6px;">Close</button>
+    </div>
+    <div style="display:flex;gap:4px;margin-bottom:28px;border-bottom:1px solid var(--border);flex-wrap:wrap;">
+      <button class="admin-tab active" onclick="adminTab('dashboard')" data-tab="dashboard">📊 Dashboard</button>
+      <button class="admin-tab" onclick="adminTab('entries')" data-tab="entries">Entries</button>
+      <button class="admin-tab" onclick="adminTab('kols')" data-tab="kols">KOL list</button>
+      <button class="admin-tab" onclick="adminTab('clicks')" data-tab="clicks">Link clicks</button>
+      <button class="admin-tab" onclick="adminTab('winners')" data-tab="winners">🏆 Winners</button>
+    </div>
+    <div id="adminTab-dashboard"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--cream);">Live Overview</div><button onclick="adminLoadDashboard()" style="background:transparent;border:1px solid var(--border);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;padding:8px 16px;cursor:pointer;border-radius:6px;">↻ Refresh</button></div><div id="dashContent"></div><div id="adminDeadlineEditor"></div></div>
+    <div id="adminTab-entries" style="display:none;"><div id="entriesToggleBar"></div><div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;"><button onclick="adminExportCSV()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:11px 20px;cursor:pointer;border-radius:6px;">Export CSV</button><button onclick="adminDownloadZip()" style="background:var(--panel-2);border:1px solid var(--border);color:var(--sub);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;padding:11px 20px;cursor:pointer;border-radius:6px;">Download Screenshots ZIP</button><button onclick="adminLoadEntries()" style="background:transparent;border:1px solid var(--border);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;padding:11px 20px;cursor:pointer;border-radius:6px;">Refresh</button><button id="adminDeleteSelectedBtn" onclick="adminDeleteSelected()">Delete Selected (<span id="adminSelectedCount">0</span>)</button></div><div id="adminEntriesTable" style="overflow-x:auto;"></div></div>
+    <div id="adminTab-winners" style="display:none;"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;flex-wrap:wrap;gap:12px;"><div><div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--cream);margin-bottom:4px;">Winner Selection</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);">100 × $10 stable &nbsp;·&nbsp; 5 × $100 $VVV</div></div><button id="adminPickBtn" onclick="adminPickWinners()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:12px 22px;cursor:pointer;border-radius:6px;">Select Winners</button></div><div id="adminWinnersContent"></div></div>
+    <div id="adminTab-clicks" style="display:none;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.14em;text-transform:uppercase;">Ecosystem link clicks</div><button onclick="adminLoadClicks()" style="background:transparent;border:1px solid var(--border);color:var(--dim);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;padding:8px 16px;cursor:pointer;border-radius:6px;">Refresh</button></div><div id="adminClicksTable"></div></div>
+    <div id="adminTab-kols" style="display:none;"><div id="adminKolsList" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;"></div><div style="display:flex;gap:8px;margin-bottom:20px;"><input id="adminNewKol" type="text" placeholder="New KOL name" style="flex:1;background:var(--panel);border:1px solid var(--border);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:12px;padding:10px 13px;outline:none;border-radius:6px;"><button onclick="adminAddKol()" style="background:var(--panel-2);border:1px solid var(--border);color:var(--red);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 18px;cursor:pointer;border-radius:6px;">Add</button></div><div id="adminKolsMsg" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);min-height:14px;"></div></div>
+  </div>
+</div>
+
+<!-- ===== TWEAKS ROOT ===== -->
+<div id="tweaks-root"></div>
+
+<!-- ===== TWEAKS PANEL (React) ===== -->
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "particles": true,
+  "particleDensity": 95,
+  "particleSize": 3.5,
+  "particleSpeed": 0.45,
+  "particleColor": "mixed",
+  "particleGlow": true,
+  "bgGlow": true,
+  "bgGrid": true
+}/*EDITMODE-END*/;
+
+function TweaksApp() {
+  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  React.useEffect(() => {
+    window.TWEAKS = tweaks;
+    if (window.onTweaksChange) window.onTweaksChange(tweaks);
+  }, [tweaks]);
+
+  return (
+    React.createElement(TweaksPanel, null,
+      React.createElement(TweakSection, {title:"Background"},
+        React.createElement(TweakToggle, {id:"particles", label:"Floating Particles", value:tweaks.particles, onChange:v=>setTweak('particles',v)}),
+        React.createElement(TweakToggle, {id:"bgGlow", label:"Radial Glow", value:tweaks.bgGlow, onChange:v=>setTweak('bgGlow',v)}),
+        React.createElement(TweakToggle, {id:"bgGrid", label:"Dot Grid", value:tweaks.bgGrid, onChange:v=>setTweak('bgGrid',v)})
+      ),
+      tweaks.particles && React.createElement(TweakSection, {title:"Particles"},
+        React.createElement(TweakSlider, {id:"particleDensity", label:"Density", value:tweaks.particleDensity, min:10, max:150, step:5, onChange:v=>setTweak('particleDensity',v)}),
+        React.createElement(TweakSlider, {id:"particleSize", label:"Size", value:tweaks.particleSize, min:0.5, max:8, step:0.5, onChange:v=>setTweak('particleSize',v)}),
+        React.createElement(TweakSlider, {id:"particleSpeed", label:"Speed", value:tweaks.particleSpeed, min:0.05, max:2.0, step:0.05, onChange:v=>setTweak('particleSpeed',v)}),
+        React.createElement(TweakRadio, {id:"particleColor", label:"Color", value:tweaks.particleColor, options:['red','cream','mixed'], onChange:v=>setTweak('particleColor',v)}),
+        React.createElement(TweakToggle, {id:"particleGlow", label:"Glow Effect", value:tweaks.particleGlow, onChange:v=>setTweak('particleGlow',v)})
+      )
+    )
+  );
+}
+
+const tweaksRoot = ReactDOM.createRoot(document.getElementById('tweaks-root'));
+tweaksRoot.render(React.createElement(TweaksApp));
+</script>
+
+<!-- ===== MAIN JS ===== -->
+<script>
+// ============================================================
+// BACKEND CREDENTIALS
+// ============================================================
+const SUPABASE_URL         = 'https://nhdktvsllunlgdsaninx.supabase.co';
+const SUPABASE_ANON_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oZGt0dnNsbHVubGdkc2FuaW54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4NTIxMjgsImV4cCI6MjA5MTQyODEyOH0.GUFMjeDdphFeFp84jkeAtJNLX6-pi7KppEBdfDGXkhM';
+const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oZGt0dnNsbHVubGdkc2FuaW54Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTg1MjEyOCwiZXhwIjoyMDkxNDI4MTI4fQ.6o4f2Auz7kIwi1BvTMj9ztC5kQgqN_AXGNsmU1a_7ww';
+const R2_UPLOAD_ENDPOINT   = 'https://solitary-dew-b048fogo-pfp-upload.bolt-0a8.workers.dev';
+const R2_PUBLIC_BASE_URL   = 'https://pub-a7954b786d394847a17127d1cf278881.r2.dev';
+const ADMIN_PASSWORD_HASH  = 'c857a8bb04d3ee9189ae5cffa79f3f1e8020e0acc5cb392bea25746ea9759a15';
+// NOTE: Add columns upbit_proof_url + venice_proof_url to the entries table in Supabase.
+
+// ============================================================
+// PARTICLE SYSTEM
+// ============================================================
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let _animFrame;
+
+const PALETTE = {
+  red:   ['#DD3300','#E84010','#C82E00','#FF4418','#AA2500'],
+  cream: ['#F0E8DF','#DDD0C4','#E8DDD4','#F5EDE4','#CEC1B4'],
+  mixed: ['#DD3300','#E84010','#F0E8DF','#DDD0C4','#C82E00','#FF4418','#E8DDD4'],
+};
+
+function resizeCanvas(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
+
+function makeParticle(){
+  const t = window.TWEAKS || {particleSize:2.5,particleSpeed:0.45,particleColor:'red'};
+  const pal = PALETTE[t.particleColor] || PALETTE.red;
+  const angle = Math.random() * Math.PI * 2;
+  const speed = (Math.random() * 0.6 + 0.2) * t.particleSpeed;
+  return {
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: Math.cos(angle) * speed,
+    vy: Math.sin(angle) * speed,
+    r: (Math.random() * 0.7 + 0.3) * t.particleSize,
+    baseOpacity: Math.random() * 0.45 + 0.08,
+    phase: Math.random() * Math.PI * 2,
+    color: pal[Math.floor(Math.random() * pal.length)],
+  };
+}
+
+function initParticles(){
+  const t = window.TWEAKS || {particleDensity:55};
+  particles = Array.from({length: t.particleDensity}, makeParticle);
+}
+
+function drawParticles(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const t = window.TWEAKS || {};
+  if (!t.particles) { _animFrame = requestAnimationFrame(drawParticles); return; }
+
+  const now = Date.now() * 0.001;
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.phase += 0.015;
+    if (p.x < -p.r * 2) p.x = canvas.width + p.r;
+    if (p.x > canvas.width + p.r * 2) p.x = -p.r;
+    if (p.y < -p.r * 2) p.y = canvas.height + p.r;
+    if (p.y > canvas.height + p.r * 2) p.y = -p.r;
+
+    const opacity = p.baseOpacity * (0.65 + 0.35 * Math.sin(p.phase));
+    ctx.save();
+    ctx.globalAlpha = opacity;
+    if (t.particleGlow) { ctx.shadowBlur = p.r * 5; ctx.shadowColor = p.color; }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+    ctx.restore();
+  });
+  _animFrame = requestAnimationFrame(drawParticles);
+}
+
+window.onTweaksChange = function(t){
+  // Rebuild if density drifted
+  if (Math.abs(particles.length - t.particleDensity) > 8) initParticles();
+  // Update bg elements
+  const m1 = document.getElementById('bgMesh1');
+  const m2 = document.getElementById('bgMesh2');
+  const g  = document.getElementById('bgGrid');
+  if (m1) m1.style.opacity = t.bgGlow ? '1' : '0';
+  if (m2) m2.style.opacity = t.bgGlow ? '1' : '0';
+  if (g)  g.style.opacity  = t.bgGrid ? '1' : '0';
+};
+
+window.addEventListener('resize', ()=>{ resizeCanvas(); initParticles(); });
+resizeCanvas();
+initParticles();
+drawParticles();
+
+// ============================================================
+// THEME TOGGLE
+// ============================================================
+const root = document.documentElement;
+let isDark = root.dataset.theme === 'dark';
+function applyTheme(dark){
+  isDark = dark;
+  root.dataset.theme = dark ? 'dark' : 'light';
+  document.getElementById('themeIcon').textContent = dark ? '☀️' : '🌙';
+  localStorage.setItem('venice-theme', dark ? 'dark' : 'light');
+}
+const savedTheme = localStorage.getItem('venice-theme');
+if (savedTheme) applyTheme(savedTheme === 'dark');
+document.getElementById('themeToggle').addEventListener('click', ()=>applyTheme(!isDark));
+
+// ============================================================
+// I18N
+// ============================================================
+const I18N = {
+  en: {
+    'nav.sub':'Korea Community Activation',
+    'nav.live':'Activation Live',
+    'hero.eyebrow':'Korea Community Activation · Live Now',
+    'hero.title':'Buy. Sign up.<br><span class="accent">Get rewarded.</span>',
+    'hero.sub':'Purchase <strong>$VVV</strong> on Upbit, create your <strong>Venice.ai</strong> account, and enter the Korea community prize pool.',
+    'cta.upbit':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>Buy $VVV on Upbit',
+    'cta.venice':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign up on Venice.ai',
+    'step.n1':'Step 01','step.n2':'Step 02','step.n3':'Step 03',
+    'step.t1':'Buy $VVV on Upbit','step.t2':'Sign up on Venice.ai','step.t3':'Submit your proof',
+    'step.b1':'Purchase $VVV token on Upbit and take a screenshot of your purchase confirmation',
+    'step.b2':'Create your Venice account and screenshot your profile page to confirm sign-up',
+    'step.b3':'Upload both screenshots below and enter the prize pool — 105 winners selected',
+    'prize.p1.title':'100 Winners','prize.p1.sub':'$10 stables each',
+    'prize.p2.title':'5 Lucky Winners','prize.p2.sub':'$100 in $VVV each',
+    'prize.cd.label':'Entries close in',
+    'form.section.label':'Enter the Prize Pool','form.section.title':'Submit your proof',
+    'form.section.sub':'Fill in your details and upload both screenshots to qualify',
+    'field.x':'X / Twitter Handle','field.tg':'Telegram Handle','field.wallet':'EVM Wallet Address',
+    'field.kol':'Which KOL channel brought you here?','field.kol.placeholder':'@kol_handle',
+    'field.confirm':'I confirm that both screenshots are authentic and belong to me.',
+    'proof.upbit.title':'$VVV Purchase Proof','proof.venice.title':'Venice Sign-up Proof',
+    'proof.upbit.l1':'Show the purchase order details',
+    'proof.upbit.l2':'Include token name, amount &amp; date',
+    'proof.upbit.l3':'Your Upbit account must be visible',
+    'proof.venice.l1':'Screenshot of your Venice profile',
+    'proof.venice.l2':'Username must be clearly visible',
+    'proof.venice.l3':'Visit venice.ai/chat after signing up',
+    'proof.upload':'Click to upload',
+    'form.note':'$VVV prize winners will receive a direct message on X. Stablecoin prizes sent to EVM wallet.',
+    'form.submit':'Submit My Entry',
+    'closed.title':'Entries Closed','closed.body':'The submission window has ended. Keep an eye on the Venice community channels for winner announcements.',
+    'success.title':'Entry Received','success.body':'Your proof has been submitted. Winners will be contacted via X DM. Good luck.',
+    'foot.powered':'Powered by',
+    'err.x':'X handle is required.','err.tg':'Telegram handle is required.',
+    'err.wallet':'EVM wallet address is required.','err.wallet0x':'EVM address must start with 0x.',
+    'err.upbit':'Please upload your Upbit purchase screenshot.',
+    'err.venice':'Please upload your Venice sign-up screenshot.',
+    'err.filesize':'File must be under 2MB.','err.confirm':'Please confirm your submission.',
+    'err.kol':'Please select the KOL who sent you here.',
+    'err.upload':'File upload failed.','err.save':'Could not save entry. Try again.',
+    'err.generic':'Submission failed. Please try again.','btn.submitting':'Submitting…',
+  },
+  ko: {
+    'nav.sub':'한국 커뮤니티 이벤트',
+    'nav.live':'이벤트 진행 중',
+    'hero.eyebrow':'한국 커뮤니티 이벤트 · 지금 진행 중',
+    'hero.title':'구매하세요. 가입하세요.<br><span class="accent">보상을 받으세요.</span>',
+    'hero.sub':'Upbit에서 <strong>$VVV</strong>를 구매하고 <strong>Venice.ai</strong> 계정을 만들어 한국 커뮤니티 상금 풀에 참여하세요.',
+    'cta.upbit':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>Upbit에서 $VVV 구매',
+    'cta.venice':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Venice.ai 회원가입',
+    'step.n1':'단계 01','step.n2':'단계 02','step.n3':'단계 03',
+    'step.t1':'Upbit에서 $VVV 구매','step.t2':'Venice.ai 회원가입','step.t3':'증거 제출',
+    'step.b1':'Upbit에서 $VVV 토큰을 구매하고 구매 확인 스크린샷을 찍으세요',
+    'step.b2':'Venice 계정을 만들고 가입 확인을 위해 프로필 페이지를 스크린샷 하세요',
+    'step.b3':'아래에 두 스크린샷을 업로드하여 상금 풀에 참여하세요 — 총 105명 당첨',
+    'prize.p1.title':'100명 당첨','prize.p1.sub':'각 $10 스테이블',
+    'prize.p2.title':'럭키 5명 당첨','prize.p2.sub':'각 $100 $VVV',
+    'prize.cd.label':'마감까지',
+    'form.section.label':'상금 풀 참여','form.section.title':'증거 제출',
+    'form.section.sub':'정보를 입력하고 두 스크린샷을 업로드하여 자격을 갖추세요',
+    'field.x':'X / 트위터 핸들','field.tg':'텔레그램 핸들','field.wallet':'EVM 지갑 주소',
+    'field.kol':'어느 KOL 채널에서 오셨나요?','field.kol.placeholder':'@kol_계정명',
+    'field.confirm':'두 스크린샷이 진짜이며 저의 것임을 확인합니다.',
+    'proof.upbit.title':'$VVV 구매 증거','proof.venice.title':'Venice 가입 증거',
+    'proof.upbit.l1':'구매 주문 세부 정보 표시',
+    'proof.upbit.l2':'토큰 이름, 수량 및 날짜 포함',
+    'proof.upbit.l3':'Upbit 계정이 보여야 합니다',
+    'proof.venice.l1':'Venice 프로필 스크린샷',
+    'proof.venice.l2':'사용자 이름이 명확하게 보여야 함',
+    'proof.venice.l3':'가입 후 venice.ai/chat 방문',
+    'proof.upload':'클릭하여 업로드',
+    'form.note':'$VVV 상금 당첨자에게 X DM을 드립니다. 스테이블코인 상금은 EVM 지갑으로 전송됩니다.',
+    'form.submit':'참여 신청하기',
+    'closed.title':'참여 접수 마감','closed.body':'제출 기간이 종료되었습니다. Venice 커뮤니티 채널에서 당첨자 발표를 확인해 주세요.',
+    'success.title':'참여 완료','success.body':'증거가 제출되었습니다. 당첨자에게는 X DM으로 연락드립니다. 행운을 빕니다.',
+    'foot.powered':'제공',
+    'err.x':'X 핸들을 입력해 주세요.','err.tg':'텔레그램 핸들을 입력해 주세요.',
+    'err.wallet':'EVM 지갑 주소를 입력해 주세요.','err.wallet0x':'EVM 주소는 0x로 시작해야 합니다.',
+    'err.upbit':'Upbit 구매 스크린샷을 업로드해 주세요.',
+    'err.venice':'Venice 가입 스크린샷을 업로드해 주세요.',
+    'err.filesize':'파일은 2MB 이하여야 합니다.','err.confirm':'제출을 확인해 주세요.',
+    'err.kol':'본 이벤트를 알려준 KOL을 선택해 주세요.',
+    'err.upload':'파일 업로드에 실패했습니다.','err.save':'항목을 저장하지 못했습니다. 다시 시도해 주세요.',
+    'err.generic':'제출에 실패했습니다. 다시 시도해 주세요.','btn.submitting':'제출 중…',
+  }
+};
+
+const _urlLang = new URLSearchParams(window.location.search).get('lang') || (window.location.hash === '#kr' ? 'ko' : null);
+let currentLang = _urlLang || localStorage.getItem('venice-lang') || 'en';
+
+function applyI18n(lang){
+  const d = I18N[lang] || I18N.en;
+  document.documentElement.lang = lang === 'ko' ? 'ko' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.getAttribute('data-i18n');
+    if (d[k] !== undefined) el.textContent = d[k];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const k = el.getAttribute('data-i18n-html');
+    if (d[k] !== undefined) el.innerHTML = d[k];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active', b.dataset.lang === lang));
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{ currentLang = btn.dataset.lang; localStorage.setItem('venice-lang', currentLang); applyI18n(currentLang); });
+});
+applyI18n(currentLang);
+
+// ============================================================
+// PROOF FILE HANDLERS
+// ============================================================
+const proofFiles = { upbit: null, venice: null };
+
+function handleProofFile(type, input){
+  const file = input.files[0];
+  if (!file) return;
+  proofFiles[type] = file;
+  const card = document.getElementById(type + 'Card');
+  const lbl = document.getElementById(type + 'Lbl');
+  const fn = document.getElementById(type + 'Filename');
+  if (card) card.classList.add('has-file');
+  if (lbl) lbl.textContent = '✓ File selected';
+  if (fn) fn.textContent = file.name.length > 28 ? file.name.slice(0,25) + '…' : file.name;
+}
+
+// ============================================================
+// FORM SUBMISSION
+// ============================================================
+function sfShowError(msg){ const el=document.getElementById('sf-error'); el.textContent=msg; el.style.display='block'; }
+function sfClearError(){ const el=document.getElementById('sf-error'); el.textContent=''; el.style.display='none'; }
+
+async function submitEntry(){
+  sfClearError();
+  const xHandle   = document.getElementById('sf-x_handle')?.value.trim();
+  const tgHandle  = document.getElementById('sf-telegram_handle')?.value.trim();
+  const evmWallet = document.getElementById('sf-evm_wallet')?.value.trim();
+  const kolName   = document.getElementById('sf-kol')?.value;
+  const confirmed = document.getElementById('sf-confirm')?.checked;
+  const upbitFile   = proofFiles.upbit;
+  const veniceFile  = proofFiles.venice;
+  const _d = I18N[currentLang] || I18N.en;
+  const _t = k => _d[k] || I18N.en[k] || k;
+
+  if (!xHandle)                   return sfShowError(_t('err.x'));
+  if (!tgHandle)                  return sfShowError(_t('err.tg'));
+  if (!evmWallet)                 return sfShowError(_t('err.wallet'));
+  if (!evmWallet.startsWith('0x'))return sfShowError(_t('err.wallet0x'));
+  if (!upbitFile)                 return sfShowError(_t('err.upbit'));
+  if (upbitFile.size > 2*1024*1024) return sfShowError(_t('err.filesize'));
+  if (!veniceFile)                return sfShowError(_t('err.venice'));
+  if (veniceFile.size > 2*1024*1024) return sfShowError(_t('err.filesize'));
+  if (!confirmed)                 return sfShowError(_t('err.confirm'));
+  if (!kolName)                   return sfShowError(_t('err.kol'));
+
+  const btn = document.getElementById('sf-btn');
+  btn.disabled = true;
+  btn.querySelector('span').textContent = _t('btn.submitting');
+
+  try {
+    // Upload upbit proof
+    const upbitName = `venice-upbit-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
+    const ur = await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitName}`,{method:'PUT',headers:{'Content-Type':upbitFile.type||'image/png'},body:upbitFile});
+    if (!ur.ok) throw new Error(_t('err.upload'));
+    const upbitUrl = `${R2_PUBLIC_BASE_URL}/${upbitName}`;
+
+    // Upload venice proof
+    const veniceName = `venice-signup-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
+    const vr = await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceName}`,{method:'PUT',headers:{'Content-Type':veniceFile.type||'image/png'},body:veniceFile});
+    if (!vr.ok) throw new Error(_t('err.upload'));
+    const veniceUrl = `${R2_PUBLIC_BASE_URL}/${veniceName}`;
+
+    // Save to Supabase
+    // NOTE: entries table needs: x_handle, telegram_handle, evm_wallet, upbit_proof_url, venice_proof_url, kol_name
+    // Use screenshot_url for upbit and frame_used for venice (if adding columns isn't possible yet)
+    const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/venice_entries`,{
+      method:'POST',
+      headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body: JSON.stringify({x_handle:xHandle,telegram_handle:tgHandle,evm_wallet:evmWallet,screenshot_url:upbitUrl,frame_used:veniceUrl,kol_name:kolName})
+    });
+    if (!supaRes.ok) throw new Error(_t('err.save'));
+
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('sf-success').style.display = 'block';
+
+  } catch(err){
+    sfShowError(err.message || _t('err.generic'));
+    btn.disabled = false;
+    btn.querySelector('span').textContent = _t('form.submit');
+  }
+}
+
+// ============================================================
+// KOL LIST
+// ============================================================
+async function loadKolList(){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list?select=name&order=name`,{headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`}});
+    const data = await res.json();
+    const sel = document.getElementById('sf-kol');
+    data.forEach(row=>{ const o=document.createElement('option'); o.value=row.name; o.textContent=row.name; sel.appendChild(o); });
+  } catch(e){}
+}
+
+// ============================================================
+// COUNTDOWN
+// ============================================================
+let _deadline = new Date('2026-06-15T09:00:00Z'), _cdInterval = null;
+
+async function loadCountdown(){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/venice_app_settings?key=eq.deadline&select=value&limit=1`,{headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`}});
+    const d = await res.json();
+    if (Array.isArray(d) && d[0]?.value) _deadline = new Date(d[0].value);
+  } catch(e){}
+  startCountdown();
+}
+
+function startCountdown(){
+  if (_cdInterval) clearInterval(_cdInterval);
+  const el = document.getElementById('countdownDisplay'); if (!el) return;
+  function tick(){
+    const diff = _deadline - Date.now();
+    if (diff <= 0){ el.textContent='CLOSED'; el.style.color='var(--dim)'; clearInterval(_cdInterval); return; }
+    const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    el.textContent=`${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(s).padStart(2,'0')}s`;
+    if (diff < 3600000) el.classList.add('urgent');
+  }
+  tick(); _cdInterval = setInterval(tick, 1000);
+}
+
+// ============================================================
+// ENTRIES GATE
+// ============================================================
+let _open = true;
+async function loadEntriesStatus(){
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/venice_app_settings?key=eq.accepting_entries&select=value&limit=1`,{headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`}});
+    const d = await res.json(); _open = Array.isArray(d) && d[0]?.value === 'true';
+  } catch(e){ _open = true; }
+  applyGate();
+}
+function applyGate(){
+  const wrap=document.getElementById('formWrap'),closed=document.getElementById('formClosed');
+  if (!wrap||!closed) return;
+  wrap.style.display = _open ? '' : 'none';
+  closed.style.display = _open ? 'none' : 'block';
+}
+
+// ============================================================
+// LINK CLICK TRACKING
+// ============================================================
+async function trackClick(p,s){ try{ fetch(`${SUPABASE_URL}/rest/v1/venice_link_clicks`,{method:'POST',headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({product:p,source:s})}); }catch(e){} }
+
+// ============================================================
+// ADMIN
+// ============================================================
+let adminEntries=[],adminKols=[];
+const $=id=>document.getElementById(id);
+function showAdminPanel(){ $('adminOverlay').style.display='block'; }
+
+async function adminLogin(){
+  const pw=$('adminPwInput').value;
+  const enc=new TextEncoder().encode(pw);
+  const buf=await crypto.subtle.digest('SHA-256',enc);
+  const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if(hex===ADMIN_PASSWORD_HASH){ $('adminGate').style.display='none'; $('adminUI').style.display='block'; adminTab('dashboard'); adminLoadDashboard(); startAdminAutoRefresh(); adminLoadEntries(); adminLoadKols(); adminLoadClicks(); adminLoadWinners(); adminLoadEntriesStatus(); }
+  else{ $('adminPwError').textContent='Incorrect password.'; $('adminPwInput').value=''; }
+}
+function closeAdmin(){ $('adminOverlay').style.display='none'; history.replaceState(null,'',window.location.pathname); }
+function adminTab(n){ ['dashboard','entries','kols','clicks','winners'].forEach(t=>{ $(`adminTab-${t}`).style.display=t===n?'block':'none'; }); document.querySelectorAll('.admin-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===n)); }
+
+let adminSelIds=new Set();
+function adminUpdateSel(){ const b=$('adminDeleteSelectedBtn'),c=$('adminSelectedCount'); if(b) b.classList.toggle('visible',adminSelIds.size>0); if(c) c.textContent=adminSelIds.size; }
+function adminToggleRow(id,checked){ checked?adminSelIds.add(id):adminSelIds.delete(id); adminUpdateSel(); }
+function adminToggleAll(checked){ adminEntries.forEach(e=>checked?adminSelIds.add(e.id):adminSelIds.delete(e.id)); document.querySelectorAll('.admin-row-cb').forEach(cb=>cb.checked=checked); adminUpdateSel(); }
+async function adminDeleteSelected(){ if(!adminSelIds.size) return; if(!confirm(`Delete ${adminSelIds.size} entries?`)) return; for(const id of Array.from(adminSelIds)) await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?id=eq.${id}`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminSelIds.clear(); adminUpdateSel(); await adminLoadEntries(); }
+
+async function adminLoadEntries(){
+  const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=*&order=submitted_at.desc`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}});
+  adminEntries=await res.json(); adminSelIds.clear(); adminUpdateSel();
+  const cols=['x_handle','telegram_handle','evm_wallet','kol_name','screenshot_url','frame_used','submitted_at'];
+  const heads=`<th><input type="checkbox" onchange="adminToggleAll(this.checked)"></th>`+cols.map(c=>`<th>${c==='screenshot_url'?'upbit_proof':c==='frame_used'?'venice_proof':c}</th>`).join('');
+  const rows=adminEntries.map(e=>`<tr><td><input type="checkbox" class="admin-row-cb" onchange="adminToggleRow(${e.id},this.checked)"></td>${cols.map(c=>{ if(c==='screenshot_url'||c==='frame_used') return `<td><a href="${e[c]||'#'}" target="_blank" style="color:var(--red);">View</a></td>`; return `<td title="${e[c]||''}">${e[c]||''}</td>`; }).join('')}</tr>`).join('');
+  $('adminEntriesTable').innerHTML=`<table class="admin-entry-table"><thead><tr>${heads}</tr></thead><tbody>${rows}</tbody></table><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-top:12px;">${adminEntries.length} entries total</div>`;
+}
+
+function adminExportCSV(){ if(!adminEntries.length) return alert('No entries.'); const cols=['id','x_handle','telegram_handle','evm_wallet','kol_name','screenshot_url','frame_used','submitted_at']; const csv=[cols.join(','),...adminEntries.map(e=>cols.map(c=>`"${(e[c]||'').toString().replace(/"/g,'""')}"`).join(','))].join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-entries-${new Date().toISOString().slice(0,10)}.csv`; a.click(); }
+
+async function adminDownloadZip(){ if(!adminEntries.length) return alert('No entries.'); if(typeof JSZip==='undefined'){ await new Promise((res,rej)=>{ const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); } const zip=new JSZip().folder('venice-proofs'); const prog=document.createElement('div'); prog.style.cssText='font-family:JetBrains Mono,monospace;font-size:11px;color:var(--red);margin-bottom:12px;'; $('adminEntriesTable').prepend(prog); for(const e of adminEntries){ try{ const upbitKey=e.screenshot_url?.replace(R2_PUBLIC_BASE_URL+'/',''); const veniceKey=e.frame_used?.replace(R2_PUBLIC_BASE_URL+'/',''); if(upbitKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitKey}`)).blob(); zip.file(`${e.x_handle||e.id}-upbit.${b.type.includes('png')?'png':'jpg'}`,b); } if(veniceKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceKey}`)).blob(); zip.file(`${e.x_handle||e.id}-venice.${b.type.includes('png')?'png':'jpg'}`,b); } }catch(err){} prog.textContent=`Preparing: ${adminEntries.indexOf(e)+1}/${adminEntries.length}`; } const a=document.createElement('a'); a.href=URL.createObjectURL(await zip.generateAsync({type:'blob'})); a.download=`venice-proofs-${new Date().toISOString().slice(0,10)}.zip`; a.click(); prog.remove(); }
+
+async function adminLoadKols(){ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list?select=id,name&order=name`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminKols=await res.json(); $('adminKolsList').innerHTML=adminKols.map(k=>`<div class="admin-row-item"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sub);">${k.name}</span><button class="admin-del-btn" onclick="adminDeleteKol(${k.id})">Remove</button></div>`).join(''); }
+async function adminAddKol(){ const name=$('adminNewKol').value.trim(); if(!name) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list`,{method:'POST',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({name})}); $('adminNewKol').value=''; adminLoadKols(); const m=$('adminKolsMsg'); m.textContent=`"${name}" added.`; setTimeout(()=>{ m.textContent=''; },2000); }
+async function adminDeleteKol(id){ await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list?id=eq.${id}`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminLoadKols(); }
+
+async function adminLoadClicks(){ try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_link_clicks?select=product,source`,{headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`}}); const data=await res.json(); if(!Array.isArray(data)) throw new Error(); const map={}; data.forEach(r=>{ if(!map[r.product]) map[r.product]={ticker:0,success:0,hero:0,step:0}; if(map[r.product][r.source]!==undefined) map[r.product][r.source]++; }); const total=data.length; const rows=Object.entries(map).sort((a,b)=>Object.values(b[1]).reduce((x,y)=>x+y,0)-Object.values(a[1]).reduce((x,y)=>x+y,0)).map(([p,c])=>{ const tot=Object.values(c).reduce((x,y)=>x+y,0); return `<tr><td style="font-weight:600;color:var(--cream);text-transform:capitalize;">${p}</td><td>${c.ticker||0}</td><td>${c.hero||0}</td><td>${c.step||0}</td><td>${c.success||0}</td><td style="color:var(--red);font-weight:700;">${tot}</td></tr>`; }).join(''); $('adminClicksTable').innerHTML=`<table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px;"><thead><tr style="border-bottom:1px solid var(--border);">${['Product','Ticker','Hero','Step','Post-form','Total'].map(h=>`<th style="text-align:left;padding:10px 12px;color:var(--dim);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;">${h}</th>`).join('')}</tr></thead><tbody>${rows}<tr style="border-top:1px solid var(--border);"><td colspan="5" style="padding:10px 12px;color:var(--dim);font-size:10px;">All clicks</td><td style="padding:10px 12px;color:var(--red);font-weight:700;font-size:14px;">${total}</td></tr></tbody></table>`; }catch(e){ $('adminClicksTable').innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);padding:16px;">No click data yet.</div>`; } }
+
+// Winners
+let _wDraft=[],_wPool=[];
+async function adminLoadWinners(){ try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?select=id,entry_id,x_handle,prize_type,is_replacement,confirmed,selected_at&order=prize_type,selected_at`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const data=await res.json(); const c=$('adminWinnersContent'); if(!c) return; if(Array.isArray(data)&&data.length>0){ const ids=data.map(w=>w.entry_id).filter(Boolean).join(','); let em={}; if(ids){ const er=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,telegram_handle,evm_wallet,screenshot_url&id=in.(${ids})`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const ed=await er.json(); if(Array.isArray(ed)) ed.forEach(e=>{em[e.id]=e;}); } const en=data.map(w=>({...w,telegram_handle:em[w.entry_id]?.telegram_handle||'',evm_wallet:em[w.entry_id]?.evm_wallet||'',proof_url:em[w.entry_id]?.screenshot_url||''})); renderWinnersConfirmed(en,c); } else { c.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);padding:16px 0;">No winners selected yet.</div>`; } }catch(e){} }
+function renderWinnersConfirmed(data,c){ const st=data.filter(w=>w.prize_type==='stable_10'),vv=data.filter(w=>w.prize_type==='vvv_100'); c.innerHTML=`<div style="margin-bottom:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);">✓ ${st.length} × $10 stable &nbsp;·&nbsp; ${vv.length} × $100 $VVV</div><button onclick='adminExportWinnersCSV(${JSON.stringify(data)})' style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:7px 14px;cursor:pointer;border-radius:4px;">↓ Export CSV</button><button onclick="adminClearWinners()" style="background:transparent;border:1px solid var(--border);color:var(--red);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 12px;cursor:pointer;border-radius:4px;">Reset</button></div>${renderWTable(data)}`; }
+function adminExportWinnersCSV(data){ const h=['#','x_handle','telegram_handle','evm_wallet','prize_type','proof_url','is_replacement','selected_at']; const rows=data.map((w,i)=>[i+1,`@${w.x_handle}`,w.telegram_handle?`@${w.telegram_handle}`:'',w.evm_wallet||'',w.prize_type,w.proof_url||'',w.is_replacement?'yes':'no',w.selected_at?new Date(w.selected_at).toLocaleString():'']); const csv=[h,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-winners-${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+function renderWTable(rows){ const pl=t=>t==='vvv_100'?`<span style="color:var(--red);">$100 $VVV</span>`:`<span style="color:var(--red);opacity:0.7;">$10 Stable</span>`; const trs=rows.map((w,i)=>{ const pf=w.proof_url?`<a href="${w.proof_url}" target="_blank" style="color:var(--red);font-size:9px;border:1px solid var(--border-red);padding:2px 7px;border-radius:3px;text-decoration:none;">View</a>`:'—'; return `<tr><td style="padding:9px 12px;color:var(--dim);font-size:10px;">${i+1}</td><td style="padding:9px 12px;color:var(--cream);font-weight:600;">@${w.x_handle}</td><td style="padding:9px 12px;color:var(--sub);">${w.telegram_handle?`@${w.telegram_handle}`:'—'}</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">${w.evm_wallet?w.evm_wallet.slice(0,6)+'…'+w.evm_wallet.slice(-4):'—'}</td><td style="padding:9px 12px;">${pl(w.prize_type)}</td><td style="padding:9px 12px;">${pf}</td><td style="padding:9px 12px;"><button class="winner-del-btn" onclick="adminDeleteWinner(${w.id||'null'},'${w.prize_type}','${w.x_handle}')">Remove</button></td></tr>`; }).join(''); return `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px;"><thead><tr style="border-bottom:1px solid var(--border);">${['#','X Handle','Telegram','Wallet','Prize','Proof',''].map(h=>`<th style="text-align:left;padding:8px 12px;color:var(--dim);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;">${h}</th>`).join('')}</tr></thead><tbody>${trs}</tbody></table></div>`; }
+async function adminPickWinners(){ const btn=$('adminPickBtn'); if(btn){btn.disabled=true;btn.textContent='Selecting…';} try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,telegram_handle,evm_wallet,screenshot_url`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const entries=await res.json(); if(!Array.isArray(entries)||!entries.length){alert('No entries found.');if(btn){btn.disabled=false;btn.textContent='Select Winners';}return;} const sh=[...entries].sort(()=>Math.random()-0.5); const vc=Math.min(5,sh.length),sc=Math.min(100,sh.length-vc); _wDraft=[...sh.slice(0,vc).map(e=>({entry_id:e.id,x_handle:e.x_handle,telegram_handle:e.telegram_handle,evm_wallet:e.evm_wallet,proof_url:e.screenshot_url,prize_type:'vvv_100',is_replacement:false})),...sh.slice(vc,vc+sc).map(e=>({entry_id:e.id,x_handle:e.x_handle,telegram_handle:e.telegram_handle,evm_wallet:e.evm_wallet,proof_url:e.screenshot_url,prize_type:'stable_10',is_replacement:false}))]; _wPool=sh.slice(vc+sc); renderWDraft(); }catch(e){alert('Failed: '+e.message);} if(btn){btn.disabled=false;btn.textContent='Re-pick';} }
+function renderWDraft(){ const c=$('adminWinnersContent'); if(!c) return; const sc=_wDraft.filter(w=>w.prize_type==='stable_10').length,vc=_wDraft.filter(w=>w.prize_type==='vvv_100').length; c.innerHTML=`<div style="margin-bottom:16px;padding:12px 16px;background:rgba(221,51,0,0.06);border:1px solid var(--border);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">⚠ Draft — not confirmed. Click <strong style="color:var(--red);">Confirm Winners</strong> to save.<br><span style="color:var(--dim);">${vc} × $100 $VVV &nbsp;·&nbsp; ${sc} × $10 stable &nbsp;·&nbsp; ${_wPool.length} remaining</span></div>${renderWTable(_wDraft)}<div style="margin-top:16px;display:flex;gap:10px;"><button onclick="adminConfirmWinners()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:12px 24px;cursor:pointer;border-radius:6px;">Confirm Winners</button><button onclick="adminPickWinners()" style="background:transparent;border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px;cursor:pointer;border-radius:6px;">Re-pick all</button></div>`; }
+async function adminDeleteWinner(dbId,prizeType,xHandle){ if(!dbId){ const idx=_wDraft.findIndex(w=>w.x_handle===xHandle&&w.prize_type===prizeType); if(idx!==-1){ if(_wPool.length===0){ _wDraft.splice(idx,1); } else { const r=_wPool.shift(); _wDraft[idx]={entry_id:r.id,x_handle:r.x_handle,telegram_handle:r.telegram_handle||'',evm_wallet:r.evm_wallet||'',proof_url:r.screenshot_url||'',prize_type:prizeType,is_replacement:true}; } renderWDraft(); } return; } if(!confirm(`Remove @${xHandle}?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=eq.${dbId}`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminLoadWinners(); }catch(e){alert('Error: '+e.message);} }
+async function adminConfirmWinners(){ if(!confirm(`Save ${_wDraft.length} winners?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?confirmed=eq.false`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const payload=_wDraft.map(w=>({entry_id:w.entry_id,x_handle:w.x_handle,prize_type:w.prize_type,is_replacement:w.is_replacement,confirmed:true})); const r=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners`,{method:'POST',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(payload)}); if(!r.ok) throw new Error(`HTTP ${r.status}`); _wDraft=[]; _wPool=[]; adminLoadWinners(); }catch(e){alert('Failed: '+e.message);} }
+async function adminClearWinners(){ if(!confirm('Delete all winners?')) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=gt.0`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); _wDraft=[]; _wPool=[]; adminLoadWinners(); }
+
+// Dashboard
+let _dbInterval=null;
+async function adminLoadDashboard(){ const el=$('dashContent'); if(!el) return; el.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);padding:20px 0;">Loading…</div>`; try{ const [er,cr]=await Promise.all([fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,kol_name,submitted_at`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}),fetch(`${SUPABASE_URL}/rest/v1/venice_link_clicks?select=product,source`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}})]); const entries=await er.json(),clicks=await cr.json(); if(!Array.isArray(entries)) throw new Error('entries error'); const total=entries.length,now=new Date(),todayStr=now.toISOString().slice(0,10),today=entries.filter(e=>e.submitted_at?.slice(0,10)===todayStr).length,totalClicks=Array.isArray(clicks)?clicks.length:0,activeKols=new Set(entries.map(e=>e.kol_name).filter(Boolean)).size; const kolMap={},dayMap={}; entries.forEach(e=>{const k=e.kol_name||'(direct)';kolMap[k]=(kolMap[k]||0)+1;}); const days=[]; for(let i=6;i>=0;i--){const d=new Date(now);d.setDate(d.getDate()-i);days.push(d.toISOString().slice(0,10));} days.forEach(d=>{dayMap[d]=0;}); entries.forEach(e=>{const d=e.submitted_at?.slice(0,10);if(d&&dayMap[d]!==undefined)dayMap[d]++;}); const dayMax=Math.max(...Object.values(dayMap),1),ts=new Date().toLocaleTimeString(); el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;">${[['Total Entries',total,'📋'],["Today's",today,'🔑'],['Clicks',totalClicks,'🔗'],['Active KOLs',activeKols,'👥']].map(([l,v,i])=>`<div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px;"><div style="font-size:20px;margin-bottom:6px;">${i}</div><div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--red);line-height:1;">${v}</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-top:5px;">${l}</div></div>`).join('')}</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;"><div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;">Entries · Last 7 Days</div><div style="display:flex;align-items:flex-end;gap:6px;height:72px;">${days.map(d=>{const count=dayMap[d],pct=Math.max((count/dayMax)*100,count>0?8:2);return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);">${count||''}</div><div style="width:100%;background:${d===todayStr?'var(--red)':'rgba(221,51,0,0.22)'};border-radius:3px 3px 0 0;height:${pct}%;min-height:3px;"></div><div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--dim);white-space:nowrap;">${d.slice(5)}</div></div>`;}).join('')}</div></div><div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;">Entries by KOL</div><div style="display:flex;flex-direction:column;gap:8px;max-height:140px;overflow-y:auto;">${Object.entries(kolMap).sort((a,b)=>b[1]-a[1]).map(([k,v])=>{const pct=total?Math.round((v/total)*100):0;return `<div><div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:3px;"><span style="color:var(--cream);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%;">${k}</span><span style="color:var(--red);">${v} <span style="color:var(--dim);">(${pct}%)</span></span></div><div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--red);border-radius:2px;"></div></div></div>`;}).join('')||'<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;color:var(--dim);">No entries yet</div>'}</div></div></div><div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);text-align:right;">Last updated: ${ts} · auto-refreshes every 30s</div>`; renderDeadlineEditor(); }catch(e){el.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);padding:16px 0;">Failed: ${e.message}</div>`;} }
+function startAdminAutoRefresh(){ if(_dbInterval) clearInterval(_dbInterval); _dbInterval=setInterval(()=>{const t=document.querySelector('.admin-tab.active');if(t?.dataset.tab==='dashboard')adminLoadDashboard();},30000); }
+
+async function adminSaveDeadline(){ const input=$('adminDeadlineInput'),msg=$('adminDeadlineMsg'); if(!input?.value) return; const utcISO=new Date(input.value+':00+09:00').toISOString(); msg.textContent='Saving…'; try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_app_settings?key=eq.deadline`,{method:'PATCH',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({value:utcISO})}); if(!res.ok) throw new Error(`HTTP ${res.status}`); _deadline=new Date(utcISO); startCountdown(); renderDeadlineEditor(); msg.textContent='✓ Saved'; msg.style.color='var(--red)'; }catch(e){msg.textContent='Save failed: '+e.message;} setTimeout(()=>{const m=$('adminDeadlineMsg');if(m)m.textContent='';},4000); }
+function renderDeadlineEditor(){ const kst=new Date(_deadline.getTime()+9*3600000),val=kst.toISOString().slice(0,16); const el=$('adminDeadlineEditor'); if(!el) return; el.innerHTML=`<div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-top:20px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;">⏱ Deadline (KST · UTC+9)</div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;"><input id="adminDeadlineInput" type="datetime-local" value="${val}" style="background:var(--panel-2);border:1px solid var(--border);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:12px;padding:10px 13px;outline:none;border-radius:6px;cursor:pointer;"><button onclick="adminSaveDeadline()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:11px 20px;cursor:pointer;border-radius:6px;">Save</button><span id="adminDeadlineMsg" style="font-family:'JetBrains Mono',monospace;font-size:10px;"></span></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:8px;">Currently: ${kst.toISOString().slice(0,16).replace('T',' ')} KST</div></div>`; }
+
+async function adminToggleEntries(){ const nv=_open?'false':'true'; await fetch(`${SUPABASE_URL}/rest/v1/venice_app_settings?key=eq.accepting_entries`,{method:'PATCH',headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({value:nv})}); _open=nv==='true'; applyGate(); renderEntriesToggle(); }
+function renderEntriesToggle(){ const el=$('entriesToggleBar'); if(!el) return; el.innerHTML=`<div style="display:flex;align-items:center;gap:14px;padding:14px 18px;background:rgba(221,51,0,0.04);border:1px solid var(--border-red);border-radius:8px;margin-bottom:20px;"><div style="width:8px;height:8px;border-radius:50%;background:${_open?'var(--red)':'var(--dim)'};flex-shrink:0;"></div><div style="flex:1;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:${_open?'var(--red)':'var(--dim)'};letter-spacing:0.1em;text-transform:uppercase;">${_open?'Accepting entries':'Entries closed'}</div><button onclick="adminToggleEntries()" style="background:rgba(221,51,0,0.08);border:1px solid var(--border-red);color:var(--red);font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:8px 16px;cursor:pointer;border-radius:5px;">${_open?'Close entries':'Reopen entries'}</button></div>`; }
+async function adminLoadEntriesStatus(){ await loadEntriesStatus(); renderEntriesToggle(); }
+
+// INIT
+document.addEventListener('DOMContentLoaded', ()=>{
+  loadKolList();
+  loadCountdown();
+  loadEntriesStatus();
+  window.TWEAKS = window.TWEAKS || {particles:true,particleDensity:55,particleSize:2.5,particleSpeed:0.45,particleColor:'red',particleGlow:false,bgGlow:true,bgGrid:true};
+  if (window.location.hash === '#admin') showAdminPanel();
+  const pw = $('adminPwInput');
+  if (pw) pw.addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
+});
+</script>
+</body>
+</html>
