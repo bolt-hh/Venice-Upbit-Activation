@@ -349,13 +349,14 @@ h1 .accent{color:var(--red);}
             <label class="form-label" for="sf-x_handle" data-i18n="field.x">X / Twitter Handle</label>
             <input id="sf-x_handle" class="form-input" type="text" placeholder="@yourhandle" autocomplete="off">
           </div>
+
           <div class="form-field">
-            <label class="form-label" for="sf-telegram_handle" data-i18n="field.tg">Telegram Handle</label>
-            <input id="sf-telegram_handle" class="form-input" type="text" placeholder="@yourhandle" autocomplete="off">
+            <label class="form-label" for="sf-venice_wallet" data-i18n="field.venice_wallet">Venice Wallet Address</label>
+            <input id="sf-venice_wallet" class="form-input" type="text" placeholder="0x..." autocomplete="off">
           </div>
-          <div class="form-field full">
-            <label class="form-label" for="sf-evm_wallet" data-i18n="field.wallet">EVM Wallet Address</label>
-            <input id="sf-evm_wallet" class="form-input" type="text" placeholder="0x..." autocomplete="off">
+          <div class="form-field">
+            <label class="form-label" for="sf-upbit_id" data-i18n="field.upbit_id">Upbit User ID</label>
+            <input id="sf-upbit_id" class="form-input" type="text" placeholder="your-upbit-id" autocomplete="off">
           </div>
 
           <div class="form-divider"></div>
@@ -451,7 +452,7 @@ h1 .accent{color:var(--red);}
 
           <div class="vvv-note">
             <span class="vvv-note-icon">💬</span>
-            <span data-i18n="form.note">$VVV prize winners will receive a direct message on X. Stablecoin prizes sent to EVM wallet.</span>
+            <span data-i18n="form.note">$VVV prize winners will receive a direct message on X. Stablecoin prizes sent to your Venice wallet.</span>
           </div>
 
           <label class="confirm-row" for="sf-confirm">
@@ -599,7 +600,7 @@ const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzd
 const R2_UPLOAD_ENDPOINT   = 'https://solitary-dew-b048fogo-pfp-upload.bolt-0a8.workers.dev';
 const R2_PUBLIC_BASE_URL   = 'https://pub-a7954b786d394847a17127d1cf278881.r2.dev';
 const ADMIN_PASSWORD_HASH  = 'c857a8bb04d3ee9189ae5cffa79f3f1e8020e0acc5cb392bea25746ea9759a15';
-// NOTE: Add columns upbit_proof_url + venice_proof_url to the entries table in Supabase.
+// DB: venice_entries columns: x_handle, venice_wallet, upbit_id, upbit_proof_url, venice_proof_url, kol_name
 
 // ============================================================
 // PARTICLE SYSTEM
@@ -721,7 +722,7 @@ const I18N = {
     'prize.cd.label':'Entries close in',
     'form.section.label':'Enter the Prize Pool','form.section.title':'Submit your proof',
     'form.section.sub':'Fill in your details and upload both screenshots to qualify',
-    'field.x':'X / Twitter Handle','field.tg':'Telegram Handle','field.wallet':'EVM Wallet Address',
+    'field.x':'X / Twitter Handle','field.venice_wallet':'Venice Wallet Address (used to sign in)','field.upbit_id':'Upbit User ID',
     'field.kol':'Which KOL channel brought you here?','field.kol.placeholder':'@kol_handle',
     'field.confirm':'I confirm that both screenshots are authentic and belong to me.',
     'proof.upbit.title':'$VVV Purchase Proof','proof.venice.title':'Venice Sign-up Proof',
@@ -732,13 +733,14 @@ const I18N = {
     'proof.venice.l2':'Username must be clearly visible',
     'proof.venice.l3':'Visit venice.ai/chat after signing up',
     'proof.upload':'Click to upload',
-    'form.note':'$VVV prize winners will receive a direct message on X. Stablecoin prizes sent to EVM wallet.',
+    'form.note':'$VVV prize winners will receive a direct message on X. Stablecoin prizes sent to your Venice wallet.',
     'form.submit':'Submit My Entry',
     'closed.title':'Entries Closed','closed.body':'The submission window has ended. Keep an eye on the Venice community channels for winner announcements.',
     'success.title':'Entry Received','success.body':'Your proof has been submitted. Winners will be contacted via X DM. Good luck.',
     'foot.powered':'Powered by',
-    'err.x':'X handle is required.','err.tg':'Telegram handle is required.',
-    'err.wallet':'EVM wallet address is required.','err.wallet0x':'EVM address must start with 0x.',
+    'err.x':'X handle is required.',
+    'err.venice_wallet':'Venice wallet address is required.',
+    'err.upbit_id':'Upbit User ID is required.',
     'err.upbit':'Please upload your Upbit purchase screenshot.',
     'err.venice':'Please upload your Venice sign-up screenshot.',
     'err.filesize':'File must be under 2MB.','err.confirm':'Please confirm your submission.',
@@ -764,7 +766,7 @@ const I18N = {
     'prize.cd.label':'마감까지',
     'form.section.label':'상금 풀 참여','form.section.title':'증거 제출',
     'form.section.sub':'정보를 입력하고 두 스크린샷을 업로드하여 자격을 갖추세요',
-    'field.x':'X / 트위터 핸들','field.tg':'텔레그램 핸들','field.wallet':'EVM 지갑 주소',
+    'field.x':'X / 트위터 핸들','field.venice_wallet':'Venice 지갑 주소 (로그인에 사용)','field.upbit_id':'Upbit 사용자 ID',
     'field.kol':'어느 KOL 채널에서 오셨나요?','field.kol.placeholder':'@kol_계정명',
     'field.confirm':'두 스크린샷이 진짜이며 저의 것임을 확인합니다.',
     'proof.upbit.title':'$VVV 구매 증거','proof.venice.title':'Venice 가입 증거',
@@ -775,13 +777,14 @@ const I18N = {
     'proof.venice.l2':'사용자 이름이 명확하게 보여야 함',
     'proof.venice.l3':'가입 후 venice.ai/chat 방문',
     'proof.upload':'클릭하여 업로드',
-    'form.note':'$VVV 상금 당첨자에게 X DM을 드립니다. 스테이블코인 상금은 EVM 지갑으로 전송됩니다.',
+    'form.note':'$VVV 상금 당첨자에게 X DM을 드립니다. 스테이블코인 상금은 Venice 지갑으로 전송됩니다.',
     'form.submit':'참여 신청하기',
     'closed.title':'참여 접수 마감','closed.body':'제출 기간이 종료되었습니다. Venice 커뮤니티 채널에서 당첨자 발표를 확인해 주세요.',
     'success.title':'참여 완료','success.body':'증거가 제출되었습니다. 당첨자에게는 X DM으로 연락드립니다. 행운을 빕니다.',
     'foot.powered':'제공',
-    'err.x':'X 핸들을 입력해 주세요.','err.tg':'텔레그램 핸들을 입력해 주세요.',
-    'err.wallet':'EVM 지갑 주소를 입력해 주세요.','err.wallet0x':'EVM 주소는 0x로 시작해야 합니다.',
+    'err.x':'X 핸들을 입력해 주세요.',
+    'err.venice_wallet':'Venice 지갑 주소를 입력해 주세요.',
+    'err.upbit_id':'Upbit 사용자 ID를 입력해 주세요.',
     'err.upbit':'Upbit 구매 스크린샷을 업로드해 주세요.',
     'err.venice':'Venice 가입 스크린샷을 업로드해 주세요.',
     'err.filesize':'파일은 2MB 이하여야 합니다.','err.confirm':'제출을 확인해 주세요.',
@@ -839,8 +842,8 @@ function sfClearError(){ const el=document.getElementById('sf-error'); el.textCo
 async function submitEntry(){
   sfClearError();
   const xHandle   = document.getElementById('sf-x_handle')?.value.trim();
-  const tgHandle  = document.getElementById('sf-telegram_handle')?.value.trim();
-  const evmWallet = document.getElementById('sf-evm_wallet')?.value.trim();
+  const veniceWallet = document.getElementById('sf-venice_wallet')?.value.trim();
+  const upbitId      = document.getElementById('sf-upbit_id')?.value.trim();
   const kolName   = document.getElementById('sf-kol')?.value;
   const confirmed = document.getElementById('sf-confirm')?.checked;
   const upbitFile   = proofFiles.upbit;
@@ -848,11 +851,10 @@ async function submitEntry(){
   const _d = I18N[currentLang] || I18N.en;
   const _t = k => _d[k] || I18N.en[k] || k;
 
-  if (!xHandle)                   return sfShowError(_t('err.x'));
-  if (!tgHandle)                  return sfShowError(_t('err.tg'));
-  if (!evmWallet)                 return sfShowError(_t('err.wallet'));
-  if (!evmWallet.startsWith('0x'))return sfShowError(_t('err.wallet0x'));
-  if (!upbitFile)                 return sfShowError(_t('err.upbit'));
+  if (!xHandle)       return sfShowError(_t('err.x'));
+  if (!veniceWallet)  return sfShowError(_t('err.venice_wallet'));
+  if (!upbitId)        return sfShowError(_t('err.upbit_id'));
+  if (!upbitFile)      return sfShowError(_t('err.upbit'));
   if (upbitFile.size > 2*1024*1024) return sfShowError(_t('err.filesize'));
   if (!veniceFile)                return sfShowError(_t('err.venice'));
   if (veniceFile.size > 2*1024*1024) return sfShowError(_t('err.filesize'));
@@ -882,7 +884,7 @@ async function submitEntry(){
     const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/venice_entries`,{
       method:'POST',
       headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body: JSON.stringify({x_handle:xHandle,telegram_handle:tgHandle,evm_wallet:evmWallet,screenshot_url:upbitUrl,frame_used:veniceUrl,kol_name:kolName})
+      body: JSON.stringify({x_handle:xHandle,venice_wallet:veniceWallet,upbit_id:upbitId,upbit_proof_url:upbitUrl,venice_proof_url:veniceUrl,kol_name:kolName})
     });
     if (!supaRes.ok) throw new Error(_t('err.save'));
 
@@ -985,15 +987,15 @@ async function adminDeleteSelected(){ if(!adminSelIds.size) return; if(!confirm(
 async function adminLoadEntries(){
   const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=*&order=submitted_at.desc`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}});
   adminEntries=await res.json(); adminSelIds.clear(); adminUpdateSel();
-  const cols=['x_handle','telegram_handle','evm_wallet','kol_name','screenshot_url','frame_used','submitted_at'];
-  const heads=`<th><input type="checkbox" onchange="adminToggleAll(this.checked)"></th>`+cols.map(c=>`<th>${c==='screenshot_url'?'upbit_proof':c==='frame_used'?'venice_proof':c}</th>`).join('');
-  const rows=adminEntries.map(e=>`<tr><td><input type="checkbox" class="admin-row-cb" onchange="adminToggleRow(${e.id},this.checked)"></td>${cols.map(c=>{ if(c==='screenshot_url'||c==='frame_used') return `<td><a href="${e[c]||'#'}" target="_blank" style="color:var(--red);">View</a></td>`; return `<td title="${e[c]||''}">${e[c]||''}</td>`; }).join('')}</tr>`).join('');
+  const cols=['x_handle','venice_wallet','upbit_id','kol_name','upbit_proof_url','venice_proof_url','submitted_at'];
+  const heads=`<th><input type="checkbox" onchange="adminToggleAll(this.checked)"></th>`+cols.map(c=>`<th>${c==='upbit_proof_url'?'upbit_proof':c==='venice_proof_url'?'venice_proof':c}</th>`).join('');
+  const rows=adminEntries.map(e=>`<tr><td><input type="checkbox" class="admin-row-cb" onchange="adminToggleRow(${e.id},this.checked)"></td>${cols.map(c=>{ if(c==='upbit_proof_url'||c==='venice_proof_url') return `<td><a href="${e[c]||'#'}" target="_blank" style="color:var(--red);">View</a></td>`; return `<td title="${e[c]||''}">${e[c]||''}</td>`; }).join('')}</tr>`).join('');
   $('adminEntriesTable').innerHTML=`<table class="admin-entry-table"><thead><tr>${heads}</tr></thead><tbody>${rows}</tbody></table><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-top:12px;">${adminEntries.length} entries total</div>`;
 }
 
-function adminExportCSV(){ if(!adminEntries.length) return alert('No entries.'); const cols=['id','x_handle','telegram_handle','evm_wallet','kol_name','screenshot_url','frame_used','submitted_at']; const csv=[cols.join(','),...adminEntries.map(e=>cols.map(c=>`"${(e[c]||'').toString().replace(/"/g,'""')}"`).join(','))].join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-entries-${new Date().toISOString().slice(0,10)}.csv`; a.click(); }
+function adminExportCSV(){ if(!adminEntries.length) return alert('No entries.'); const cols=['id','x_handle','venice_wallet','upbit_id','kol_name','upbit_proof_url','venice_proof_url','submitted_at']; const csv=[cols.join(','),...adminEntries.map(e=>cols.map(c=>`"${(e[c]||'').toString().replace(/"/g,'""')}"`).join(','))].join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-entries-${new Date().toISOString().slice(0,10)}.csv`; a.click(); }
 
-async function adminDownloadZip(){ if(!adminEntries.length) return alert('No entries.'); if(typeof JSZip==='undefined'){ await new Promise((res,rej)=>{ const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); } const zip=new JSZip().folder('venice-proofs'); const prog=document.createElement('div'); prog.style.cssText='font-family:JetBrains Mono,monospace;font-size:11px;color:var(--red);margin-bottom:12px;'; $('adminEntriesTable').prepend(prog); for(const e of adminEntries){ try{ const upbitKey=e.screenshot_url?.replace(R2_PUBLIC_BASE_URL+'/',''); const veniceKey=e.frame_used?.replace(R2_PUBLIC_BASE_URL+'/',''); if(upbitKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitKey}`)).blob(); zip.file(`${e.x_handle||e.id}-upbit.${b.type.includes('png')?'png':'jpg'}`,b); } if(veniceKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceKey}`)).blob(); zip.file(`${e.x_handle||e.id}-venice.${b.type.includes('png')?'png':'jpg'}`,b); } }catch(err){} prog.textContent=`Preparing: ${adminEntries.indexOf(e)+1}/${adminEntries.length}`; } const a=document.createElement('a'); a.href=URL.createObjectURL(await zip.generateAsync({type:'blob'})); a.download=`venice-proofs-${new Date().toISOString().slice(0,10)}.zip`; a.click(); prog.remove(); }
+async function adminDownloadZip(){ if(!adminEntries.length) return alert('No entries.'); if(typeof JSZip==='undefined'){ await new Promise((res,rej)=>{ const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); } const zip=new JSZip().folder('venice-proofs'); const prog=document.createElement('div'); prog.style.cssText='font-family:JetBrains Mono,monospace;font-size:11px;color:var(--red);margin-bottom:12px;'; $('adminEntriesTable').prepend(prog); for(const e of adminEntries){ try{ const upbitKey=e.upbit_proof_url?.replace(R2_PUBLIC_BASE_URL+'/',''); const veniceKey=e.venice_proof_url?.replace(R2_PUBLIC_BASE_URL+'/',''); if(upbitKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitKey}`)).blob(); zip.file(`${e.x_handle||e.id}-upbit.${b.type.includes('png')?'png':'jpg'}`,b); } if(veniceKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceKey}`)).blob(); zip.file(`${e.x_handle||e.id}-venice.${b.type.includes('png')?'png':'jpg'}`,b); } }catch(err){} prog.textContent=`Preparing: ${adminEntries.indexOf(e)+1}/${adminEntries.length}`; } const a=document.createElement('a'); a.href=URL.createObjectURL(await zip.generateAsync({type:'blob'})); a.download=`venice-proofs-${new Date().toISOString().slice(0,10)}.zip`; a.click(); prog.remove(); }
 
 async function adminLoadKols(){ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list?select=id,name&order=name`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminKols=await res.json(); $('adminKolsList').innerHTML=adminKols.map(k=>`<div class="admin-row-item"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sub);">${k.name}</span><button class="admin-del-btn" onclick="adminDeleteKol(${k.id})">Remove</button></div>`).join(''); }
 async function adminAddKol(){ const name=$('adminNewKol').value.trim(); if(!name) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list`,{method:'POST',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({name})}); $('adminNewKol').value=''; adminLoadKols(); const m=$('adminKolsMsg'); m.textContent=`"${name}" added.`; setTimeout(()=>{ m.textContent=''; },2000); }
@@ -1003,13 +1005,13 @@ async function adminLoadClicks(){ try{ const res=await fetch(`${SUPABASE_URL}/re
 
 // Winners
 let _wDraft=[],_wPool=[];
-async function adminLoadWinners(){ try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?select=id,entry_id,x_handle,prize_type,is_replacement,confirmed,selected_at&order=prize_type,selected_at`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const data=await res.json(); const c=$('adminWinnersContent'); if(!c) return; if(Array.isArray(data)&&data.length>0){ const ids=data.map(w=>w.entry_id).filter(Boolean).join(','); let em={}; if(ids){ const er=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,telegram_handle,evm_wallet,screenshot_url&id=in.(${ids})`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const ed=await er.json(); if(Array.isArray(ed)) ed.forEach(e=>{em[e.id]=e;}); } const en=data.map(w=>({...w,telegram_handle:em[w.entry_id]?.telegram_handle||'',evm_wallet:em[w.entry_id]?.evm_wallet||'',proof_url:em[w.entry_id]?.screenshot_url||''})); renderWinnersConfirmed(en,c); } else { c.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);padding:16px 0;">No winners selected yet.</div>`; } }catch(e){} }
+async function adminLoadWinners(){ try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?select=id,entry_id,x_handle,prize_type,is_replacement,confirmed,selected_at&order=prize_type,selected_at`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const data=await res.json(); const c=$('adminWinnersContent'); if(!c) return; if(Array.isArray(data)&&data.length>0){ const ids=data.map(w=>w.entry_id).filter(Boolean).join(','); let em={}; if(ids){ const er=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,venice_wallet,upbit_id,upbit_proof_url&id=in.(${ids})`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const ed=await er.json(); if(Array.isArray(ed)) ed.forEach(e=>{em[e.id]=e;}); } const en=data.map(w=>({...w,venice_wallet:em[w.entry_id]?.venice_wallet||'',upbit_id:em[w.entry_id]?.upbit_id||'',proof_url:em[w.entry_id]?.upbit_proof_url||''})); renderWinnersConfirmed(en,c); } else { c.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);padding:16px 0;">No winners selected yet.</div>`; } }catch(e){} }
 function renderWinnersConfirmed(data,c){ const st=data.filter(w=>w.prize_type==='stable_10'),vv=data.filter(w=>w.prize_type==='vvv_100'); c.innerHTML=`<div style="margin-bottom:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);">✓ ${st.length} × $10 stable &nbsp;·&nbsp; ${vv.length} × $100 $VVV</div><button onclick='adminExportWinnersCSV(${JSON.stringify(data)})' style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:7px 14px;cursor:pointer;border-radius:4px;">↓ Export CSV</button><button onclick="adminClearWinners()" style="background:transparent;border:1px solid var(--border);color:var(--red);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 12px;cursor:pointer;border-radius:4px;">Reset</button></div>${renderWTable(data)}`; }
-function adminExportWinnersCSV(data){ const h=['#','x_handle','telegram_handle','evm_wallet','prize_type','proof_url','is_replacement','selected_at']; const rows=data.map((w,i)=>[i+1,`@${w.x_handle}`,w.telegram_handle?`@${w.telegram_handle}`:'',w.evm_wallet||'',w.prize_type,w.proof_url||'',w.is_replacement?'yes':'no',w.selected_at?new Date(w.selected_at).toLocaleString():'']); const csv=[h,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-winners-${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
-function renderWTable(rows){ const pl=t=>t==='vvv_100'?`<span style="color:var(--red);">$100 $VVV</span>`:`<span style="color:var(--red);opacity:0.7;">$10 Stable</span>`; const trs=rows.map((w,i)=>{ const pf=w.proof_url?`<a href="${w.proof_url}" target="_blank" style="color:var(--red);font-size:9px;border:1px solid var(--border-red);padding:2px 7px;border-radius:3px;text-decoration:none;">View</a>`:'—'; return `<tr><td style="padding:9px 12px;color:var(--dim);font-size:10px;">${i+1}</td><td style="padding:9px 12px;color:var(--cream);font-weight:600;">@${w.x_handle}</td><td style="padding:9px 12px;color:var(--sub);">${w.telegram_handle?`@${w.telegram_handle}`:'—'}</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">${w.evm_wallet?w.evm_wallet.slice(0,6)+'…'+w.evm_wallet.slice(-4):'—'}</td><td style="padding:9px 12px;">${pl(w.prize_type)}</td><td style="padding:9px 12px;">${pf}</td><td style="padding:9px 12px;"><button class="winner-del-btn" onclick="adminDeleteWinner(${w.id||'null'},'${w.prize_type}','${w.x_handle}')">Remove</button></td></tr>`; }).join(''); return `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px;"><thead><tr style="border-bottom:1px solid var(--border);">${['#','X Handle','Telegram','Wallet','Prize','Proof',''].map(h=>`<th style="text-align:left;padding:8px 12px;color:var(--dim);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;">${h}</th>`).join('')}</tr></thead><tbody>${trs}</tbody></table></div>`; }
-async function adminPickWinners(){ const btn=$('adminPickBtn'); if(btn){btn.disabled=true;btn.textContent='Selecting…';} try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,telegram_handle,evm_wallet,screenshot_url`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const entries=await res.json(); if(!Array.isArray(entries)||!entries.length){alert('No entries found.');if(btn){btn.disabled=false;btn.textContent='Select Winners';}return;} const sh=[...entries].sort(()=>Math.random()-0.5); const vc=Math.min(5,sh.length),sc=Math.min(100,sh.length-vc); _wDraft=[...sh.slice(0,vc).map(e=>({entry_id:e.id,x_handle:e.x_handle,telegram_handle:e.telegram_handle,evm_wallet:e.evm_wallet,proof_url:e.screenshot_url,prize_type:'vvv_100',is_replacement:false})),...sh.slice(vc,vc+sc).map(e=>({entry_id:e.id,x_handle:e.x_handle,telegram_handle:e.telegram_handle,evm_wallet:e.evm_wallet,proof_url:e.screenshot_url,prize_type:'stable_10',is_replacement:false}))]; _wPool=sh.slice(vc+sc); renderWDraft(); }catch(e){alert('Failed: '+e.message);} if(btn){btn.disabled=false;btn.textContent='Re-pick';} }
+function adminExportWinnersCSV(data){ const h=['#','x_handle','venice_wallet','upbit_id','prize_type','proof_url','is_replacement','selected_at']; const rows=data.map((w,i)=>[i+1,`@${w.x_handle}`,w.venice_wallet||'',w.upbit_id||'',w.prize_type,w.proof_url||'',w.is_replacement?'yes':'no',w.selected_at?new Date(w.selected_at).toLocaleString():'']); const csv=[h,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-winners-${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
+function renderWTable(rows){ const pl=t=>t==='vvv_100'?`<span style="color:var(--red);">$100 $VVV</span>`:`<span style="color:var(--red);opacity:0.7;">$10 Stable</span>`; const trs=rows.map((w,i)=>{ const pf=w.proof_url?`<a href="${w.proof_url}" target="_blank" style="color:var(--red);font-size:9px;border:1px solid var(--border-red);padding:2px 7px;border-radius:3px;text-decoration:none;">View</a>`:'—'; return `<tr><td style="padding:9px 12px;color:var(--dim);font-size:10px;">${i+1}</td><td style="padding:9px 12px;color:var(--cream);font-weight:600;">@${w.x_handle}</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">${w.venice_wallet?w.venice_wallet.slice(0,6)+'…'+w.venice_wallet.slice(-4):'—'}</td><td style="padding:9px 12px;color:var(--sub);">${w.upbit_id||'—'}</td><td style="padding:9px 12px;">${pl(w.prize_type)}</td><td style="padding:9px 12px;">${pf}</td><td style="padding:9px 12px;"><button class="winner-del-btn" onclick="adminDeleteWinner(${w.id||'null'},'${w.prize_type}','${w.x_handle}')">Remove</button></td></tr>`; }).join(''); return `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px;"><thead><tr style="border-bottom:1px solid var(--border);">${['#','X Handle','Venice Wallet','Upbit ID','Prize','Proof',''].map(h=>`<th style="text-align:left;padding:8px 12px;color:var(--dim);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;">${h}</th>`).join('')}</tr></thead><tbody>${trs}</tbody></table></div>`; }
+async function adminPickWinners(){ const btn=$('adminPickBtn'); if(btn){btn.disabled=true;btn.textContent='Selecting…';} try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,venice_wallet,upbit_id,upbit_proof_url`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const entries=await res.json(); if(!Array.isArray(entries)||!entries.length){alert('No entries found.');if(btn){btn.disabled=false;btn.textContent='Select Winners';}return;} const sh=[...entries].sort(()=>Math.random()-0.5); const vc=Math.min(5,sh.length),sc=Math.min(100,sh.length-vc); _wDraft=[...sh.slice(0,vc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.upbit_proof_url,prize_type:'vvv_100',is_replacement:false})),...sh.slice(vc,vc+sc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.upbit_proof_url,prize_type:'stable_10',is_replacement:false}))]; _wPool=sh.slice(vc+sc); renderWDraft(); }catch(e){alert('Failed: '+e.message);} if(btn){btn.disabled=false;btn.textContent='Re-pick';} }
 function renderWDraft(){ const c=$('adminWinnersContent'); if(!c) return; const sc=_wDraft.filter(w=>w.prize_type==='stable_10').length,vc=_wDraft.filter(w=>w.prize_type==='vvv_100').length; c.innerHTML=`<div style="margin-bottom:16px;padding:12px 16px;background:rgba(221,51,0,0.06);border:1px solid var(--border);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">⚠ Draft — not confirmed. Click <strong style="color:var(--red);">Confirm Winners</strong> to save.<br><span style="color:var(--dim);">${vc} × $100 $VVV &nbsp;·&nbsp; ${sc} × $10 stable &nbsp;·&nbsp; ${_wPool.length} remaining</span></div>${renderWTable(_wDraft)}<div style="margin-top:16px;display:flex;gap:10px;"><button onclick="adminConfirmWinners()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:12px 24px;cursor:pointer;border-radius:6px;">Confirm Winners</button><button onclick="adminPickWinners()" style="background:transparent;border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px;cursor:pointer;border-radius:6px;">Re-pick all</button></div>`; }
-async function adminDeleteWinner(dbId,prizeType,xHandle){ if(!dbId){ const idx=_wDraft.findIndex(w=>w.x_handle===xHandle&&w.prize_type===prizeType); if(idx!==-1){ if(_wPool.length===0){ _wDraft.splice(idx,1); } else { const r=_wPool.shift(); _wDraft[idx]={entry_id:r.id,x_handle:r.x_handle,telegram_handle:r.telegram_handle||'',evm_wallet:r.evm_wallet||'',proof_url:r.screenshot_url||'',prize_type:prizeType,is_replacement:true}; } renderWDraft(); } return; } if(!confirm(`Remove @${xHandle}?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=eq.${dbId}`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminLoadWinners(); }catch(e){alert('Error: '+e.message);} }
+async function adminDeleteWinner(dbId,prizeType,xHandle){ if(!dbId){ const idx=_wDraft.findIndex(w=>w.x_handle===xHandle&&w.prize_type===prizeType); if(idx!==-1){ if(_wPool.length===0){ _wDraft.splice(idx,1); } else { const r=_wPool.shift(); _wDraft[idx]={entry_id:r.id,x_handle:r.x_handle,venice_wallet:r.venice_wallet||'',upbit_id:r.upbit_id||'',proof_url:r.upbit_proof_url||'',prize_type:prizeType,is_replacement:true}; } renderWDraft(); } return; } if(!confirm(`Remove @${xHandle}?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=eq.${dbId}`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminLoadWinners(); }catch(e){alert('Error: '+e.message);} }
 async function adminConfirmWinners(){ if(!confirm(`Save ${_wDraft.length} winners?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?confirmed=eq.false`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const payload=_wDraft.map(w=>({entry_id:w.entry_id,x_handle:w.x_handle,prize_type:w.prize_type,is_replacement:w.is_replacement,confirmed:true})); const r=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners`,{method:'POST',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(payload)}); if(!r.ok) throw new Error(`HTTP ${r.status}`); _wDraft=[]; _wPool=[]; adminLoadWinners(); }catch(e){alert('Failed: '+e.message);} }
 async function adminClearWinners(){ if(!confirm('Delete all winners?')) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=gt.0`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); _wDraft=[]; _wPool=[]; adminLoadWinners(); }
 
