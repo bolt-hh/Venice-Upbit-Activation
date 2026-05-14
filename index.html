@@ -288,6 +288,7 @@ h1 .accent{color:var(--red);}
     <div class="nav-right">
       <div class="live-badge"><span class="live-dot"></span><span data-i18n="nav.live">Activation Live</span></div>
       <button class="icon-btn" id="themeToggle" aria-label="Toggle theme"><span id="themeIcon">☀️</span></button>
+      <button type="button" onclick="copyKoLink()" title="Copy Korean link" style="font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.06em;padding:5px 9px;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;border-radius:6px;transition:all 0.15s;margin-right:6px;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--dim)'" id="koLinkBtn">🔗 KO</button>
       <div class="lang-toggle" role="group" aria-label="Language">
         <button class="lang-btn active" data-lang="en" type="button">EN</button>
         <button class="lang-btn" data-lang="ko" type="button">한국어</button>
@@ -424,7 +425,7 @@ h1 .accent{color:var(--red);}
                 <!-- Slot 1: Trade confirmation -->
                 <div style="flex:1;min-width:0;">
                   <div class="proof-sample-wrap">
-                    <div class="proof-sample-label">Sample</div>
+                    <div class="proof-sample-label" data-i18n="proof.sample">Sample</div>
                     <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" target="_blank" rel="noopener noreferrer">
                       <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" alt="Sample trade confirmation" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'">
                     </a>
@@ -443,7 +444,7 @@ h1 .accent{color:var(--red);}
                 <!-- Slot 2: Account page -->
                 <div style="flex:1;min-width:0;">
                   <div class="proof-sample-wrap">
-                    <div class="proof-sample-label">Sample</div>
+                    <div class="proof-sample-label" data-i18n="proof.sample">Sample</div>
                     <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" target="_blank" rel="noopener noreferrer">
                       <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" alt="Sample account page" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'">
                     </a>
@@ -478,7 +479,7 @@ h1 .accent{color:var(--red);}
               </div>
               <!-- Sample: Venice profile -->
               <div class="proof-sample-wrap" style="padding:8px 8px 0;">
-                <div class="proof-sample-label">Sample</div>
+                <div class="proof-sample-label" data-i18n="proof.sample">Sample</div>
                 <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-venice-profile.jpg" target="_blank" rel="noopener noreferrer">
                   <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-venice-profile.jpg" alt="Sample Venice profile" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'" style="object-fit:contain;object-position:center;background:var(--bg-2);">
                 </a>
@@ -742,7 +743,7 @@ const I18N = {
     'proof.venice.l2':'Username must be clearly visible',
     'proof.venice.l3':'Visit venice.ai/chat after signing up',
     'proof.upload':'Click to upload',
-    'form.note':'Stablecoin prizes are sent directly to your submitted EVM wallet.',
+    'proof.sample':'Sample','form.note':'Stablecoin prizes are sent directly to your submitted EVM wallet.',
     'form.submit':'Submit My Entry',
     'closed.title':'Entries Closed','closed.body':'The submission window has ended. Keep an eye on the Venice community channels for winner announcements.',
     'success.title':'Entry Received','success.body':'Your proof has been submitted. Winners will be contacted via X DM. Good luck.',
@@ -786,7 +787,7 @@ const I18N = {
     'proof.venice.l2':'사용자 이름이 명확하게 보여야 함',
     'proof.venice.l3':'가입 후 venice.ai/chat 방문',
     'proof.upload':'클릭하여 업로드',
-    'form.note':'스테이블코인 상금은 제출한 EVM 지갑 주소로 직접 지급됩니다.',
+    'proof.sample':'샘플','form.note':'스테이블코인 상금은 제출한 EVM 지갑 주소로 직접 지급됩니다.',
     'form.submit':'참여 신청하기',
     'closed.title':'참여 접수 마감','closed.body':'제출 기간이 종료되었습니다. Venice 커뮤니티 채널에서 당첨자 발표를 확인해 주세요.',
     'success.title':'참여 완료','success.body':'제출 완료! 당첨자는 X DM으로 개별 연락드립니다. 행운을 빌어요 🎉',
@@ -1101,6 +1102,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
   loadCountdown();
   loadEntriesStatus();
   if (window.location.hash === '#admin') showAdminPanel();
+
+function copyKoLink(){
+  const url = window.location.origin + window.location.pathname + '?lang=ko';
+  navigator.clipboard.writeText(url).then(()=>{
+    const btn = document.getElementById('koLinkBtn');
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copied!';
+    btn.style.color = 'var(--red)';
+    setTimeout(()=>{ btn.textContent = orig; btn.style.color = ''; }, 2000);
+  }).catch(()=>{ prompt('Korean link:', url); });
+}
   const pw = $('adminPwInput');
   if (pw) pw.addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
 });
