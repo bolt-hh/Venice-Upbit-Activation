@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -686,7 +686,7 @@ function applyTheme(dark){
   localStorage.setItem('venice-theme', dark ? 'dark' : 'light');
 }
 const savedTheme = localStorage.getItem('venice-theme');
-if (savedTheme) applyTheme(savedTheme === 'dark');
+applyTheme(savedTheme ? savedTheme === 'dark' : false); // default: light
 document.getElementById('themeToggle').addEventListener('click', ()=>applyTheme(!isDark));
 
 // ============================================================
