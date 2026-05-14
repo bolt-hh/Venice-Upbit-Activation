@@ -11,9 +11,6 @@
 <meta name="theme-color" content="#0A0806">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23DD3300'/%3E%3Ctext x='32' y='44' font-family='serif' font-size='40' font-style='italic' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Pinyon+Script&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <style>
 /* ===== THEME TOKENS ===== */
 :root[data-theme="dark"]{
@@ -351,7 +348,7 @@ h1 .accent{color:var(--red);}
           </div>
 
           <div class="form-field">
-            <label class="form-label" for="sf-venice_wallet" data-i18n="field.venice_wallet">Venice Wallet Address</label>
+            <label class="form-label" for="sf-venice_wallet" data-i18n="field.venice_wallet">EVM Wallet Address</label>
             <input id="sf-venice_wallet" class="form-input" type="text" placeholder="0x..." autocomplete="off">
           </div>
           <div class="form-field">
@@ -486,6 +483,18 @@ h1 .accent{color:var(--red);}
         <div class="state-icon" style="font-family:'Pinyon Script',cursive;font-size:64px;color:var(--red);margin-bottom:4px;">✓</div>
         <div class="state-title" data-i18n="success.title">Entry Received</div>
         <div class="state-body" data-i18n="success.body">Your proof has been submitted. Winners will be contacted via X DM. Good luck.</div>
+        <!-- Entry reference -->
+        <div style="margin:16px auto 4px;max-width:420px;padding:10px 18px;background:rgba(221,51,0,0.06);border:1px solid var(--border-red);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.08em;">
+          <span style="color:var(--dim);">REF</span>&nbsp;<span id="sf-entry-ref" style="color:var(--cream);font-weight:700;letter-spacing:0.18em;"></span>
+          &nbsp;·&nbsp;<span id="sf-entry-time" style="color:var(--sub);"></span>
+        </div>
+        <!-- Share on X -->
+        <div style="margin:16px 0 8px;">
+          <a id="sf-tweet-btn" href="#" target="_blank" rel="noopener noreferrer" onclick="trackClick('share','success')" style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;padding:10px 20px;border-radius:8px;text-decoration:none;background:#000;color:#fff;border:1px solid rgba(255,255,255,0.14);transition:opacity 0.2s;" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">
+            <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px;flex-shrink:0;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.737-8.835L1.254 2.25H8.08l4.259 5.635L18.243 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            Share on X
+          </a>
+        </div>
         <div class="eco-links">
           <a href="https://venice.ai/chat" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('chat','success')">Try Venice Chat</a>
           <a href="https://venice.ai/image" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('image','success')">Image Generation</a>
@@ -542,52 +551,6 @@ h1 .accent{color:var(--red);}
   </div>
 </div>
 
-<!-- ===== TWEAKS ROOT ===== -->
-<div id="tweaks-root"></div>
-
-<!-- ===== TWEAKS PANEL (React) ===== -->
-<script type="text/babel" src="tweaks-panel.jsx"></script>
-<script type="text/babel">
-const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "particles": true,
-  "particleDensity": 95,
-  "particleSize": 3.5,
-  "particleSpeed": 0.45,
-  "particleColor": "mixed",
-  "particleGlow": true,
-  "bgGlow": true,
-  "bgGrid": true
-}/*EDITMODE-END*/;
-
-function TweaksApp() {
-  const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
-
-  React.useEffect(() => {
-    window.TWEAKS = tweaks;
-    if (window.onTweaksChange) window.onTweaksChange(tweaks);
-  }, [tweaks]);
-
-  return (
-    React.createElement(TweaksPanel, null,
-      React.createElement(TweakSection, {title:"Background"},
-        React.createElement(TweakToggle, {id:"particles", label:"Floating Particles", value:tweaks.particles, onChange:v=>setTweak('particles',v)}),
-        React.createElement(TweakToggle, {id:"bgGlow", label:"Radial Glow", value:tweaks.bgGlow, onChange:v=>setTweak('bgGlow',v)}),
-        React.createElement(TweakToggle, {id:"bgGrid", label:"Dot Grid", value:tweaks.bgGrid, onChange:v=>setTweak('bgGrid',v)})
-      ),
-      tweaks.particles && React.createElement(TweakSection, {title:"Particles"},
-        React.createElement(TweakSlider, {id:"particleDensity", label:"Density", value:tweaks.particleDensity, min:10, max:150, step:5, onChange:v=>setTweak('particleDensity',v)}),
-        React.createElement(TweakSlider, {id:"particleSize", label:"Size", value:tweaks.particleSize, min:0.5, max:8, step:0.5, onChange:v=>setTweak('particleSize',v)}),
-        React.createElement(TweakSlider, {id:"particleSpeed", label:"Speed", value:tweaks.particleSpeed, min:0.05, max:2.0, step:0.05, onChange:v=>setTweak('particleSpeed',v)}),
-        React.createElement(TweakRadio, {id:"particleColor", label:"Color", value:tweaks.particleColor, options:['red','cream','mixed'], onChange:v=>setTweak('particleColor',v)}),
-        React.createElement(TweakToggle, {id:"particleGlow", label:"Glow Effect", value:tweaks.particleGlow, onChange:v=>setTweak('particleGlow',v)})
-      )
-    )
-  );
-}
-
-const tweaksRoot = ReactDOM.createRoot(document.getElementById('tweaks-root'));
-tweaksRoot.render(React.createElement(TweaksApp));
-</script>
 
 <!-- ===== MAIN JS ===== -->
 <script>
@@ -596,11 +559,11 @@ tweaksRoot.render(React.createElement(TweaksApp));
 // ============================================================
 const SUPABASE_URL         = 'https://nhdktvsllunlgdsaninx.supabase.co';
 const SUPABASE_ANON_KEY    = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oZGt0dnNsbHVubGdkc2FuaW54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4NTIxMjgsImV4cCI6MjA5MTQyODEyOH0.GUFMjeDdphFeFp84jkeAtJNLX6-pi7KppEBdfDGXkhM';
-const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oZGt0dnNsbHVubGdkc2FuaW54Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NTg1MjEyOCwiZXhwIjoyMDkxNDI4MTI4fQ.6o4f2Auz7kIwi1BvTMj9ztC5kQgqN_AXGNsmU1a_7ww';
+const _SKEY_ENC            = 'ad2ee2d366948df8c6c716b6f2e5762fce49a9df8ca56b1e89663d58e01eea4d9e14e2822ab697dbf9cd6fb2ced05654fa44b8eead92546d907f2727da3cf45fa40dc1f2329a83a4e6f41b8b97fb5150f342a8fab0a97e4f81464628dc14cd20fc1ec1cc6db083a8faf40fb691d65150ec438ef6b5920b7d8c461957da2fc95cbb1ec5d76cb7add8bfe3089c94d16b79b16d8ae9bc847a5c837f2c06de3cf07ab11aecd07c9daad8bde308b693f96e30b64fd4caf78a4c51dd4e3d19c044d8639c1ac2827ea7ada4e2ff3b8ee9c07e46c76e93c190fa5874dd5203'; // XOR-encoded; decoded at admin login
+let _adminServiceKey       = ''; // populated only after successful admin auth
 const R2_UPLOAD_ENDPOINT   = 'https://solitary-dew-b048fogo-pfp-upload.bolt-0a8.workers.dev';
 const R2_PUBLIC_BASE_URL   = 'https://pub-a7954b786d394847a17127d1cf278881.r2.dev';
 const ADMIN_PASSWORD_HASH  = 'c857a8bb04d3ee9189ae5cffa79f3f1e8020e0acc5cb392bea25746ea9759a15';
-// DB: venice_entries columns: x_handle, venice_wallet, upbit_id, upbit_proof_url, venice_proof_url, kol_name
 
 // ============================================================
 // PARTICLE SYSTEM
@@ -619,7 +582,7 @@ const PALETTE = {
 function resizeCanvas(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
 
 function makeParticle(){
-  const t = window.TWEAKS || {particleSize:2.5,particleSpeed:0.45,particleColor:'red'};
+  const t = {particleSize:3.5,particleSpeed:0.45,particleColor:'mixed',particleGlow:true};
   const pal = PALETTE[t.particleColor] || PALETTE.red;
   const angle = Math.random() * Math.PI * 2;
   const speed = (Math.random() * 0.6 + 0.2) * t.particleSpeed;
@@ -636,14 +599,13 @@ function makeParticle(){
 }
 
 function initParticles(){
-  const t = window.TWEAKS || {particleDensity:55};
+  const t = {particleDensity:95};
   particles = Array.from({length: t.particleDensity}, makeParticle);
 }
 
 function drawParticles(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const t = window.TWEAKS || {};
-  if (!t.particles) { _animFrame = requestAnimationFrame(drawParticles); return; }
+  const t = {particles:true,particleGlow:true};
 
   const now = Date.now() * 0.001;
   particles.forEach(p => {
@@ -668,17 +630,6 @@ function drawParticles(){
   _animFrame = requestAnimationFrame(drawParticles);
 }
 
-window.onTweaksChange = function(t){
-  // Rebuild if density drifted
-  if (Math.abs(particles.length - t.particleDensity) > 8) initParticles();
-  // Update bg elements
-  const m1 = document.getElementById('bgMesh1');
-  const m2 = document.getElementById('bgMesh2');
-  const g  = document.getElementById('bgGrid');
-  if (m1) m1.style.opacity = t.bgGlow ? '1' : '0';
-  if (m2) m2.style.opacity = t.bgGlow ? '1' : '0';
-  if (g)  g.style.opacity  = t.bgGrid ? '1' : '0';
-};
 
 window.addEventListener('resize', ()=>{ resizeCanvas(); initParticles(); });
 resizeCanvas();
@@ -722,7 +673,7 @@ const I18N = {
     'prize.cd.label':'Entries close in',
     'form.section.label':'Enter the Prize Pool','form.section.title':'Submit your proof',
     'form.section.sub':'Fill in your details and upload both screenshots to qualify',
-    'field.x':'X / Twitter Handle','field.venice_wallet':'Venice Wallet Address (used to sign in)','field.upbit_id':'Upbit User ID',
+    'field.x':'X / Twitter Handle','field.venice_wallet':'EVM Wallet Address','field.upbit_id':'Upbit User ID',
     'field.kol':'Which KOL channel brought you here?','field.kol.placeholder':'@kol_handle',
     'field.confirm':'I confirm that both screenshots are authentic and belong to me.',
     'proof.upbit.title':'$VVV Purchase Proof','proof.venice.title':'Venice Sign-up Proof',
@@ -766,7 +717,7 @@ const I18N = {
     'prize.cd.label':'마감까지',
     'form.section.label':'상금 풀 참여','form.section.title':'증거 제출',
     'form.section.sub':'정보를 입력하고 두 스크린샷을 업로드하여 자격을 갖추세요',
-    'field.x':'X / 트위터 핸들','field.venice_wallet':'Venice 지갑 주소 (로그인에 사용)','field.upbit_id':'Upbit 사용자 ID',
+    'field.x':'X / 트위터 핸들','field.venice_wallet':'EVM 지갑 주소','field.upbit_id':'Upbit 사용자 ID',
     'field.kol':'어느 KOL 채널에서 오셨나요?','field.kol.placeholder':'@kol_계정명',
     'field.confirm':'두 스크린샷이 진짜이며 저의 것임을 확인합니다.',
     'proof.upbit.title':'$VVV 구매 증거','proof.venice.title':'Venice 가입 증거',
@@ -841,60 +792,99 @@ function sfClearError(){ const el=document.getElementById('sf-error'); el.textCo
 
 async function submitEntry(){
   sfClearError();
-  const xHandle   = document.getElementById('sf-x_handle')?.value.trim();
+  const xHandle      = document.getElementById('sf-x_handle')?.value.trim();
   const veniceWallet = document.getElementById('sf-venice_wallet')?.value.trim();
   const upbitId      = document.getElementById('sf-upbit_id')?.value.trim();
-  const kolName   = document.getElementById('sf-kol')?.value;
-  const confirmed = document.getElementById('sf-confirm')?.checked;
-  const upbitFile   = proofFiles.upbit;
-  const veniceFile  = proofFiles.venice;
+  const kolName      = document.getElementById('sf-kol')?.value;
+  const confirmed    = document.getElementById('sf-confirm')?.checked;
+  const upbitFile    = proofFiles.upbit;
+  const veniceFile   = proofFiles.venice;
   const _d = I18N[currentLang] || I18N.en;
   const _t = k => _d[k] || I18N.en[k] || k;
 
-  if (!xHandle)       return sfShowError(_t('err.x'));
-  if (!veniceWallet)  return sfShowError(_t('err.venice_wallet'));
-  if (!upbitId)        return sfShowError(_t('err.upbit_id'));
-  if (!upbitFile)      return sfShowError(_t('err.upbit'));
-  if (upbitFile.size > 2*1024*1024) return sfShowError(_t('err.filesize'));
-  if (!veniceFile)                return sfShowError(_t('err.venice'));
-  if (veniceFile.size > 2*1024*1024) return sfShowError(_t('err.filesize'));
-  if (!confirmed)                 return sfShowError(_t('err.confirm'));
-  if (!kolName)                   return sfShowError(_t('err.kol'));
+  if (!xHandle)                          return sfShowError(_t('err.x'));
+  if (!veniceWallet)                     return sfShowError(_t('err.venice_wallet'));
+  if (!upbitId)                          return sfShowError(_t('err.upbit_id'));
+  if (!upbitFile)                        return sfShowError(_t('err.upbit'));
+  if (upbitFile.size > 2*1024*1024)      return sfShowError(_t('err.filesize'));
+  if (!veniceFile)                       return sfShowError(_t('err.venice'));
+  if (veniceFile.size > 2*1024*1024)     return sfShowError(_t('err.filesize'));
+  if (!confirmed)                        return sfShowError(_t('err.confirm'));
+  if (!kolName)                          return sfShowError(_t('err.kol'));
 
-  const btn = document.getElementById('sf-btn');
-  btn.disabled = true;
-  btn.querySelector('span').textContent = _t('btn.submitting');
+  const btn     = document.getElementById('sf-btn');
+  const btnSpan = btn.querySelector('span');
+  btn.disabled  = true;
 
   try {
-    // Upload upbit proof
+    // ── Duplicate wallet check (best-effort; unique DB constraint is the real guard) ──
+    btnSpan.textContent = currentLang==='ko' ? '중복 확인 중…' : 'Checking…';
+    try {
+      const dc = await fetch(
+        `${SUPABASE_URL}/rest/v1/venice_entries?venice_wallet=eq.${encodeURIComponent(veniceWallet)}&select=id&limit=1`,
+        {headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`}}
+      );
+      if (dc.ok) {
+        const dd = await dc.json();
+        if (Array.isArray(dd) && dd.length > 0)
+          throw new Error(currentLang==='ko'
+            ? '이 지갑은 이미 참여했습니다. 지갑당 1회만 제출 가능합니다.'
+            : 'This wallet has already been entered. Each wallet can only submit once.');
+      }
+    } catch(dupErr) {
+      if (dupErr.message.includes('wallet')||dupErr.message.includes('지갑')) throw dupErr;
+      // RLS blocked the SELECT — proceed; DB unique constraint will catch real dupes
+    }
+
+    // ── Upload Upbit proof ──
+    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (1/2)…' : 'Uploading proof (1/2)…';
     const upbitName = `venice-upbit-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
     const ur = await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitName}`,{method:'PUT',headers:{'Content-Type':upbitFile.type||'image/png'},body:upbitFile});
     if (!ur.ok) throw new Error(_t('err.upload'));
     const upbitUrl = `${R2_PUBLIC_BASE_URL}/${upbitName}`;
 
-    // Upload venice proof
+    // ── Upload Venice proof ──
+    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (2/2)…' : 'Uploading proof (2/2)…';
     const veniceName = `venice-signup-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
     const vr = await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceName}`,{method:'PUT',headers:{'Content-Type':veniceFile.type||'image/png'},body:veniceFile});
     if (!vr.ok) throw new Error(_t('err.upload'));
     const veniceUrl = `${R2_PUBLIC_BASE_URL}/${veniceName}`;
 
-    // Save to Supabase
-    // NOTE: entries table needs: x_handle, telegram_handle, evm_wallet, upbit_proof_url, venice_proof_url, kol_name
-    // Use screenshot_url for upbit and frame_used for venice (if adding columns isn't possible yet)
+    // ── Save to Supabase ──
+    btnSpan.textContent = currentLang==='ko' ? '저장 중…' : 'Saving entry…';
     const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/venice_entries`,{
       method:'POST',
       headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},
       body: JSON.stringify({x_handle:xHandle,venice_wallet:veniceWallet,upbit_id:upbitId,upbit_proof_url:upbitUrl,venice_proof_url:veniceUrl,kol_name:kolName})
     });
-    if (!supaRes.ok) throw new Error(_t('err.save'));
+    if (!supaRes.ok) {
+      const errBody = await supaRes.json().catch(()=>({}));
+      if (errBody.code==='23505') throw new Error(currentLang==='ko'
+        ? '이미 제출된 항목입니다. 지갑당 1회만 제출할 수 있습니다.'
+        : 'Duplicate entry detected. Each wallet can only submit once.');
+      throw new Error(_t('err.save'));
+    }
 
-    document.getElementById('formWrap').style.display = 'none';
+    // ── Populate success state with reference ──
+    const refId   = 'VNK-' + Date.now().toString(36).toUpperCase().slice(-7);
+    const refTime = new Date().toLocaleString(currentLang==='ko'?'ko-KR':'en-US',
+      {month:'short',day:'numeric',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    const refEl  = document.getElementById('sf-entry-ref');
+    const timeEl = document.getElementById('sf-entry-time');
+    if (refEl)  refEl.textContent  = refId;
+    if (timeEl) timeEl.textContent = refTime;
+    const tweetText = encodeURIComponent(
+      'Just entered the @Venice_ai Korea prize pool — 100 winners, buy $VVV on Upbit to enter: https://venice-upbit-activation.vercel.app');
+    const tweetBtn = document.getElementById('sf-tweet-btn');
+    if (tweetBtn) tweetBtn.href = `https://twitter.com/intent/tweet?text=${tweetText}`;
+
+    document.getElementById('formWrap').style.display  = 'none';
     document.getElementById('sf-success').style.display = 'block';
 
   } catch(err){
     sfShowError(err.message || _t('err.generic'));
     btn.disabled = false;
-    btn.querySelector('span').textContent = _t('form.submit');
+    btnSpan.textContent = _t('form.submit');
   }
 }
 
@@ -972,7 +962,13 @@ async function adminLogin(){
   const enc=new TextEncoder().encode(pw);
   const buf=await crypto.subtle.digest('SHA-256',enc);
   const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-  if(hex===ADMIN_PASSWORD_HASH){ $('adminGate').style.display='none'; $('adminUI').style.display='block'; adminTab('dashboard'); adminLoadDashboard(); startAdminAutoRefresh(); adminLoadEntries(); adminLoadKols(); adminLoadClicks(); adminLoadWinners(); adminLoadEntriesStatus(); }
+  if(hex===ADMIN_PASSWORD_HASH){
+    // Decode service key: XOR stored bytes with password hash bytes
+    const hb=new Uint8Array(buf);
+    const eb=new Uint8Array(_SKEY_ENC.match(/.{2}/g).map(b=>parseInt(b,16)));
+    _adminServiceKey=new TextDecoder().decode(eb.map((b,i)=>b^hb[i%hb.length]));
+    $('adminGate').style.display='none'; $('adminUI').style.display='block'; adminTab('dashboard'); adminLoadDashboard(); startAdminAutoRefresh(); adminLoadEntries(); adminLoadKols(); adminLoadClicks(); adminLoadWinners(); adminLoadEntriesStatus();
+  }
   else{ $('adminPwError').textContent='Incorrect password.'; $('adminPwInput').value=''; }
 }
 function closeAdmin(){ $('adminOverlay').style.display='none'; history.replaceState(null,'',window.location.pathname); }
@@ -982,10 +978,10 @@ let adminSelIds=new Set();
 function adminUpdateSel(){ const b=$('adminDeleteSelectedBtn'),c=$('adminSelectedCount'); if(b) b.classList.toggle('visible',adminSelIds.size>0); if(c) c.textContent=adminSelIds.size; }
 function adminToggleRow(id,checked){ checked?adminSelIds.add(id):adminSelIds.delete(id); adminUpdateSel(); }
 function adminToggleAll(checked){ adminEntries.forEach(e=>checked?adminSelIds.add(e.id):adminSelIds.delete(e.id)); document.querySelectorAll('.admin-row-cb').forEach(cb=>cb.checked=checked); adminUpdateSel(); }
-async function adminDeleteSelected(){ if(!adminSelIds.size) return; if(!confirm(`Delete ${adminSelIds.size} entries?`)) return; for(const id of Array.from(adminSelIds)) await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?id=eq.${id}`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminSelIds.clear(); adminUpdateSel(); await adminLoadEntries(); }
+async function adminDeleteSelected(){ if(!adminSelIds.size) return; if(!confirm(`Delete ${adminSelIds.size} entries?`)) return; for(const id of Array.from(adminSelIds)) await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?id=eq.${id}`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); adminSelIds.clear(); adminUpdateSel(); await adminLoadEntries(); }
 
 async function adminLoadEntries(){
-  const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=*&order=submitted_at.desc`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}});
+  const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=*&order=submitted_at.desc`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}});
   adminEntries=await res.json(); adminSelIds.clear(); adminUpdateSel();
   const cols=['x_handle','venice_wallet','upbit_id','kol_name','upbit_proof_url','venice_proof_url','submitted_at'];
   const heads=`<th><input type="checkbox" onchange="adminToggleAll(this.checked)"></th>`+cols.map(c=>`<th>${c==='upbit_proof_url'?'upbit_proof':c==='venice_proof_url'?'venice_proof':c}</th>`).join('');
@@ -997,30 +993,30 @@ function adminExportCSV(){ if(!adminEntries.length) return alert('No entries.');
 
 async function adminDownloadZip(){ if(!adminEntries.length) return alert('No entries.'); if(typeof JSZip==='undefined'){ await new Promise((res,rej)=>{ const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); } const zip=new JSZip().folder('venice-proofs'); const prog=document.createElement('div'); prog.style.cssText='font-family:JetBrains Mono,monospace;font-size:11px;color:var(--red);margin-bottom:12px;'; $('adminEntriesTable').prepend(prog); for(const e of adminEntries){ try{ const upbitKey=e.upbit_proof_url?.replace(R2_PUBLIC_BASE_URL+'/',''); const veniceKey=e.venice_proof_url?.replace(R2_PUBLIC_BASE_URL+'/',''); if(upbitKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitKey}`)).blob(); zip.file(`${e.x_handle||e.id}-upbit.${b.type.includes('png')?'png':'jpg'}`,b); } if(veniceKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceKey}`)).blob(); zip.file(`${e.x_handle||e.id}-venice.${b.type.includes('png')?'png':'jpg'}`,b); } }catch(err){} prog.textContent=`Preparing: ${adminEntries.indexOf(e)+1}/${adminEntries.length}`; } const a=document.createElement('a'); a.href=URL.createObjectURL(await zip.generateAsync({type:'blob'})); a.download=`venice-proofs-${new Date().toISOString().slice(0,10)}.zip`; a.click(); prog.remove(); }
 
-async function adminLoadKols(){ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list?select=id,name&order=name`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminKols=await res.json(); $('adminKolsList').innerHTML=adminKols.map(k=>`<div class="admin-row-item"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sub);">${k.name}</span><button class="admin-del-btn" onclick="adminDeleteKol(${k.id})">Remove</button></div>`).join(''); }
-async function adminAddKol(){ const name=$('adminNewKol').value.trim(); if(!name) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list`,{method:'POST',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({name})}); $('adminNewKol').value=''; adminLoadKols(); const m=$('adminKolsMsg'); m.textContent=`"${name}" added.`; setTimeout(()=>{ m.textContent=''; },2000); }
-async function adminDeleteKol(id){ await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list?id=eq.${id}`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminLoadKols(); }
+async function adminLoadKols(){ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list?select=id,name&order=name`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); adminKols=await res.json(); $('adminKolsList').innerHTML=adminKols.map(k=>`<div class="admin-row-item"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sub);">${k.name}</span><button class="admin-del-btn" onclick="adminDeleteKol(${k.id})">Remove</button></div>`).join(''); }
+async function adminAddKol(){ const name=$('adminNewKol').value.trim(); if(!name) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list`,{method:'POST',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({name})}); $('adminNewKol').value=''; adminLoadKols(); const m=$('adminKolsMsg'); m.textContent=`"${name}" added.`; setTimeout(()=>{ m.textContent=''; },2000); }
+async function adminDeleteKol(id){ await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list?id=eq.${id}`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); adminLoadKols(); }
 
 async function adminLoadClicks(){ try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_link_clicks?select=product,source`,{headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`}}); const data=await res.json(); if(!Array.isArray(data)) throw new Error(); const map={}; data.forEach(r=>{ if(!map[r.product]) map[r.product]={ticker:0,success:0,hero:0,step:0}; if(map[r.product][r.source]!==undefined) map[r.product][r.source]++; }); const total=data.length; const rows=Object.entries(map).sort((a,b)=>Object.values(b[1]).reduce((x,y)=>x+y,0)-Object.values(a[1]).reduce((x,y)=>x+y,0)).map(([p,c])=>{ const tot=Object.values(c).reduce((x,y)=>x+y,0); return `<tr><td style="font-weight:600;color:var(--cream);text-transform:capitalize;">${p}</td><td>${c.ticker||0}</td><td>${c.hero||0}</td><td>${c.step||0}</td><td>${c.success||0}</td><td style="color:var(--red);font-weight:700;">${tot}</td></tr>`; }).join(''); $('adminClicksTable').innerHTML=`<table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px;"><thead><tr style="border-bottom:1px solid var(--border);">${['Product','Ticker','Hero','Step','Post-form','Total'].map(h=>`<th style="text-align:left;padding:10px 12px;color:var(--dim);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;">${h}</th>`).join('')}</tr></thead><tbody>${rows}<tr style="border-top:1px solid var(--border);"><td colspan="5" style="padding:10px 12px;color:var(--dim);font-size:10px;">All clicks</td><td style="padding:10px 12px;color:var(--red);font-weight:700;font-size:14px;">${total}</td></tr></tbody></table>`; }catch(e){ $('adminClicksTable').innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);padding:16px;">No click data yet.</div>`; } }
 
 // Winners
 let _wDraft=[],_wPool=[];
-async function adminLoadWinners(){ try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?select=id,entry_id,x_handle,prize_type,is_replacement,confirmed,selected_at&order=prize_type,selected_at`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const data=await res.json(); const c=$('adminWinnersContent'); if(!c) return; if(Array.isArray(data)&&data.length>0){ const ids=data.map(w=>w.entry_id).filter(Boolean).join(','); let em={}; if(ids){ const er=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,venice_wallet,upbit_id,upbit_proof_url&id=in.(${ids})`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const ed=await er.json(); if(Array.isArray(ed)) ed.forEach(e=>{em[e.id]=e;}); } const en=data.map(w=>({...w,venice_wallet:em[w.entry_id]?.venice_wallet||'',upbit_id:em[w.entry_id]?.upbit_id||'',proof_url:em[w.entry_id]?.upbit_proof_url||''})); renderWinnersConfirmed(en,c); } else { c.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);padding:16px 0;">No winners selected yet.</div>`; } }catch(e){} }
+async function adminLoadWinners(){ try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?select=id,entry_id,x_handle,prize_type,is_replacement,confirmed,selected_at&order=prize_type,selected_at`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const data=await res.json(); const c=$('adminWinnersContent'); if(!c) return; if(Array.isArray(data)&&data.length>0){ const ids=data.map(w=>w.entry_id).filter(Boolean).join(','); let em={}; if(ids){ const er=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,venice_wallet,upbit_id,upbit_proof_url&id=in.(${ids})`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const ed=await er.json(); if(Array.isArray(ed)) ed.forEach(e=>{em[e.id]=e;}); } const en=data.map(w=>({...w,venice_wallet:em[w.entry_id]?.venice_wallet||'',upbit_id:em[w.entry_id]?.upbit_id||'',proof_url:em[w.entry_id]?.upbit_proof_url||''})); renderWinnersConfirmed(en,c); } else { c.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);padding:16px 0;">No winners selected yet.</div>`; } }catch(e){} }
 function renderWinnersConfirmed(data,c){ const st=data.filter(w=>w.prize_type==='stable_10'),vv=data.filter(w=>w.prize_type==='vvv_100'); c.innerHTML=`<div style="margin-bottom:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);">✓ ${st.length} × $10 stable &nbsp;·&nbsp; ${vv.length} × $100 $VVV</div><button onclick='adminExportWinnersCSV(${JSON.stringify(data)})' style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:7px 14px;cursor:pointer;border-radius:4px;">↓ Export CSV</button><button onclick="adminClearWinners()" style="background:transparent;border:1px solid var(--border);color:var(--red);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 12px;cursor:pointer;border-radius:4px;">Reset</button></div>${renderWTable(data)}`; }
 function adminExportWinnersCSV(data){ const h=['#','x_handle','venice_wallet','upbit_id','prize_type','proof_url','is_replacement','selected_at']; const rows=data.map((w,i)=>[i+1,`@${w.x_handle}`,w.venice_wallet||'',w.upbit_id||'',w.prize_type,w.proof_url||'',w.is_replacement?'yes':'no',w.selected_at?new Date(w.selected_at).toLocaleString():'']); const csv=[h,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-winners-${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
 function renderWTable(rows){ const pl=t=>t==='vvv_100'?`<span style="color:var(--red);">$100 $VVV</span>`:`<span style="color:var(--red);opacity:0.7;">$10 Stable</span>`; const trs=rows.map((w,i)=>{ const pf=w.proof_url?`<a href="${w.proof_url}" target="_blank" style="color:var(--red);font-size:9px;border:1px solid var(--border-red);padding:2px 7px;border-radius:3px;text-decoration:none;">View</a>`:'—'; return `<tr><td style="padding:9px 12px;color:var(--dim);font-size:10px;">${i+1}</td><td style="padding:9px 12px;color:var(--cream);font-weight:600;">@${w.x_handle}</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">${w.venice_wallet?w.venice_wallet.slice(0,6)+'…'+w.venice_wallet.slice(-4):'—'}</td><td style="padding:9px 12px;color:var(--sub);">${w.upbit_id||'—'}</td><td style="padding:9px 12px;">${pl(w.prize_type)}</td><td style="padding:9px 12px;">${pf}</td><td style="padding:9px 12px;"><button class="winner-del-btn" onclick="adminDeleteWinner(${w.id||'null'},'${w.prize_type}','${w.x_handle}')">Remove</button></td></tr>`; }).join(''); return `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px;"><thead><tr style="border-bottom:1px solid var(--border);">${['#','X Handle','Venice Wallet','Upbit ID','Prize','Proof',''].map(h=>`<th style="text-align:left;padding:8px 12px;color:var(--dim);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;">${h}</th>`).join('')}</tr></thead><tbody>${trs}</tbody></table></div>`; }
-async function adminPickWinners(){ const btn=$('adminPickBtn'); if(btn){btn.disabled=true;btn.textContent='Selecting…';} try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,venice_wallet,upbit_id,upbit_proof_url`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const entries=await res.json(); if(!Array.isArray(entries)||!entries.length){alert('No entries found.');if(btn){btn.disabled=false;btn.textContent='Select Winners';}return;} const sh=[...entries].sort(()=>Math.random()-0.5); const vc=Math.min(5,sh.length),sc=Math.min(100,sh.length-vc); _wDraft=[...sh.slice(0,vc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.upbit_proof_url,prize_type:'vvv_100',is_replacement:false})),...sh.slice(vc,vc+sc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.upbit_proof_url,prize_type:'stable_10',is_replacement:false}))]; _wPool=sh.slice(vc+sc); renderWDraft(); }catch(e){alert('Failed: '+e.message);} if(btn){btn.disabled=false;btn.textContent='Re-pick';} }
+async function adminPickWinners(){ const btn=$('adminPickBtn'); if(btn){btn.disabled=true;btn.textContent='Selecting…';} try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,venice_wallet,upbit_id,upbit_proof_url`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const entries=await res.json(); if(!Array.isArray(entries)||!entries.length){alert('No entries found.');if(btn){btn.disabled=false;btn.textContent='Select Winners';}return;} const sh=[...entries].sort(()=>Math.random()-0.5); const vc=Math.min(5,sh.length),sc=Math.min(100,sh.length-vc); _wDraft=[...sh.slice(0,vc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.upbit_proof_url,prize_type:'vvv_100',is_replacement:false})),...sh.slice(vc,vc+sc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.upbit_proof_url,prize_type:'stable_10',is_replacement:false}))]; _wPool=sh.slice(vc+sc); renderWDraft(); }catch(e){alert('Failed: '+e.message);} if(btn){btn.disabled=false;btn.textContent='Re-pick';} }
 function renderWDraft(){ const c=$('adminWinnersContent'); if(!c) return; const sc=_wDraft.filter(w=>w.prize_type==='stable_10').length,vc=_wDraft.filter(w=>w.prize_type==='vvv_100').length; c.innerHTML=`<div style="margin-bottom:16px;padding:12px 16px;background:rgba(221,51,0,0.06);border:1px solid var(--border);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">⚠ Draft — not confirmed. Click <strong style="color:var(--red);">Confirm Winners</strong> to save.<br><span style="color:var(--dim);">${vc} × $100 $VVV &nbsp;·&nbsp; ${sc} × $10 stable &nbsp;·&nbsp; ${_wPool.length} remaining</span></div>${renderWTable(_wDraft)}<div style="margin-top:16px;display:flex;gap:10px;"><button onclick="adminConfirmWinners()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:12px 24px;cursor:pointer;border-radius:6px;">Confirm Winners</button><button onclick="adminPickWinners()" style="background:transparent;border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px;cursor:pointer;border-radius:6px;">Re-pick all</button></div>`; }
-async function adminDeleteWinner(dbId,prizeType,xHandle){ if(!dbId){ const idx=_wDraft.findIndex(w=>w.x_handle===xHandle&&w.prize_type===prizeType); if(idx!==-1){ if(_wPool.length===0){ _wDraft.splice(idx,1); } else { const r=_wPool.shift(); _wDraft[idx]={entry_id:r.id,x_handle:r.x_handle,venice_wallet:r.venice_wallet||'',upbit_id:r.upbit_id||'',proof_url:r.upbit_proof_url||'',prize_type:prizeType,is_replacement:true}; } renderWDraft(); } return; } if(!confirm(`Remove @${xHandle}?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=eq.${dbId}`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); adminLoadWinners(); }catch(e){alert('Error: '+e.message);} }
-async function adminConfirmWinners(){ if(!confirm(`Save ${_wDraft.length} winners?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?confirmed=eq.false`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); const payload=_wDraft.map(w=>({entry_id:w.entry_id,x_handle:w.x_handle,prize_type:w.prize_type,is_replacement:w.is_replacement,confirmed:true})); const r=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners`,{method:'POST',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(payload)}); if(!r.ok) throw new Error(`HTTP ${r.status}`); _wDraft=[]; _wPool=[]; adminLoadWinners(); }catch(e){alert('Failed: '+e.message);} }
-async function adminClearWinners(){ if(!confirm('Delete all winners?')) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=gt.0`,{method:'DELETE',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}); _wDraft=[]; _wPool=[]; adminLoadWinners(); }
+async function adminDeleteWinner(dbId,prizeType,xHandle){ if(!dbId){ const idx=_wDraft.findIndex(w=>w.x_handle===xHandle&&w.prize_type===prizeType); if(idx!==-1){ if(_wPool.length===0){ _wDraft.splice(idx,1); } else { const r=_wPool.shift(); _wDraft[idx]={entry_id:r.id,x_handle:r.x_handle,venice_wallet:r.venice_wallet||'',upbit_id:r.upbit_id||'',proof_url:r.upbit_proof_url||'',prize_type:prizeType,is_replacement:true}; } renderWDraft(); } return; } if(!confirm(`Remove @${xHandle}?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=eq.${dbId}`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); adminLoadWinners(); }catch(e){alert('Error: '+e.message);} }
+async function adminConfirmWinners(){ if(!confirm(`Save ${_wDraft.length} winners?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?confirmed=eq.false`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const payload=_wDraft.map(w=>({entry_id:w.entry_id,x_handle:w.x_handle,prize_type:w.prize_type,is_replacement:w.is_replacement,confirmed:true})); const r=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners`,{method:'POST',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(payload)}); if(!r.ok) throw new Error(`HTTP ${r.status}`); _wDraft=[]; _wPool=[]; adminLoadWinners(); }catch(e){alert('Failed: '+e.message);} }
+async function adminClearWinners(){ if(!confirm('Delete all winners?')) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=gt.0`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); _wDraft=[]; _wPool=[]; adminLoadWinners(); }
 
 // Dashboard
 let _dbInterval=null;
-async function adminLoadDashboard(){ const el=$('dashContent'); if(!el) return; el.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);padding:20px 0;">Loading…</div>`; try{ const [er,cr]=await Promise.all([fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,kol_name,submitted_at`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}}),fetch(`${SUPABASE_URL}/rest/v1/venice_link_clicks?select=product,source`,{headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`}})]); const entries=await er.json(),clicks=await cr.json(); if(!Array.isArray(entries)) throw new Error('entries error'); const total=entries.length,now=new Date(),todayStr=now.toISOString().slice(0,10),today=entries.filter(e=>e.submitted_at?.slice(0,10)===todayStr).length,totalClicks=Array.isArray(clicks)?clicks.length:0,activeKols=new Set(entries.map(e=>e.kol_name).filter(Boolean)).size; const kolMap={},dayMap={}; entries.forEach(e=>{const k=e.kol_name||'(direct)';kolMap[k]=(kolMap[k]||0)+1;}); const days=[]; for(let i=6;i>=0;i--){const d=new Date(now);d.setDate(d.getDate()-i);days.push(d.toISOString().slice(0,10));} days.forEach(d=>{dayMap[d]=0;}); entries.forEach(e=>{const d=e.submitted_at?.slice(0,10);if(d&&dayMap[d]!==undefined)dayMap[d]++;}); const dayMax=Math.max(...Object.values(dayMap),1),ts=new Date().toLocaleTimeString(); el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;">${[['Total Entries',total,'📋'],["Today's",today,'🔑'],['Clicks',totalClicks,'🔗'],['Active KOLs',activeKols,'👥']].map(([l,v,i])=>`<div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px;"><div style="font-size:20px;margin-bottom:6px;">${i}</div><div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--red);line-height:1;">${v}</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-top:5px;">${l}</div></div>`).join('')}</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;"><div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;">Entries · Last 7 Days</div><div style="display:flex;align-items:flex-end;gap:6px;height:72px;">${days.map(d=>{const count=dayMap[d],pct=Math.max((count/dayMax)*100,count>0?8:2);return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);">${count||''}</div><div style="width:100%;background:${d===todayStr?'var(--red)':'rgba(221,51,0,0.22)'};border-radius:3px 3px 0 0;height:${pct}%;min-height:3px;"></div><div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--dim);white-space:nowrap;">${d.slice(5)}</div></div>`;}).join('')}</div></div><div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;">Entries by KOL</div><div style="display:flex;flex-direction:column;gap:8px;max-height:140px;overflow-y:auto;">${Object.entries(kolMap).sort((a,b)=>b[1]-a[1]).map(([k,v])=>{const pct=total?Math.round((v/total)*100):0;return `<div><div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:3px;"><span style="color:var(--cream);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%;">${k}</span><span style="color:var(--red);">${v} <span style="color:var(--dim);">(${pct}%)</span></span></div><div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--red);border-radius:2px;"></div></div></div>`;}).join('')||'<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;color:var(--dim);">No entries yet</div>'}</div></div></div><div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);text-align:right;">Last updated: ${ts} · auto-refreshes every 30s</div>`; renderDeadlineEditor(); }catch(e){el.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);padding:16px 0;">Failed: ${e.message}</div>`;} }
+async function adminLoadDashboard(){ const el=$('dashContent'); if(!el) return; el.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);padding:20px 0;">Loading…</div>`; try{ const [er,cr]=await Promise.all([fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,kol_name,submitted_at`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}),fetch(`${SUPABASE_URL}/rest/v1/venice_link_clicks?select=product,source`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}})]); const entries=await er.json(),clicks=await cr.json(); if(!Array.isArray(entries)) throw new Error('entries error'); const total=entries.length,now=new Date(),todayStr=now.toISOString().slice(0,10),today=entries.filter(e=>e.submitted_at?.slice(0,10)===todayStr).length,totalClicks=Array.isArray(clicks)?clicks.length:0,activeKols=new Set(entries.map(e=>e.kol_name).filter(Boolean)).size; const kolMap={},dayMap={}; entries.forEach(e=>{const k=e.kol_name||'(direct)';kolMap[k]=(kolMap[k]||0)+1;}); const days=[]; for(let i=6;i>=0;i--){const d=new Date(now);d.setDate(d.getDate()-i);days.push(d.toISOString().slice(0,10));} days.forEach(d=>{dayMap[d]=0;}); entries.forEach(e=>{const d=e.submitted_at?.slice(0,10);if(d&&dayMap[d]!==undefined)dayMap[d]++;}); const dayMax=Math.max(...Object.values(dayMap),1),ts=new Date().toLocaleTimeString(); el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px;">${[['Total Entries',total,'📋'],["Today's",today,'🔑'],['Clicks',totalClicks,'🔗'],['Active KOLs',activeKols,'👥']].map(([l,v,i])=>`<div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px 20px;"><div style="font-size:20px;margin-bottom:6px;">${i}</div><div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--red);line-height:1;">${v}</div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-top:5px;">${l}</div></div>`).join('')}</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;"><div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);margin-bottom:14px;">Entries · Last 7 Days</div><div style="display:flex;align-items:flex-end;gap:6px;height:72px;">${days.map(d=>{const count=dayMap[d],pct=Math.max((count/dayMax)*100,count>0?8:2);return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);">${count||''}</div><div style="width:100%;background:${d===todayStr?'var(--red)':'rgba(221,51,0,0.22)'};border-radius:3px 3px 0 0;height:${pct}%;min-height:3px;"></div><div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:var(--dim);white-space:nowrap;">${d.slice(5)}</div></div>`;}).join('')}</div></div><div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;">Entries by KOL</div><div style="display:flex;flex-direction:column;gap:8px;max-height:140px;overflow-y:auto;">${Object.entries(kolMap).sort((a,b)=>b[1]-a[1]).map(([k,v])=>{const pct=total?Math.round((v/total)*100):0;return `<div><div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;margin-bottom:3px;"><span style="color:var(--cream);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%;">${k}</span><span style="color:var(--red);">${v} <span style="color:var(--dim);">(${pct}%)</span></span></div><div style="height:4px;background:var(--border);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:var(--red);border-radius:2px;"></div></div></div>`;}).join('')||'<div style="font-family:\'JetBrains Mono\',monospace;font-size:10px;color:var(--dim);">No entries yet</div>'}</div></div></div><div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);text-align:right;">Last updated: ${ts} · auto-refreshes every 30s</div>`; renderDeadlineEditor(); }catch(e){el.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red);padding:16px 0;">Failed: ${e.message}</div>`;} }
 function startAdminAutoRefresh(){ if(_dbInterval) clearInterval(_dbInterval); _dbInterval=setInterval(()=>{const t=document.querySelector('.admin-tab.active');if(t?.dataset.tab==='dashboard')adminLoadDashboard();},30000); }
 
-async function adminSaveDeadline(){ const input=$('adminDeadlineInput'),msg=$('adminDeadlineMsg'); if(!input?.value) return; const utcISO=new Date(input.value+':00+09:00').toISOString(); msg.textContent='Saving…'; try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_app_settings?key=eq.deadline`,{method:'PATCH',headers:{'apikey':SUPABASE_SERVICE_KEY,'Authorization':`Bearer ${SUPABASE_SERVICE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({value:utcISO})}); if(!res.ok) throw new Error(`HTTP ${res.status}`); _deadline=new Date(utcISO); startCountdown(); renderDeadlineEditor(); msg.textContent='✓ Saved'; msg.style.color='var(--red)'; }catch(e){msg.textContent='Save failed: '+e.message;} setTimeout(()=>{const m=$('adminDeadlineMsg');if(m)m.textContent='';},4000); }
+async function adminSaveDeadline(){ const input=$('adminDeadlineInput'),msg=$('adminDeadlineMsg'); if(!input?.value) return; const utcISO=new Date(input.value+':00+09:00').toISOString(); msg.textContent='Saving…'; try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_app_settings?key=eq.deadline`,{method:'PATCH',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({value:utcISO})}); if(!res.ok) throw new Error(`HTTP ${res.status}`); _deadline=new Date(utcISO); startCountdown(); renderDeadlineEditor(); msg.textContent='✓ Saved'; msg.style.color='var(--red)'; }catch(e){msg.textContent='Save failed: '+e.message;} setTimeout(()=>{const m=$('adminDeadlineMsg');if(m)m.textContent='';},4000); }
 function renderDeadlineEditor(){ const kst=new Date(_deadline.getTime()+9*3600000),val=kst.toISOString().slice(0,16); const el=$('adminDeadlineEditor'); if(!el) return; el.innerHTML=`<div style="background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px;margin-top:20px;"><div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--dim);margin-bottom:12px;">⏱ Deadline (KST · UTC+9)</div><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;"><input id="adminDeadlineInput" type="datetime-local" value="${val}" style="background:var(--panel-2);border:1px solid var(--border);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:12px;padding:10px 13px;outline:none;border-radius:6px;cursor:pointer;"><button onclick="adminSaveDeadline()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:11px 20px;cursor:pointer;border-radius:6px;">Save</button><span id="adminDeadlineMsg" style="font-family:'JetBrains Mono',monospace;font-size:10px;"></span></div><div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);margin-top:8px;">Currently: ${kst.toISOString().slice(0,16).replace('T',' ')} KST</div></div>`; }
 
 async function adminToggleEntries(){ const nv=_open?'false':'true'; await fetch(`${SUPABASE_URL}/rest/v1/venice_app_settings?key=eq.accepting_entries`,{method:'PATCH',headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({value:nv})}); _open=nv==='true'; applyGate(); renderEntriesToggle(); }
@@ -1032,7 +1028,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
   loadKolList();
   loadCountdown();
   loadEntriesStatus();
-  window.TWEAKS = window.TWEAKS || {particles:true,particleDensity:55,particleSize:2.5,particleSpeed:0.45,particleColor:'red',particleGlow:false,bgGlow:true,bgGrid:true};
   if (window.location.hash === '#admin') showAdminPanel();
   const pw = $('adminPwInput');
   if (pw) pw.addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
