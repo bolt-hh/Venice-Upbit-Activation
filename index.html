@@ -400,8 +400,8 @@ h1 .accent{color:var(--red);}
 
           <!-- Proof uploads -->
           <div class="proof-grid">
-            <!-- Upbit Proof -->
-            <label class="proof-card" id="upbitCard">
+            <!-- Upbit Proof — 2 uploads -->
+            <div class="proof-card" id="upbitCard" style="cursor:default;">
               <div class="proof-card-head">
                 <div class="proof-card-platform">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
@@ -409,27 +409,14 @@ h1 .accent{color:var(--red);}
                 </div>
                 <div class="proof-card-title" data-i18n="proof.upbit.title">$VVV Purchase Proof</div>
                 <ul class="proof-card-desc">
-                  <li data-i18n="proof.upbit.l1">Show the purchase order details</li>
-                  <li data-i18n="proof.upbit.l2">Include token name, amount &amp; date</li>
-                  <li data-i18n="proof.upbit.l3">Your Upbit account must be visible</li>
+                  <li data-i18n="proof.upbit.l1">Trade history screenshot (투자내역 → 거래내역)</li>
+                  <li data-i18n="proof.upbit.l2">Account page screenshot (더보기 tab)</li>
+                  <li data-i18n="proof.upbit.l3">Both must show your Upbit account</li>
                 </ul>
               </div>
-              <!-- Mini illustration: phone with Upbit UI -->
-              <div class="proof-illustration">
-                <svg width="140" height="72" viewBox="0 0 140 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="4" y="4" width="132" height="64" rx="8" fill="var(--bg-2)" stroke="var(--border)" stroke-width="1"/>
-                  <rect x="12" y="12" width="60" height="6" rx="3" fill="var(--border-hi)"/>
-                  <rect x="12" y="22" width="40" height="4" rx="2" fill="var(--border)"/>
-                  <rect x="12" y="32" width="50" height="4" rx="2" fill="var(--border)"/>
-                  <rect x="12" y="42" width="35" height="4" rx="2" fill="var(--border)"/>
-                  <rect x="80" y="12" width="48" height="48" rx="6" fill="rgba(221,51,0,0.08)" stroke="rgba(221,51,0,0.20)" stroke-width="1"/>
-                  <text x="104" y="34" font-family="monospace" font-size="9" fill="#DD3300" text-anchor="middle">$VVV</text>
-                  <rect x="88" y="38" width="32" height="3" rx="1.5" fill="rgba(221,51,0,0.25)"/>
-                  <rect x="88" y="44" width="24" height="3" rx="1.5" fill="rgba(221,51,0,0.15)"/>
-                  <rect x="88" y="50" width="28" height="3" rx="1.5" fill="rgba(221,51,0,0.15)"/>
-                </svg>
-              </div>
-              <div class="proof-dropzone">
+              <!-- Upload 1: Trade confirmation -->
+              <label class="proof-dropzone" for="sf-upbit_screenshot" style="cursor:pointer;margin-bottom:8px;display:block;border:1px dashed var(--border);border-radius:8px;padding:12px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px;" data-i18n="proof.upbit.slot1">① Trade Confirmation</div>
                 <div class="proof-dropzone-inner">
                   <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
                   <div class="proof-dropzone-lbl" id="upbitLbl" data-i18n="proof.upload">Click to upload</div>
@@ -437,8 +424,19 @@ h1 .accent{color:var(--red);}
                   <div class="proof-filename" id="upbitFilename"></div>
                 </div>
                 <input type="file" accept="image/*" id="sf-upbit_screenshot" style="display:none;" onchange="handleProofFile('upbit',this)">
-              </div>
-            </label>
+              </label>
+              <!-- Upload 2: Account page -->
+              <label class="proof-dropzone" for="sf-upbit2_screenshot" style="cursor:pointer;display:block;border:1px dashed var(--border);border-radius:8px;padding:12px;">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px;" data-i18n="proof.upbit.slot2">② Account Page (더보기)</div>
+                <div class="proof-dropzone-inner">
+                  <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
+                  <div class="proof-dropzone-lbl" id="upbit2Lbl" data-i18n="proof.upload">Click to upload</div>
+                  <div class="proof-dropzone-sub">PNG · JPG · max 2MB</div>
+                  <div class="proof-filename" id="upbit2Filename"></div>
+                </div>
+                <input type="file" accept="image/*" id="sf-upbit2_screenshot" style="display:none;" onchange="handleProofFile('upbit2',this)">
+              </label>
+            </div>
 
             <!-- Venice Proof -->
             <label class="proof-card" id="veniceCard">
@@ -720,9 +718,9 @@ const I18N = {
     'field.kol':'Which KOL channel brought you here?','field.kol.placeholder':'@kol_handle',
     'field.confirm':'I confirm that both screenshots are authentic and belong to me.',
     'proof.upbit.title':'$VVV Purchase Proof','proof.venice.title':'Venice Sign-up Proof',
-    'proof.upbit.l1':'Show the purchase order details',
-    'proof.upbit.l2':'Include token name, amount &amp; date',
-    'proof.upbit.l3':'Your Upbit account must be visible',
+    'proof.upbit.l1':'Trade history screenshot (투자내역 → 거래내역)','proof.upbit.slot1':'① Trade Confirmation','proof.upbit.slot2':'② Account Page (더보기)','err.upbit2':'Please upload your Upbit account page screenshot.',
+    'proof.upbit.l2':'Account page screenshot (더보기 tab)',
+    'proof.upbit.l3':'Both must show your Upbit account',
     'proof.venice.l1':'Screenshot of your Venice profile',
     'proof.venice.l2':'Username must be clearly visible',
     'proof.venice.l3':'Visit venice.ai/chat after signing up',
@@ -764,9 +762,9 @@ const I18N = {
     'field.kol':'어느 KOL 채널에서 오셨나요?','field.kol.placeholder':'@kol_계정명',
     'field.confirm':'두 스크린샷이 진짜이며 저의 것임을 확인합니다.',
     'proof.upbit.title':'$VVV 구매 증거','proof.venice.title':'Venice 가입 증거',
-    'proof.upbit.l1':'구매 주문 세부 정보 표시',
-    'proof.upbit.l2':'토큰명·수량·체결 날짜 포함',
-    'proof.upbit.l3':'Upbit 계정이 보여야 합니다',
+    'proof.upbit.l1':'거래내역 스크린샷 (투자내역 → 거래내역)','proof.upbit.slot1':'① 체결 내역','proof.upbit.slot2':'② 더보기 계정 페이지','err.upbit2':'Upbit 계정 페이지 스크린샷을 업로드해 주세요.',
+    'proof.upbit.l2':'더보기 탭 계정 페이지 스크린샷',
+    'proof.upbit.l3':'두 스크린샷 모두 Upbit 계정이 보여야 함',
     'proof.venice.l1':'Venice 프로필 스크린샷',
     'proof.venice.l2':'사용자 이름이 명확하게 보여야 함',
     'proof.venice.l3':'가입 후 venice.ai/chat 방문',
@@ -819,10 +817,13 @@ function handleProofFile(type, input){
   const file = input.files[0];
   if (!file) return;
   proofFiles[type] = file;
-  const card = document.getElementById(type + 'Card');
+  // For upbit and upbit2, mark the shared card when both are present
+  const cardId = (type === 'upbit' || type === 'upbit2') ? 'upbitCard' : type + 'Card';
+  const card = document.getElementById(cardId);
   const lbl = document.getElementById(type + 'Lbl');
   const fn = document.getElementById(type + 'Filename');
-  if (card) card.classList.add('has-file');
+  if (card && proofFiles.upbit && proofFiles.upbit2) card.classList.add('has-file');
+  if (card && type !== 'upbit' && type !== 'upbit2') card.classList.add('has-file');
   if (lbl) lbl.textContent = '✓ File selected';
   if (fn) fn.textContent = file.name.length > 28 ? file.name.slice(0,25) + '…' : file.name;
 }
@@ -842,6 +843,7 @@ async function submitEntry(){
   const kolName      = document.getElementById('sf-kol')?.value;
   const confirmed    = document.getElementById('sf-confirm')?.checked;
   const upbitFile    = proofFiles.upbit;
+  const upbit2File   = proofFiles.upbit2;
   const veniceFile   = proofFiles.venice;
   const _d = I18N[currentLang] || I18N.en;
   const _t = k => _d[k] || I18N.en[k] || k;
@@ -851,6 +853,8 @@ async function submitEntry(){
   if (!upbitId)                          return sfShowError(_t('err.upbit_id'));
   if (!upbitFile)                        return sfShowError(_t('err.upbit'));
   if (upbitFile.size > 2*1024*1024)      return sfShowError(_t('err.filesize'));
+  if (!upbit2File)                       return sfShowError(_t('err.upbit2'));
+  if (upbit2File.size > 2*1024*1024)     return sfShowError(_t('err.filesize'));
   if (!veniceFile)                       return sfShowError(_t('err.venice'));
   if (veniceFile.size > 2*1024*1024)     return sfShowError(_t('err.filesize'));
   if (!confirmed)                        return sfShowError(_t('err.confirm'));
@@ -881,14 +885,21 @@ async function submitEntry(){
     }
 
     // ── Upload Upbit proof ──
-    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (1/2)…' : 'Uploading proof (1/2)…';
+    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (1/3)…' : 'Uploading proof (1/3)…';
     const upbitName = `venice-upbit-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
     const ur = await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitName}`,{method:'PUT',headers:{'Content-Type':upbitFile.type||'image/png'},body:upbitFile});
     if (!ur.ok) throw new Error(_t('err.upload'));
     const upbitUrl = `${R2_PUBLIC_BASE_URL}/${upbitName}`;
 
+    // ── Upload Upbit account proof ──
+    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (2/3)…' : 'Uploading proof (2/3)…';
+    const upbit2Name = `venice-upbit-acct-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
+    const ur2 = await fetch(`${R2_UPLOAD_ENDPOINT}/${upbit2Name}`,{method:'PUT',headers:{'Content-Type':upbit2File.type||'image/png'},body:upbit2File});
+    if (!ur2.ok) throw new Error(_t('err.upload'));
+    const upbit2Url = `${R2_PUBLIC_BASE_URL}/${upbit2Name}`;
+
     // ── Upload Venice proof ──
-    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (2/2)…' : 'Uploading proof (2/2)…';
+    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (3/3)…' : 'Uploading proof (3/3)…';
     const veniceName = `venice-signup-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
     const vr = await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceName}`,{method:'PUT',headers:{'Content-Type':veniceFile.type||'image/png'},body:veniceFile});
     if (!vr.ok) throw new Error(_t('err.upload'));
@@ -899,7 +910,7 @@ async function submitEntry(){
     const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/venice_entries`,{
       method:'POST',
       headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body: JSON.stringify({x_handle:xHandle,telegram_handle:telegramHandle,venice_wallet:veniceWallet,upbit_id:upbitId,upbit_proof_url:upbitUrl,venice_proof_url:veniceUrl,kol_name:kolName})
+      body: JSON.stringify({x_handle:xHandle,telegram_handle:telegramHandle,venice_wallet:veniceWallet,upbit_id:upbitId,upbit_proof_url:upbitUrl,upbit_account_url:upbit2Url,venice_proof_url:veniceUrl,kol_name:kolName})
     });
     if (!supaRes.ok) {
       const errBody = await supaRes.json().catch(()=>({}));
@@ -1027,15 +1038,15 @@ async function adminDeleteSelected(){ if(!adminSelIds.size) return; if(!confirm(
 async function adminLoadEntries(){
   const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=*&order=submitted_at.desc`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}});
   adminEntries=await res.json(); adminSelIds.clear(); adminUpdateSel();
-  const cols=['x_handle','telegram_handle','venice_wallet','upbit_id','kol_name','upbit_proof_url','venice_proof_url','submitted_at'];
+  const cols=['x_handle','telegram_handle','venice_wallet','upbit_id','kol_name','upbit_proof_url','upbit_account_url','venice_proof_url','submitted_at'];
   const heads=`<th><input type="checkbox" onchange="adminToggleAll(this.checked)"></th>`+cols.map(c=>`<th>${c==='upbit_proof_url'?'upbit_proof':c==='venice_proof_url'?'venice_proof':c}</th>`).join('');
-  const rows=adminEntries.map(e=>`<tr><td><input type="checkbox" class="admin-row-cb" onchange="adminToggleRow(${e.id},this.checked)"></td>${cols.map(c=>{ if(c==='upbit_proof_url'||c==='venice_proof_url') return `<td><a href="${e[c]||'#'}" target="_blank" style="color:var(--red);">View</a></td>`; return `<td title="${e[c]||''}">${e[c]||''}</td>`; }).join('')}</tr>`).join('');
+  const rows=adminEntries.map(e=>`<tr><td><input type="checkbox" class="admin-row-cb" onchange="adminToggleRow(${e.id},this.checked)"></td>${cols.map(c=>{ if(c==='upbit_proof_url'||c==='upbit_account_url'||c==='venice_proof_url') return `<td><a href="${e[c]||'#'}" target="_blank" style="color:var(--red);">View</a></td>`; return `<td title="${e[c]||''}">${e[c]||''}</td>`; }).join('')}</tr>`).join('');
   $('adminEntriesTable').innerHTML=`<table class="admin-entry-table"><thead><tr>${heads}</tr></thead><tbody>${rows}</tbody></table><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);margin-top:12px;">${adminEntries.length} entries total</div>`;
 }
 
-function adminExportCSV(){ if(!adminEntries.length) return alert('No entries.'); const cols=['id','x_handle','telegram_handle','venice_wallet','upbit_id','kol_name','upbit_proof_url','venice_proof_url','submitted_at']; const csv=[cols.join(','),...adminEntries.map(e=>cols.map(c=>`"${(e[c]||'').toString().replace(/"/g,'""')}"`).join(','))].join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-entries-${new Date().toISOString().slice(0,10)}.csv`; a.click(); }
+function adminExportCSV(){ if(!adminEntries.length) return alert('No entries.'); const cols=['id','x_handle','telegram_handle','venice_wallet','upbit_id','kol_name','upbit_proof_url','upbit_account_url','venice_proof_url','submitted_at']; const csv=[cols.join(','),...adminEntries.map(e=>cols.map(c=>`"${(e[c]||'').toString().replace(/"/g,'""')}"`).join(','))].join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-entries-${new Date().toISOString().slice(0,10)}.csv`; a.click(); }
 
-async function adminDownloadZip(){ if(!adminEntries.length) return alert('No entries.'); if(typeof JSZip==='undefined'){ await new Promise((res,rej)=>{ const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); } const zip=new JSZip().folder('venice-proofs'); const prog=document.createElement('div'); prog.style.cssText='font-family:JetBrains Mono,monospace;font-size:11px;color:var(--red);margin-bottom:12px;'; $('adminEntriesTable').prepend(prog); for(const e of adminEntries){ try{ const upbitKey=e.upbit_proof_url?.replace(R2_PUBLIC_BASE_URL+'/',''); const veniceKey=e.venice_proof_url?.replace(R2_PUBLIC_BASE_URL+'/',''); if(upbitKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitKey}`)).blob(); zip.file(`${e.x_handle||e.id}-upbit.${b.type.includes('png')?'png':'jpg'}`,b); } if(veniceKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceKey}`)).blob(); zip.file(`${e.x_handle||e.id}-venice.${b.type.includes('png')?'png':'jpg'}`,b); } }catch(err){} prog.textContent=`Preparing: ${adminEntries.indexOf(e)+1}/${adminEntries.length}`; } const a=document.createElement('a'); a.href=URL.createObjectURL(await zip.generateAsync({type:'blob'})); a.download=`venice-proofs-${new Date().toISOString().slice(0,10)}.zip`; a.click(); prog.remove(); }
+async function adminDownloadZip(){ if(!adminEntries.length) return alert('No entries.'); if(typeof JSZip==='undefined'){ await new Promise((res,rej)=>{ const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s); }); } const zip=new JSZip().folder('venice-proofs'); const prog=document.createElement('div'); prog.style.cssText='font-family:JetBrains Mono,monospace;font-size:11px;color:var(--red);margin-bottom:12px;'; $('adminEntriesTable').prepend(prog); for(const e of adminEntries){ try{ const upbitKey=e.upbit_proof_url?.replace(R2_PUBLIC_BASE_URL+'/',''); const upbit2Key=e.upbit_account_url?.replace(R2_PUBLIC_BASE_URL+'/',''); const veniceKey=e.venice_proof_url?.replace(R2_PUBLIC_BASE_URL+'/',''); if(upbitKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitKey}`)).blob(); zip.file(`${e.x_handle||e.id}-upbit-trade.${b.type.includes('png')?'png':'jpg'}`,b); } if(upbit2Key){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${upbit2Key}`)).blob(); zip.file(`${e.x_handle||e.id}-upbit-account.${b.type.includes('png')?'png':'jpg'}`,b); } if(veniceKey){ const b=await(await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceKey}`)).blob(); zip.file(`${e.x_handle||e.id}-venice.${b.type.includes('png')?'png':'jpg'}`,b); } }catch(err){} prog.textContent=`Preparing: ${adminEntries.indexOf(e)+1}/${adminEntries.length}`; } const a=document.createElement('a'); a.href=URL.createObjectURL(await zip.generateAsync({type:'blob'})); a.download=`venice-proofs-${new Date().toISOString().slice(0,10)}.zip`; a.click(); prog.remove(); }
 
 async function adminLoadKols(){ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list?select=id,name&order=name`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); adminKols=await res.json(); $('adminKolsList').innerHTML=adminKols.map(k=>`<div class="admin-row-item"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--sub);">${k.name}</span><button class="admin-del-btn" onclick="adminDeleteKol(${k.id})">Remove</button></div>`).join(''); }
 async function adminAddKol(){ const name=$('adminNewKol').value.trim(); if(!name) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_kol_list`,{method:'POST',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({name})}); $('adminNewKol').value=''; adminLoadKols(); const m=$('adminKolsMsg'); m.textContent=`"${name}" added.`; setTimeout(()=>{ m.textContent=''; },2000); }
