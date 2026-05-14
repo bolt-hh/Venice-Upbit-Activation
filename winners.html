@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venice Korea — Winners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root[data-theme="light"]{
+  --bg:#F5F0EA;--bg-2:#EDE7DF;--panel:#fff;--border:rgba(0,0,0,0.10);--border-hi:rgba(0,0,0,0.16);
+  --red:#DD3300;--cream:#1A1209;--sub:rgba(26,18,9,0.60);--dim:rgba(26,18,9,0.38);--dimmer:rgba(26,18,9,0.22);
+}
+:root[data-theme="dark"]{
+  --bg:#000;--bg-2:#0D0D0D;--panel:#141414;--border:rgba(255,255,255,0.08);--border-hi:rgba(255,255,255,0.18);
+  --red:#DD3300;--cream:#fff;--sub:rgba(255,255,255,0.65);--dim:rgba(255,255,255,0.40);--dimmer:rgba(255,255,255,0.22);
+}
+body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;min-height:100vh;transition:background 0.2s,color 0.2s;}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:100;}
+.nav-back{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.15s;}
+.nav-back:hover{color:var(--red);}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:var(--cream);}
+.theme-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 10px;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;border-radius:5px;transition:all 0.15s;}
+.theme-btn:hover{color:var(--cream);}
+
+.hero{text-align:center;padding:56px 24px 40px;max-width:680px;margin:0 auto;}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:14px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,6vw,52px);font-weight:700;line-height:1.1;color:var(--cream);margin-bottom:14px;}
+.hero-sub{font-size:14px;color:var(--sub);line-height:1.6;}
+
+/* LOCKED */
+.locked-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;gap:16px;text-align:center;}
+.locked-icon{font-size:48px;}
+.locked-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--cream);}
+.locked-bar{width:100px;height:3px;background:linear-gradient(90deg,var(--red),transparent);border-radius:2px;}
+.locked-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim);}
+
+/* CONTROLS */
+.controls{max-width:860px;margin:0 auto;padding:0 24px 20px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.filter-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim);margin-right:4px;}
+.filter-btn{font-family:'JetBrains Mono',monospace;font-size:10px;padding:6px 12px;border:1px solid var(--border);background:transparent;color:var(--sub);cursor:pointer;border-radius:5px;transition:all 0.15s;white-space:nowrap;}
+.filter-btn:hover{border-color:rgba(221,51,0,0.4);color:var(--cream);}
+.filter-btn.active{background:var(--red);border-color:var(--red);color:#fff;}
+
+/* WINNERS */
+.winners-wrap{max-width:860px;margin:0 auto;padding:0 24px 80px;}
+.winners-count{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.winners-count span{color:var(--red);font-weight:700;}
+.winner-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:13px 18px;margin-bottom:7px;display:grid;grid-template-columns:32px 1fr auto auto;align-items:center;gap:14px;transition:border-color 0.15s;}
+.winner-card:hover{border-color:rgba(221,51,0,0.28);}
+.winner-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dimmer);text-align:right;}
+.winner-info{display:flex;flex-direction:column;gap:3px;min-width:0;}
+.winner-wallet{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cream);font-weight:700;letter-spacing:0.04em;}
+.winner-kol{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);}
+.winner-prize{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--red);white-space:nowrap;text-align:right;}
+.trophy{font-size:15px;}
+
+@media(max-width:560px){
+  .winner-card{grid-template-columns:24px 1fr auto;}
+  .trophy{display:none;}
+  .winner-wallet{font-size:11px;}
+}
+.loader{text-align:center;padding:60px 24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-back" href="index.html">← Activation</a>
+  <span class="nav-brand">Venice Korea</span>
+  <button class="theme-btn" onclick="toggleTheme()">◐</button>
+</nav>
+
+<div class="hero">
+  <div class="eyebrow">Korea Community Activation</div>
+  <h1 class="hero-title">🏆 Winners</h1>
+  <p class="hero-sub">100 community members selected from verified $VVV holders on Upbit.</p>
+</div>
+
+<div id="controls" style="display:none;">
+  <div class="controls">
+    <span class="filter-label">Filter by KOL</span>
+    <button class="filter-btn active" data-kol="all" onclick="setFilter('all')">All</button>
+    <div id="kolFilters" style="display:contents;"></div>
+  </div>
+</div>
+
+<div id="main"></div>
+
+<script>
+const SUPABASE_URL = 'https://nhdktvsllunlgdsaninx.supabase.co';
+const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oZGt0dnNsbHVubGdkc2FuaW54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4NTIxMjgsImV4cCI6MjA5MTQyODEyOH0.GUFMjeDdphFeFp84jkeAtJNLX6-pi7KppEBdfDGXkhM';
+const H = {'apikey':ANON,'Authorization':'Bearer '+ANON};
+let allWinners = [];
+let activeFilter = 'all';
+
+function mask(w){
+  if(!w||w.length<10) return w||'—';
+  return w.slice(0,6)+'···'+w.slice(-4);
+}
+function prizeLabel(t){ return t==='vvv_100'?'$100 $VVV':'$10 Stablecoin'; }
+
+async function load(){
+  const el = document.getElementById('main');
+  el.innerHTML = '<div class="loader">Loading…</div>';
+  try{
+    const sr = await fetch(`${SUPABASE_URL}/rest/v1/venice_app_settings?key=eq.winners_published&select=value&limit=1`,{headers:H});
+    const sd = await sr.json();
+    const published = Array.isArray(sd) && sd[0]?.value === 'true';
+    if(!published){ renderLocked(el); return; }
+
+    const wr = await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?confirmed=eq.true&select=venice_wallet,prize_type,kol_name&order=kol_name,prize_type`,{headers:H});
+    allWinners = await wr.json();
+    if(!Array.isArray(allWinners)||!allWinners.length){ renderLocked(el); return; }
+
+    buildFilters();
+    document.getElementById('controls').style.display = '';
+    renderWinners();
+  }catch(e){ el.innerHTML='<div class="loader">Failed to load. Please refresh.</div>'; }
+}
+
+function buildFilters(){
+  const kols = [...new Set(allWinners.map(w=>w.kol_name||'(direct)'))].sort();
+  const wrap = document.getElementById('kolFilters');
+  wrap.innerHTML = kols.map(k=>
+    `<button class="filter-btn" data-kol="${k}" onclick="setFilter('${k.replace(/'/g,"\\'")}')">@${k}</button>`
+  ).join('');
+}
+
+function setFilter(kol){
+  activeFilter = kol;
+  document.querySelectorAll('.filter-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.kol === kol);
+  });
+  renderWinners();
+}
+
+function renderWinners(){
+  const el = document.getElementById('main');
+  const filtered = activeFilter === 'all'
+    ? allWinners
+    : allWinners.filter(w=>(w.kol_name||'(direct)') === activeFilter);
+
+  const cards = filtered.map((w,i)=>`
+    <div class="winner-card">
+      <div class="winner-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="winner-info">
+        <div class="winner-wallet">${mask(w.venice_wallet)}</div>
+        <div class="winner-kol">via @${w.kol_name||'direct'}</div>
+      </div>
+      <div class="winner-prize">${prizeLabel(w.prize_type)}</div>
+      <div class="trophy">🏆</div>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <div class="winners-wrap">
+      <div class="winners-count">
+        Showing <span>${filtered.length}</span> winner${filtered.length!==1?'s':''}
+        ${activeFilter!=='all'?` · <span>@${activeFilter}</span>`:''}
+      </div>
+      ${cards}
+    </div>`;
+}
+
+function renderLocked(el){
+  el.innerHTML=`
+    <div class="locked-wrap">
+      <div class="locked-icon">🔒</div>
+      <div class="locked-title">Winners Coming Soon</div>
+      <div class="locked-bar"></div>
+      <div class="locked-sub">Check back after the activation closes</div>
+    </div>`;
+}
+
+const saved = localStorage.getItem('venice-theme');
+document.documentElement.dataset.theme = saved||'light';
+function toggleTheme(){
+  const t = document.documentElement.dataset.theme==='dark'?'light':'dark';
+  document.documentElement.dataset.theme=t;
+  localStorage.setItem('venice-theme',t);
+}
+
+load();
+</script>
+</body>
+</html>
