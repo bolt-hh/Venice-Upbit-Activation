@@ -822,7 +822,15 @@ function applyI18n(lang){
 }
 
 document.querySelectorAll('.lang-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{ currentLang = btn.dataset.lang; localStorage.setItem('venice-lang', currentLang); applyI18n(currentLang); });
+  btn.addEventListener('click',()=>{
+    currentLang = btn.dataset.lang;
+    localStorage.setItem('venice-lang', currentLang);
+    applyI18n(currentLang);
+    const url = new URL(window.location.href);
+    if (currentLang === 'ko') { url.searchParams.set('lang','ko'); }
+    else { url.searchParams.delete('lang'); }
+    history.replaceState(null,'', url.toString());
+  });
 });
 applyI18n(currentLang);
 
