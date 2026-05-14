@@ -226,14 +226,15 @@ h1 .accent{color:var(--red);}
 @media(max-width:780px){.steps-bar{grid-template-columns:1fr;}.steps-bar::before{display:none;}.prize-bar{grid-template-columns:1fr;grid-template-rows:auto auto;}.prize-div{width:100%;height:1px;}.countdown-box{align-items:flex-start;padding:16px 20px;}.proof-grid{grid-template-columns:1fr;}.form-grid{grid-template-columns:1fr;}.hero-ctas{flex-direction:column;align-items:center;}}
 @media(max-width:560px){.nav-inner{padding:10px 16px;}.wrap{padding:32px 16px 80px;}.live-badge{display:none;}.form-card{padding:20px;}}
 
+
 /* ===== FLOATING HH BADGE ===== */
 .hh-float{
   position:fixed;bottom:20px;right:20px;z-index:9000;
-  display:flex;align-items:center;gap:10px;
+  display:flex;align-items:center;gap:13px;
   background:rgba(10,10,10,0.82);
   border:1px solid rgba(255,255,255,0.10);
   border-radius:40px;
-  padding:8px 14px 8px 8px;
+  padding:10px 18px 10px 10px;
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   text-decoration:none;
   transition:border-color 0.2s,background 0.2s,transform 0.2s;
@@ -245,19 +246,19 @@ h1 .accent{color:var(--red);}
   transform:translateY(-2px);
 }
 .hh-float-logo{
-  width:32px;height:32px;border-radius:50%;
+  width:42px;height:42px;border-radius:50%;
   object-fit:cover;flex-shrink:0;
   border:1px solid rgba(255,255,255,0.12);
 }
 .hh-float-text{display:flex;flex-direction:column;line-height:1.2;}
 .hh-float-lbl{
   font-family:'JetBrains Mono',monospace;
-  font-size:8px;letter-spacing:0.22em;text-transform:uppercase;
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
   color:rgba(255,255,255,0.40);
 }
 .hh-float-name{
   font-family:'DM Sans',sans-serif;
-  font-size:12px;font-weight:700;
+  font-size:16px;font-weight:700;
   color:#FFFFFF;letter-spacing:0.01em;
 }
 </style>
@@ -327,6 +328,7 @@ h1 .accent{color:var(--red);}
       </a>
     </div>
   </div>
+
 
   <!-- STEPS -->
   <div class="steps-bar">
@@ -487,7 +489,7 @@ h1 .accent{color:var(--red);}
 
           <div class="vvv-note">
             <span class="vvv-note-icon">💬</span>
-            <span data-i18n="form.note">$VVV prize winners will receive a direct message on X. Stablecoin prizes sent to your Venice wallet.</span>
+            <span data-i18n="form.note">Stablecoin prizes are sent directly to your submitted EVM wallet.</span>
           </div>
 
           <label class="confirm-row" for="sf-confirm">
@@ -694,7 +696,7 @@ document.getElementById('themeToggle').addEventListener('click', ()=>applyTheme(
 // ============================================================
 const I18N = {
   en: {
-    'nav.sub':'Korea Community Activation',
+    'nav.sub':'Korea Community Activation','about.b1':'Your chats, prompts, and uploads never leave your session. Nothing is logged or used to train AI models.','about.b2':'Access top open-source models — chat, generate images, analyze documents, write code — all in one place, without censorship.','about.b3':'$VVV is the token that powers Venice. Holders support the network and earn a share of platform revenue.','about.b4':'No ads, no corporate agenda, no data sold. Venice runs on open models directly in your browser or mobile app.',
     'nav.live':'Activation Live',
     'hero.eyebrow':'Korea Community Activation · Live Now',
     'hero.title':'Buy. Sign up.<br><span class="accent">Get rewarded.</span>',
@@ -722,7 +724,7 @@ const I18N = {
     'proof.venice.l2':'Username must be clearly visible',
     'proof.venice.l3':'Visit venice.ai/chat after signing up',
     'proof.upload':'Click to upload',
-    'form.note':'Stablecoin prizes are sent directly to your submitted EVM wallet. Winners will receive an X DM.',
+    'form.note':'Stablecoin prizes are sent directly to your submitted EVM wallet.',
     'form.submit':'Submit My Entry',
     'closed.title':'Entries Closed','closed.body':'The submission window has ended. Keep an eye on the Venice community channels for winner announcements.',
     'success.title':'Entry Received','success.body':'Your proof has been submitted. Winners will be contacted via X DM. Good luck.',
@@ -738,7 +740,7 @@ const I18N = {
     'err.generic':'Submission failed. Please try again.','btn.submitting':'Submitting…',
   },
   ko: {
-    'nav.sub':'한국 커뮤니티 이벤트',
+    'nav.sub':'한국 커뮤니티 이벤트','about.b1':'채팅 내용, 프롬프트, 업로드 파일은 세션 밖으로 나가지 않습니다. 로그 저장 없음, AI 학습에 사용되지 않음.','about.b2':'검열 없이 최상위 오픈소스 AI 모델을 사용하세요. 채팅·이미지 생성·문서 분석·코드 작성을 한 곳에서.','about.b3':'$VVV는 Venice 네트워크를 지탱하는 토큰입니다. 보유자는 네트워크를 지원하고 플랫폼 수익의 일부를 받습니다.','about.b4':'광고 없음, 기업 편향 없음, 데이터 판매 없음. Venice는 오픈 모델로 브라우저·모바일에서 바로 실행됩니다.',
     'nav.live':'이벤트 진행 중',
     'hero.eyebrow':'한국 커뮤니티 이벤트 · 지금 진행 중',
     'hero.title':'매수하세요. 가입하세요.<br><span class="accent">보상 받으세요.</span>',
@@ -766,7 +768,7 @@ const I18N = {
     'proof.venice.l2':'사용자 이름이 명확하게 보여야 함',
     'proof.venice.l3':'가입 후 venice.ai/chat 방문',
     'proof.upload':'클릭하여 업로드',
-    'form.note':'스테이블코인 상금은 제출한 EVM 지갑 주소로 직접 지급됩니다. 당첨자에게는 X DM으로 개별 연락드립니다.',
+    'form.note':'스테이블코인 상금은 제출한 EVM 지갑 주소로 직접 지급됩니다.',
     'form.submit':'참여 신청하기',
     'closed.title':'참여 접수 마감','closed.body':'제출 기간이 종료되었습니다. Venice 커뮤니티 채널에서 당첨자 발표를 확인해 주세요.',
     'success.title':'참여 완료','success.body':'제출 완료! 당첨자는 X DM으로 개별 연락드립니다. 행운을 빌어요 🎉',
