@@ -264,7 +264,7 @@ h1 .accent{color:var(--red);}
 .proof-sample-wrap{margin-bottom:6px;}
 .proof-sample-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;display:flex;align-items:center;gap:5px;}
 .proof-sample-label::before,.proof-sample-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.proof-sample-img{width:100%;max-height:80px;object-fit:cover;object-position:top;border-radius:6px;display:block;border:1px solid var(--border);cursor:pointer;transition:opacity 0.15s;}
+.proof-sample-img{width:100%;border-radius:6px;display:block;border:1px solid var(--border);cursor:pointer;transition:opacity 0.15s;}
 .proof-sample-img:hover{opacity:0.85;}
 </style>
 </head>
@@ -419,42 +419,47 @@ h1 .accent{color:var(--red);}
                   <li data-i18n="proof.upbit.l3">Both must show your Upbit account</li>
                 </ul>
               </div>
-              <!-- Sample 1: Trade confirmation -->
-              <div class="proof-sample-wrap">
-                <div class="proof-sample-label">Sample</div>
-                <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" target="_blank" rel="noopener noreferrer">
-                  <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" alt="Sample trade confirmation" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'">
-                </a>
-              </div>
-              <!-- Upload 1: Trade confirmation -->
-              <label class="proof-dropzone" for="sf-upbit_screenshot" style="cursor:pointer;margin-bottom:6px;display:block;border:1px dashed var(--border);border-radius:8px;padding:7px 10px;">
-                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px;" data-i18n="proof.upbit.slot1">① Trade Confirmation</div>
-                <div class="proof-dropzone-inner">
-                  <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
-                  <div class="proof-dropzone-lbl" id="upbitLbl" data-i18n="proof.upload">Click to upload</div>
-                  <div class="proof-dropzone-sub">PNG · JPG · max 2MB</div>
-                  <div class="proof-filename" id="upbitFilename"></div>
+              <!-- Side-by-side upload slots -->
+              <div style="display:flex;gap:8px;margin-top:4px;">
+                <!-- Slot 1: Trade confirmation -->
+                <div style="flex:1;min-width:0;">
+                  <div class="proof-sample-wrap">
+                    <div class="proof-sample-label">Sample</div>
+                    <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" target="_blank" rel="noopener noreferrer">
+                      <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" alt="Sample trade confirmation" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'" style="transform:scale(0.5);transform-origin:top left;width:200%;margin-bottom:calc(-50% - 4px);">
+                    </a>
+                  </div>
+                  <label class="proof-dropzone" for="sf-upbit_screenshot" style="cursor:pointer;display:block;border:1px dashed var(--border);border-radius:8px;padding:7px 8px;margin-top:6px;">
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px;" data-i18n="proof.upbit.slot1">① Trade Confirmation</div>
+                    <div class="proof-dropzone-inner">
+                      <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
+                      <div class="proof-dropzone-lbl" id="upbitLbl" data-i18n="proof.upload">Click to upload</div>
+                      <div class="proof-dropzone-sub">PNG · JPG</div>
+                      <div class="proof-filename" id="upbitFilename"></div>
+                    </div>
+                    <input type="file" accept="image/*" id="sf-upbit_screenshot" style="display:none;" onchange="handleProofFile('upbit',this)">
+                  </label>
                 </div>
-                <input type="file" accept="image/*" id="sf-upbit_screenshot" style="display:none;" onchange="handleProofFile('upbit',this)">
-              </label>
-              <!-- Sample 2: Account page -->
-              <div class="proof-sample-wrap" style="margin-top:6px;">
-                <div class="proof-sample-label">Sample</div>
-                <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" target="_blank" rel="noopener noreferrer">
-                  <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" alt="Sample account page" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'">
-                </a>
-              </div>
-              <!-- Upload 2: Account page -->
-              <label class="proof-dropzone" for="sf-upbit2_screenshot" style="cursor:pointer;display:block;border:1px dashed var(--border);border-radius:8px;padding:7px 10px;">
-                <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px;" data-i18n="proof.upbit.slot2">② Account Page (더보기)</div>
-                <div class="proof-dropzone-inner">
-                  <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
-                  <div class="proof-dropzone-lbl" id="upbit2Lbl" data-i18n="proof.upload">Click to upload</div>
-                  <div class="proof-dropzone-sub">PNG · JPG · max 2MB</div>
-                  <div class="proof-filename" id="upbit2Filename"></div>
+                <!-- Slot 2: Account page -->
+                <div style="flex:1;min-width:0;">
+                  <div class="proof-sample-wrap">
+                    <div class="proof-sample-label">Sample</div>
+                    <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" target="_blank" rel="noopener noreferrer">
+                      <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" alt="Sample account page" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'" style="transform:scale(0.5);transform-origin:top left;width:200%;margin-bottom:calc(-50% - 4px);">
+                    </a>
+                  </div>
+                  <label class="proof-dropzone" for="sf-upbit2_screenshot" style="cursor:pointer;display:block;border:1px dashed var(--border);border-radius:8px;padding:7px 8px;margin-top:6px;">
+                    <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px;" data-i18n="proof.upbit.slot2">② Account Page (더보기)</div>
+                    <div class="proof-dropzone-inner">
+                      <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
+                      <div class="proof-dropzone-lbl" id="upbit2Lbl" data-i18n="proof.upload">Click to upload</div>
+                      <div class="proof-dropzone-sub">PNG · JPG</div>
+                      <div class="proof-filename" id="upbit2Filename"></div>
+                    </div>
+                    <input type="file" accept="image/*" id="sf-upbit2_screenshot" style="display:none;" onchange="handleProofFile('upbit2',this)">
+                  </label>
                 </div>
-                <input type="file" accept="image/*" id="sf-upbit2_screenshot" style="display:none;" onchange="handleProofFile('upbit2',this)">
-              </label>
+              </div>
             </div>
 
             <!-- Venice Proof -->
