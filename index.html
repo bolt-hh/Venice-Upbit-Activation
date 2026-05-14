@@ -154,7 +154,7 @@ h1 .accent{color:var(--red);}
 
 /* ===== PROOF UPLOAD CARDS ===== */
 .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;grid-column:1/-1;}
-.proof-card{background:var(--bg-2);border:1.5px dashed var(--border-hi);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s var(--ease);}
+.proof-card{background:var(--bg-2);border:1.5px dashed var(--border-hi);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s var(--ease);display:flex;flex-direction:column;}
 .proof-card:hover,.proof-card.has-file{border-style:solid;border-color:var(--border-red);background:rgba(221,51,0,0.03);}
 .proof-card-head{padding:8px 12px 7px;border-bottom:1px solid var(--border);}
 .proof-card-platform{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
@@ -163,8 +163,8 @@ h1 .accent{color:var(--red);}
 .proof-card-desc{font-size:11px;color:var(--sub);line-height:1.4;}
 .proof-card-desc li{list-style:none;display:flex;align-items:flex-start;gap:4px;margin-bottom:1px;}
 .proof-card-desc li::before{content:'—';color:var(--red);font-size:10px;flex-shrink:0;margin-top:1px;}
-.proof-illustration{padding:12px 16px;display:flex;align-items:center;justify-content:center;}
-.proof-dropzone{padding:7px 12px;border-top:1px solid var(--border);text-align:center;}
+.proof-illustration{padding:16px;display:flex;align-items:center;justify-content:center;flex:1;}
+.proof-dropzone{padding:7px 12px;border-top:1px solid var(--border);text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 .proof-dropzone-inner{display:flex;flex-direction:row;align-items:center;gap:8px;}
 .proof-dropzone-icon{width:22px;height:22px;flex-shrink:0;border-radius:5px;background:rgba(221,51,0,0.08);border:1px solid var(--border-red);display:flex;align-items:center;justify-content:center;}
 .proof-dropzone-icon svg{width:11px;height:11px;color:var(--red);}
@@ -261,10 +261,10 @@ h1 .accent{color:var(--red);}
   font-size:16px;font-weight:700;
   color:#FFFFFF;letter-spacing:0.01em;
 }
-.proof-sample-wrap{margin-bottom:6px;}
+.proof-sample-wrap{margin-bottom:4px;}
 .proof-sample-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--dim);margin-bottom:4px;display:flex;align-items:center;gap:5px;}
 .proof-sample-label::before,.proof-sample-label::after{content:'';flex:1;height:1px;background:var(--border);}
-.proof-sample-img{width:100%;border-radius:6px;display:block;border:1px solid var(--border);cursor:pointer;transition:opacity 0.15s;}
+.proof-sample-img{width:100%;height:180px;object-fit:cover;object-position:top center;border-radius:6px;display:block;border:1px solid var(--border);cursor:pointer;transition:opacity 0.15s;}
 .proof-sample-img:hover{opacity:0.85;}
 </style>
 </head>
@@ -426,7 +426,7 @@ h1 .accent{color:var(--red);}
                   <div class="proof-sample-wrap">
                     <div class="proof-sample-label">Sample</div>
                     <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" target="_blank" rel="noopener noreferrer">
-                      <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" alt="Sample trade confirmation" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'" style="transform:scale(0.5);transform-origin:top left;width:200%;margin-bottom:calc(-50% - 4px);">
+                      <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" alt="Sample trade confirmation" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'">
                     </a>
                   </div>
                   <label class="proof-dropzone" for="sf-upbit_screenshot" style="cursor:pointer;display:block;border:1px dashed var(--border);border-radius:8px;padding:7px 8px;margin-top:6px;">
@@ -445,10 +445,10 @@ h1 .accent{color:var(--red);}
                   <div class="proof-sample-wrap">
                     <div class="proof-sample-label">Sample</div>
                     <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" target="_blank" rel="noopener noreferrer">
-                      <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" alt="Sample account page" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'" style="transform:scale(0.5);transform-origin:top left;width:200%;margin-bottom:calc(-50% - 4px);">
+                      <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" alt="Sample account page" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'">
                     </a>
                   </div>
-                  <label class="proof-dropzone" for="sf-upbit2_screenshot" style="cursor:pointer;display:block;border:1px dashed var(--border);border-radius:8px;padding:7px 8px;margin-top:6px;">
+                  <label class="proof-dropzone" for="sf-upbit2_screenshot" style="cursor:pointer;display:block;border:1px dashed var(--border);border-radius:8px;padding:7px 8px;margin-top:4px;">
                     <div style="font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:5px;" data-i18n="proof.upbit.slot2">② Account Page (더보기)</div>
                     <div class="proof-dropzone-inner">
                       <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
