@@ -261,6 +261,11 @@ h1 .accent{color:var(--red);}
   font-size:16px;font-weight:700;
   color:#FFFFFF;letter-spacing:0.01em;
 }
+.proof-sample-wrap{margin-bottom:10px;}
+.proof-sample-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.proof-sample-label::before,.proof-sample-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.proof-sample-img{width:100%;border-radius:8px;display:block;border:1px solid var(--border);cursor:pointer;transition:opacity 0.15s;}
+.proof-sample-img:hover{opacity:0.85;}
 </style>
 </head>
 <body>
@@ -414,6 +419,13 @@ h1 .accent{color:var(--red);}
                   <li data-i18n="proof.upbit.l3">Both must show your Upbit account</li>
                 </ul>
               </div>
+              <!-- Sample 1: Trade confirmation -->
+              <div class="proof-sample-wrap">
+                <div class="proof-sample-label">Sample</div>
+                <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" target="_blank" rel="noopener noreferrer">
+                  <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-trade.jpg" alt="Sample trade confirmation" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'">
+                </a>
+              </div>
               <!-- Upload 1: Trade confirmation -->
               <label class="proof-dropzone" for="sf-upbit_screenshot" style="cursor:pointer;margin-bottom:8px;display:block;border:1px dashed var(--border);border-radius:8px;padding:12px;">
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px;" data-i18n="proof.upbit.slot1">① Trade Confirmation</div>
@@ -425,6 +437,13 @@ h1 .accent{color:var(--red);}
                 </div>
                 <input type="file" accept="image/*" id="sf-upbit_screenshot" style="display:none;" onchange="handleProofFile('upbit',this)">
               </label>
+              <!-- Sample 2: Account page -->
+              <div class="proof-sample-wrap" style="margin-top:12px;">
+                <div class="proof-sample-label">Sample</div>
+                <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" target="_blank" rel="noopener noreferrer">
+                  <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-upbit-account.jpg" alt="Sample account page" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'">
+                </a>
+              </div>
               <!-- Upload 2: Account page -->
               <label class="proof-dropzone" for="sf-upbit2_screenshot" style="cursor:pointer;display:block;border:1px dashed var(--border);border-radius:8px;padding:12px;">
                 <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--red);margin-bottom:6px;" data-i18n="proof.upbit.slot2">② Account Page (더보기)</div>
