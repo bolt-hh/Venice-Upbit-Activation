@@ -225,6 +225,41 @@ h1 .accent{color:var(--red);}
 
 @media(max-width:780px){.steps-bar{grid-template-columns:1fr;}.steps-bar::before{display:none;}.prize-bar{grid-template-columns:1fr;grid-template-rows:auto auto;}.prize-div{width:100%;height:1px;}.countdown-box{align-items:flex-start;padding:16px 20px;}.proof-grid{grid-template-columns:1fr;}.form-grid{grid-template-columns:1fr;}.hero-ctas{flex-direction:column;align-items:center;}}
 @media(max-width:560px){.nav-inner{padding:10px 16px;}.wrap{padding:32px 16px 80px;}.live-badge{display:none;}.form-card{padding:20px;}}
+
+/* ===== FLOATING HH BADGE ===== */
+.hh-float{
+  position:fixed;bottom:20px;right:20px;z-index:9000;
+  display:flex;align-items:center;gap:10px;
+  background:rgba(10,10,10,0.82);
+  border:1px solid rgba(255,255,255,0.10);
+  border-radius:40px;
+  padding:8px 14px 8px 8px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  text-decoration:none;
+  transition:border-color 0.2s,background 0.2s,transform 0.2s;
+  box-shadow:0 4px 24px rgba(0,0,0,0.45);
+}
+.hh-float:hover{
+  border-color:rgba(221,51,0,0.55);
+  background:rgba(20,14,14,0.92);
+  transform:translateY(-2px);
+}
+.hh-float-logo{
+  width:32px;height:32px;border-radius:50%;
+  object-fit:cover;flex-shrink:0;
+  border:1px solid rgba(255,255,255,0.12);
+}
+.hh-float-text{display:flex;flex-direction:column;line-height:1.2;}
+.hh-float-lbl{
+  font-family:'JetBrains Mono',monospace;
+  font-size:8px;letter-spacing:0.22em;text-transform:uppercase;
+  color:rgba(255,255,255,0.40);
+}
+.hh-float-name{
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;font-weight:700;
+  color:#FFFFFF;letter-spacing:0.01em;
+}
 </style>
 </head>
 <body>
@@ -1037,5 +1072,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if (pw) pw.addEventListener('keydown', e=>{ if(e.key==='Enter') adminLogin(); });
 });
 </script>
+
+<!-- Floating Powered by Holo Hive -->
+<a href="https://holohive.io" target="_blank" rel="noopener noreferrer" class="hh-float" title="Powered by Holo Hive">
+  <img src="assets/hh-logo.jpg" alt="Holo Hive" class="hh-float-logo">
+  <div class="hh-float-text">
+    <span class="hh-float-lbl">Powered by</span>
+    <span class="hh-float-name">Holo Hive</span>
+  </div>
+</a>
 </body>
 </html>
