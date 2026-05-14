@@ -8,17 +8,17 @@
 <meta property="og:title" content="Venice Korea Community Activation">
 <meta property="og:description" content="Buy $VVV · Sign up · Get rewarded.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0A0806">
+<meta name="theme-color" content="#000000">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23DD3300'/%3E%3Ctext x='32' y='44' font-family='serif' font-size='40' font-style='italic' fill='white' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Pinyon+Script&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ===== THEME TOKENS ===== */
 :root[data-theme="dark"]{
-  --bg:#0A0806; --bg-2:#120E0A; --panel:#1C1410; --panel-2:#231A13; --panel-3:#2A2018;
-  --border:rgba(240,232,220,0.08); --border-hi:rgba(240,232,220,0.18);
-  --border-red:rgba(221,51,0,0.32); --border-cream:rgba(240,232,220,0.22);
+  --bg:#000000; --bg-2:#0D0D0D; --panel:#141414; --panel-2:#1A1A1A; --panel-3:#202020;
+  --border:rgba(255,255,255,0.08); --border-hi:rgba(255,255,255,0.18);
+  --border-red:rgba(221,51,0,0.38); --border-cream:rgba(255,255,255,0.22);
   --red:#DD3300; --red-warm:#E84010; --red-glow:rgba(221,51,0,0.30);
-  --cream:#F0E8DF; --sub:rgba(240,232,220,0.65); --dim:rgba(240,232,220,0.38); --dimmer:rgba(240,232,220,0.20);
+  --cream:#FFFFFF; --sub:rgba(255,255,255,0.65); --dim:rgba(255,255,255,0.40); --dimmer:rgba(255,255,255,0.22);
   --ease:cubic-bezier(0.16,1,0.3,1);
 }
 :root[data-theme="light"]{
@@ -52,7 +52,7 @@ body{background:var(--bg);min-height:100vh;font-family:'DM Sans',sans-serif;colo
 .nav-right{display:flex;align-items:center;gap:10px;}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);animation:pulse-live 2s ease-in-out infinite;flex-shrink:0;}
 @keyframes pulse-live{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.5);opacity:0.5;}}
-.live-badge{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);padding:6px 12px;border:1px solid var(--border);border-radius:6px;}
+.live-badge{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--sub);padding:6px 12px;border:1px solid var(--border);border-radius:6px;}
 .icon-btn{display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--panel-2);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:15px;transition:all 0.15s;color:var(--sub);user-select:none;}
 .icon-btn:hover{border-color:var(--border-red);color:var(--red);}
 .lang-toggle{display:flex;align-items:center;gap:2px;background:var(--panel-2);border:1px solid var(--border);border-radius:6px;padding:3px;}
@@ -110,33 +110,33 @@ h1 .accent{color:var(--red);}
 .step-card:nth-child(1)::before{background:var(--red);opacity:0.5;}
 .step-card:nth-child(2)::before{background:var(--red);opacity:0.75;}
 .step-card:nth-child(3)::before{background:var(--red);opacity:1;}
-.step-num{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:var(--dim);margin-bottom:10px;}
+.step-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--sub);margin-bottom:10px;}
 .step-icon{width:36px;height:36px;border-radius:8px;background:rgba(221,51,0,0.08);border:1px solid var(--border-red);display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
 .step-icon svg{width:18px;height:18px;color:var(--red);}
 .step-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--cream);margin-bottom:4px;}
-.step-body{font-size:12px;color:var(--sub);line-height:1.55;}
-.step-link{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:var(--red);text-decoration:none;transition:opacity 0.15s;}
+.step-body{font-size:13px;color:var(--sub);line-height:1.55;}
+.step-link{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);text-decoration:none;transition:opacity 0.15s;}
 .step-link:hover{opacity:0.75;}
 .step-link svg{width:10px;height:10px;}
 
 /* ===== PRIZE BAR ===== */
-.prize-bar{display:grid;grid-template-columns:1fr 1px 1fr 1px auto;align-items:stretch;background:var(--panel);border:1px solid var(--border-red);border-radius:14px;overflow:hidden;margin-bottom:36px;box-shadow:0 0 40px rgba(221,51,0,0.07);}
+.prize-bar{display:grid;grid-template-columns:1fr 1px auto;align-items:stretch;background:var(--panel);border:1px solid var(--border-red);border-radius:14px;overflow:hidden;margin-bottom:36px;box-shadow:0 0 40px rgba(221,51,0,0.07);}
 .prize-pill{display:flex;align-items:center;gap:14px;padding:20px 28px;}
 .prize-icon{font-size:22px;flex-shrink:0;}
-.prize-pill-text{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:500;color:var(--cream);line-height:1.4;}
-.prize-pill-text span{color:var(--red);font-size:19px;font-weight:700;}
+.prize-pill-text{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:var(--cream);line-height:1.4;}
+.prize-pill-text span{color:var(--red);font-size:28px;font-weight:700;}
 .prize-pill-text .sub{font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:400;color:var(--sub);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-top:3px;}
 .prize-div{background:var(--border);width:1px;}
 .countdown-box{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 36px;background:rgba(221,51,0,0.04);}
-.countdown-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);margin-bottom:7px;}
-.countdown-digits{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--red);letter-spacing:0.04em;text-shadow:0 0 22px rgba(221,51,0,0.55);}
+.countdown-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--sub);margin-bottom:7px;}
+.countdown-digits{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--red);letter-spacing:0.04em;text-shadow:0 0 22px rgba(221,51,0,0.55);}
 .countdown-digits.urgent{animation:pulse-fire 0.8s ease-in-out infinite;}
 @keyframes pulse-fire{0%,100%{text-shadow:0 0 22px rgba(221,51,0,0.9);}50%{text-shadow:0 0 8px rgba(221,51,0,0.25);}}
 
 /* ===== FORM SECTION ===== */
 .form-section{max-width:820px;margin:0 auto;}
 .section-head{text-align:center;margin-bottom:28px;}
-.section-label{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+.section-label{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
 .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3.5vw,36px);font-weight:600;color:var(--cream);}
 .section-sub{font-size:14px;color:var(--sub);margin-top:8px;line-height:1.6;}
 .form-card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;overflow:hidden;}
@@ -144,7 +144,7 @@ h1 .accent{color:var(--red);}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .form-field{display:flex;flex-direction:column;gap:6px;}
 .form-field.full{grid-column:1/-1;}
-.form-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--dim);}
+.form-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--sub);}
 .form-input{background:var(--panel-2);border:1px solid var(--border);color:var(--cream);font-family:'JetBrains Mono',monospace;font-size:12px;padding:11px 13px;outline:none;border-radius:8px;transition:border-color 0.15s;width:100%;}
 .form-input:focus{border-color:var(--border-red);}
 .form-input::placeholder{color:var(--dimmer);}
@@ -160,7 +160,7 @@ h1 .accent{color:var(--red);}
 .proof-card-platform{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
 .proof-card-platform svg{width:14px;height:14px;flex-shrink:0;}
 .proof-card-title{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:600;color:var(--cream);margin-bottom:4px;}
-.proof-card-desc{font-size:11px;color:var(--sub);line-height:1.5;}
+.proof-card-desc{font-size:13px;color:var(--sub);line-height:1.5;}
 .proof-card-desc li{list-style:none;display:flex;align-items:flex-start;gap:6px;margin-bottom:3px;}
 .proof-card-desc li::before{content:'—';color:var(--red);font-size:10px;flex-shrink:0;margin-top:1px;}
 .proof-illustration{padding:12px 16px;display:flex;align-items:center;justify-content:center;}
@@ -169,7 +169,7 @@ h1 .accent{color:var(--red);}
 .proof-dropzone-icon{width:30px;height:30px;border-radius:7px;background:rgba(221,51,0,0.08);border:1px solid var(--border-red);display:flex;align-items:center;justify-content:center;margin-bottom:2px;}
 .proof-dropzone-icon svg{width:14px;height:14px;color:var(--red);}
 .proof-dropzone-lbl{font-size:11.5px;font-weight:500;color:var(--cream);}
-.proof-dropzone-sub{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--dim);}
+.proof-dropzone-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--sub);}
 .proof-filename{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--red);letter-spacing:0.1em;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;}
 
 /* ===== VVV NOTE ===== */
@@ -223,7 +223,7 @@ h1 .accent{color:var(--red);}
 .winner-del-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:var(--red);padding:4px 10px;border-radius:4px;cursor:pointer;transition:background 0.15s;}
 .winner-del-btn:hover{background:rgba(221,51,0,0.08);}
 
-@media(max-width:780px){.steps-bar{grid-template-columns:1fr;}.steps-bar::before{display:none;}.prize-bar{grid-template-columns:1fr;grid-template-rows:auto auto auto;}.prize-div{width:100%;height:1px;}.countdown-box{align-items:flex-start;padding:16px 20px;}.proof-grid{grid-template-columns:1fr;}.form-grid{grid-template-columns:1fr;}.hero-ctas{flex-direction:column;align-items:center;}}
+@media(max-width:780px){.steps-bar{grid-template-columns:1fr;}.steps-bar::before{display:none;}.prize-bar{grid-template-columns:1fr;grid-template-rows:auto auto;}.prize-div{width:100%;height:1px;}.countdown-box{align-items:flex-start;padding:16px 20px;}.proof-grid{grid-template-columns:1fr;}.form-grid{grid-template-columns:1fr;}.hero-ctas{flex-direction:column;align-items:center;}}
 @media(max-width:560px){.nav-inner{padding:10px 16px;}.wrap{padding:32px 16px 80px;}.live-badge{display:none;}.form-card{padding:20px;}}
 </style>
 </head>
@@ -313,15 +313,13 @@ h1 .accent{color:var(--red);}
       <div class="step-num" data-i18n="step.n3">Step 03</div>
       <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
       <div class="step-title" data-i18n="step.t3">Submit your proof</div>
-      <div class="step-body" data-i18n="step.b3">Upload both screenshots below and enter the prize pool — 105 winners selected</div>
+      <div class="step-body" data-i18n="step.b3">Upload both screenshots below and enter the prize pool — 100 winners selected</div>
     </div>
   </div>
 
   <!-- PRIZE BAR -->
   <div class="prize-bar">
     <div class="prize-pill"><div class="prize-icon">🏛️</div><div class="prize-pill-text"><span data-i18n="prize.p1.title">100 Winners</span><span class="sub" data-i18n="prize.p1.sub">$10 stables each</span></div></div>
-    <div class="prize-div"></div>
-    <div class="prize-pill"><div class="prize-icon">🔑</div><div class="prize-pill-text"><span data-i18n="prize.p2.title">5 Lucky Winners</span><span class="sub" data-i18n="prize.p2.sub">$100 in $VVV each</span></div></div>
     <div class="prize-div"></div>
     <div class="countdown-box">
       <div class="countdown-lbl" data-i18n="prize.cd.label">Entries close in</div>
@@ -672,9 +670,9 @@ const I18N = {
     'step.t1':'Buy $VVV on Upbit','step.t2':'Sign up on Venice.ai','step.t3':'Submit your proof',
     'step.b1':'Purchase $VVV token on Upbit and take a screenshot of your purchase confirmation',
     'step.b2':'Create your Venice account and screenshot your profile page to confirm sign-up',
-    'step.b3':'Upload both screenshots below and enter the prize pool — 105 winners selected',
+    'step.b3':'Upload both screenshots below and enter the prize pool — 100 winners selected',
     'prize.p1.title':'100 Winners','prize.p1.sub':'$10 stables each',
-    'prize.p2.title':'5 Lucky Winners','prize.p2.sub':'$100 in $VVV each',
+    'prize.p2.title':'','prize.p2.sub':'',
     'prize.cd.label':'Entries close in',
     'form.section.label':'Enter the Prize Pool','form.section.title':'Submit your proof',
     'form.section.sub':'Fill in your details and upload both screenshots to qualify',
@@ -689,7 +687,7 @@ const I18N = {
     'proof.venice.l2':'Username must be clearly visible',
     'proof.venice.l3':'Visit venice.ai/chat after signing up',
     'proof.upload':'Click to upload',
-    'form.note':'$VVV prize winners will receive a direct message on X. Stablecoin prizes sent to your Venice wallet.',
+    'form.note':'Stablecoin prizes are sent directly to your submitted EVM wallet. Winners will receive an X DM.',
     'form.submit':'Submit My Entry',
     'closed.title':'Entries Closed','closed.body':'The submission window has ended. Keep an eye on the Venice community channels for winner announcements.',
     'success.title':'Entry Received','success.body':'Your proof has been submitted. Winners will be contacted via X DM. Good luck.',
@@ -708,17 +706,17 @@ const I18N = {
     'nav.sub':'한국 커뮤니티 이벤트',
     'nav.live':'이벤트 진행 중',
     'hero.eyebrow':'한국 커뮤니티 이벤트 · 지금 진행 중',
-    'hero.title':'구매하세요. 가입하세요.<br><span class="accent">보상을 받으세요.</span>',
-    'hero.sub':'Upbit에서 <strong>$VVV</strong>를 구매하고 <strong>Venice.ai</strong> 계정을 만들어 한국 커뮤니티 상금 풀에 참여하세요.',
-    'cta.upbit':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>Upbit에서 $VVV 구매',
+    'hero.title':'매수하세요. 가입하세요.<br><span class="accent">보상 받으세요.</span>',
+    'hero.sub':'Upbit에서 <strong>$VVV</strong>를 매수하고, <strong>Venice.ai</strong> 계정을 만들어 한국 커뮤니티 상금 풀에 참여하세요.',
+    'cta.upbit':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>Upbit에서 $VVV 매수',
     'cta.venice':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Venice.ai 회원가입',
     'step.n1':'단계 01','step.n2':'단계 02','step.n3':'단계 03',
-    'step.t1':'Upbit에서 $VVV 구매','step.t2':'Venice.ai 회원가입','step.t3':'증거 제출',
-    'step.b1':'Upbit에서 $VVV 토큰을 구매하고 구매 확인 스크린샷을 찍으세요',
-    'step.b2':'Venice 계정을 만들고 가입 확인을 위해 프로필 페이지를 스크린샷 하세요',
-    'step.b3':'아래에 두 스크린샷을 업로드하여 상금 풀에 참여하세요 — 총 105명 당첨',
-    'prize.p1.title':'100명 당첨','prize.p1.sub':'각 $10 스테이블',
-    'prize.p2.title':'럭키 5명 당첨','prize.p2.sub':'각 $100 $VVV',
+    'step.t1':'Upbit에서 $VVV 매수','step.t2':'Venice.ai 회원가입','step.t3':'증거 제출',
+    'step.b1':'Upbit에서 $VVV를 매수하고, 체결 완료 화면을 스크린샷으로 저장하세요',
+    'step.b2':'Venice.ai에서 회원가입 후, 프로필 페이지 스크린샷을 저장하세요',
+    'step.b3':'아래에 두 스크린샷을 업로드하여 상금 풀에 참여하세요 — 총 100명 추첨',
+    'prize.p1.title':'당첨자 100명','prize.p1.sub':'각 $10 스테이블코인',
+    'prize.p2.title':'','prize.p2.sub':'',
     'prize.cd.label':'마감까지',
     'form.section.label':'상금 풀 참여','form.section.title':'증거 제출',
     'form.section.sub':'정보를 입력하고 두 스크린샷을 업로드하여 자격을 갖추세요',
@@ -727,19 +725,19 @@ const I18N = {
     'field.confirm':'두 스크린샷이 진짜이며 저의 것임을 확인합니다.',
     'proof.upbit.title':'$VVV 구매 증거','proof.venice.title':'Venice 가입 증거',
     'proof.upbit.l1':'구매 주문 세부 정보 표시',
-    'proof.upbit.l2':'토큰 이름, 수량 및 날짜 포함',
+    'proof.upbit.l2':'토큰명·수량·체결 날짜 포함',
     'proof.upbit.l3':'Upbit 계정이 보여야 합니다',
     'proof.venice.l1':'Venice 프로필 스크린샷',
     'proof.venice.l2':'사용자 이름이 명확하게 보여야 함',
     'proof.venice.l3':'가입 후 venice.ai/chat 방문',
     'proof.upload':'클릭하여 업로드',
-    'form.note':'$VVV 상금 당첨자에게 X DM을 드립니다. 스테이블코인 상금은 Venice 지갑으로 전송됩니다.',
+    'form.note':'스테이블코인 상금은 제출한 EVM 지갑 주소로 직접 지급됩니다. 당첨자에게는 X DM으로 개별 연락드립니다.',
     'form.submit':'참여 신청하기',
     'closed.title':'참여 접수 마감','closed.body':'제출 기간이 종료되었습니다. Venice 커뮤니티 채널에서 당첨자 발표를 확인해 주세요.',
-    'success.title':'참여 완료','success.body':'증거가 제출되었습니다. 당첨자에게는 X DM으로 연락드립니다. 행운을 빕니다.',
+    'success.title':'참여 완료','success.body':'제출 완료! 당첨자는 X DM으로 개별 연락드립니다. 행운을 빌어요 🎉',
     'foot.powered':'제공',
     'err.x':'X 핸들을 입력해 주세요.',
-    'err.venice_wallet':'Venice 지갑 주소를 입력해 주세요.',
+    'err.venice_wallet':'EVM 지갑 주소를 입력해 주세요.',
     'err.upbit_id':'Upbit 사용자 ID를 입력해 주세요.',
     'err.upbit':'Upbit 구매 스크린샷을 업로드해 주세요.',
     'err.venice':'Venice 가입 스크린샷을 업로드해 주세요.',
@@ -1008,11 +1006,11 @@ async function adminLoadClicks(){ try{ const res=await fetch(`${SUPABASE_URL}/re
 // Winners
 let _wDraft=[],_wPool=[];
 async function adminLoadWinners(){ try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?select=id,entry_id,x_handle,prize_type,is_replacement,confirmed,selected_at&order=prize_type,selected_at`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const data=await res.json(); const c=$('adminWinnersContent'); if(!c) return; if(Array.isArray(data)&&data.length>0){ const ids=data.map(w=>w.entry_id).filter(Boolean).join(','); let em={}; if(ids){ const er=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,venice_wallet,upbit_id,upbit_proof_url&id=in.(${ids})`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const ed=await er.json(); if(Array.isArray(ed)) ed.forEach(e=>{em[e.id]=e;}); } const en=data.map(w=>({...w,venice_wallet:em[w.entry_id]?.venice_wallet||'',upbit_id:em[w.entry_id]?.upbit_id||'',proof_url:em[w.entry_id]?.upbit_proof_url||''})); renderWinnersConfirmed(en,c); } else { c.innerHTML=`<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);padding:16px 0;">No winners selected yet.</div>`; } }catch(e){} }
-function renderWinnersConfirmed(data,c){ const st=data.filter(w=>w.prize_type==='stable_10'),vv=data.filter(w=>w.prize_type==='vvv_100'); c.innerHTML=`<div style="margin-bottom:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);">✓ ${st.length} × $10 stable &nbsp;·&nbsp; ${vv.length} × $100 $VVV</div><button onclick='adminExportWinnersCSV(${JSON.stringify(data)})' style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:7px 14px;cursor:pointer;border-radius:4px;">↓ Export CSV</button><button onclick="adminClearWinners()" style="background:transparent;border:1px solid var(--border);color:var(--red);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 12px;cursor:pointer;border-radius:4px;">Reset</button></div>${renderWTable(data)}`; }
+function renderWinnersConfirmed(data,c){ const st=data.filter(w=>w.prize_type==='stable_10'),vv=data.filter(w=>w.prize_type==='vvv_100'); c.innerHTML=`<div style="margin-bottom:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;"><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);">✓ ${st.length} × $10 stable</div><button onclick='adminExportWinnersCSV(${JSON.stringify(data)})' style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:7px 14px;cursor:pointer;border-radius:4px;">↓ Export CSV</button><button onclick="adminClearWinners()" style="background:transparent;border:1px solid var(--border);color:var(--red);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;padding:6px 12px;cursor:pointer;border-radius:4px;">Reset</button></div>${renderWTable(data)}`; }
 function adminExportWinnersCSV(data){ const h=['#','x_handle','venice_wallet','upbit_id','prize_type','proof_url','is_replacement','selected_at']; const rows=data.map((w,i)=>[i+1,`@${w.x_handle}`,w.venice_wallet||'',w.upbit_id||'',w.prize_type,w.proof_url||'',w.is_replacement?'yes':'no',w.selected_at?new Date(w.selected_at).toLocaleString():'']); const csv=[h,...rows].map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n'); const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download=`venice-winners-${new Date().toISOString().slice(0,10)}.csv`; document.body.appendChild(a); a.click(); document.body.removeChild(a); }
 function renderWTable(rows){ const pl=t=>t==='vvv_100'?`<span style="color:var(--red);">$100 $VVV</span>`:`<span style="color:var(--red);opacity:0.7;">$10 Stable</span>`; const trs=rows.map((w,i)=>{ const pf=w.proof_url?`<a href="${w.proof_url}" target="_blank" style="color:var(--red);font-size:9px;border:1px solid var(--border-red);padding:2px 7px;border-radius:3px;text-decoration:none;">View</a>`:'—'; return `<tr><td style="padding:9px 12px;color:var(--dim);font-size:10px;">${i+1}</td><td style="padding:9px 12px;color:var(--cream);font-weight:600;">@${w.x_handle}</td><td style="padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">${w.venice_wallet?w.venice_wallet.slice(0,6)+'…'+w.venice_wallet.slice(-4):'—'}</td><td style="padding:9px 12px;color:var(--sub);">${w.upbit_id||'—'}</td><td style="padding:9px 12px;">${pl(w.prize_type)}</td><td style="padding:9px 12px;">${pf}</td><td style="padding:9px 12px;"><button class="winner-del-btn" onclick="adminDeleteWinner(${w.id||'null'},'${w.prize_type}','${w.x_handle}')">Remove</button></td></tr>`; }).join(''); return `<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px;"><thead><tr style="border-bottom:1px solid var(--border);">${['#','X Handle','Venice Wallet','Upbit ID','Prize','Proof',''].map(h=>`<th style="text-align:left;padding:8px 12px;color:var(--dim);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;">${h}</th>`).join('')}</tr></thead><tbody>${trs}</tbody></table></div>`; }
-async function adminPickWinners(){ const btn=$('adminPickBtn'); if(btn){btn.disabled=true;btn.textContent='Selecting…';} try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,venice_wallet,upbit_id,upbit_proof_url`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const entries=await res.json(); if(!Array.isArray(entries)||!entries.length){alert('No entries found.');if(btn){btn.disabled=false;btn.textContent='Select Winners';}return;} const sh=[...entries].sort(()=>Math.random()-0.5); const vc=Math.min(5,sh.length),sc=Math.min(100,sh.length-vc); _wDraft=[...sh.slice(0,vc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.upbit_proof_url,prize_type:'vvv_100',is_replacement:false})),...sh.slice(vc,vc+sc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.upbit_proof_url,prize_type:'stable_10',is_replacement:false}))]; _wPool=sh.slice(vc+sc); renderWDraft(); }catch(e){alert('Failed: '+e.message);} if(btn){btn.disabled=false;btn.textContent='Re-pick';} }
-function renderWDraft(){ const c=$('adminWinnersContent'); if(!c) return; const sc=_wDraft.filter(w=>w.prize_type==='stable_10').length,vc=_wDraft.filter(w=>w.prize_type==='vvv_100').length; c.innerHTML=`<div style="margin-bottom:16px;padding:12px 16px;background:rgba(221,51,0,0.06);border:1px solid var(--border);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">⚠ Draft — not confirmed. Click <strong style="color:var(--red);">Confirm Winners</strong> to save.<br><span style="color:var(--dim);">${vc} × $100 $VVV &nbsp;·&nbsp; ${sc} × $10 stable &nbsp;·&nbsp; ${_wPool.length} remaining</span></div>${renderWTable(_wDraft)}<div style="margin-top:16px;display:flex;gap:10px;"><button onclick="adminConfirmWinners()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:12px 24px;cursor:pointer;border-radius:6px;">Confirm Winners</button><button onclick="adminPickWinners()" style="background:transparent;border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px;cursor:pointer;border-radius:6px;">Re-pick all</button></div>`; }
+async function adminPickWinners(){ const btn=$('adminPickBtn'); if(btn){btn.disabled=true;btn.textContent='Selecting…';} try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,venice_wallet,upbit_id,upbit_proof_url`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const entries=await res.json(); if(!Array.isArray(entries)||!entries.length){alert('No entries found.');if(btn){btn.disabled=false;btn.textContent='Select Winners';}return;} const sh=[...entries].sort(()=>Math.random()-0.5); const sc=Math.min(100,sh.length); _wDraft=[...sh.slice(0,sc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.upbit_proof_url,prize_type:'stable_10',is_replacement:false}))]; _wPool=sh.slice(sc); renderWDraft(); }catch(e){alert('Failed: '+e.message);} if(btn){btn.disabled=false;btn.textContent='Re-pick';} }
+function renderWDraft(){ const c=$('adminWinnersContent'); if(!c) return; const sc=_wDraft.filter(w=>w.prize_type==='stable_10').length; c.innerHTML=`<div style="margin-bottom:16px;padding:12px 16px;background:rgba(221,51,0,0.06);border:1px solid var(--border);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">⚠ Draft — not confirmed. Click <strong style="color:var(--red);">Confirm Winners</strong> to save.<br><span style="color:var(--dim);">${sc} × $10 stable &nbsp;·&nbsp; ${_wPool.length} remaining in pool</span></div>${renderWTable(_wDraft)}<div style="margin-top:16px;display:flex;gap:10px;"><button onclick="adminConfirmWinners()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:12px 24px;cursor:pointer;border-radius:6px;">Confirm Winners</button><button onclick="adminPickWinners()" style="background:transparent;border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px;cursor:pointer;border-radius:6px;">Re-pick all</button></div>`; }
 async function adminDeleteWinner(dbId,prizeType,xHandle){ if(!dbId){ const idx=_wDraft.findIndex(w=>w.x_handle===xHandle&&w.prize_type===prizeType); if(idx!==-1){ if(_wPool.length===0){ _wDraft.splice(idx,1); } else { const r=_wPool.shift(); _wDraft[idx]={entry_id:r.id,x_handle:r.x_handle,venice_wallet:r.venice_wallet||'',upbit_id:r.upbit_id||'',proof_url:r.upbit_proof_url||'',prize_type:prizeType,is_replacement:true}; } renderWDraft(); } return; } if(!confirm(`Remove @${xHandle}?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=eq.${dbId}`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); adminLoadWinners(); }catch(e){alert('Error: '+e.message);} }
 async function adminConfirmWinners(){ if(!confirm(`Save ${_wDraft.length} winners?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?confirmed=eq.false`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const payload=_wDraft.map(w=>({entry_id:w.entry_id,x_handle:w.x_handle,prize_type:w.prize_type,is_replacement:w.is_replacement,confirmed:true})); const r=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners`,{method:'POST',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(payload)}); if(!r.ok) throw new Error(`HTTP ${r.status}`); _wDraft=[]; _wPool=[]; adminLoadWinners(); }catch(e){alert('Failed: '+e.message);} }
 async function adminClearWinners(){ if(!confirm('Delete all winners?')) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=gt.0`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); _wDraft=[]; _wPool=[]; adminLoadWinners(); }
