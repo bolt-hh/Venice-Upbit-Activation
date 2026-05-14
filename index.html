@@ -553,9 +553,9 @@ h1 .accent{color:var(--red);}
           </a>
         </div>
         <div class="eco-links">
-          <a href="https://venice.ai/chat" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('chat','success')">Try Venice Chat</a>
-          <a href="https://venice.ai/image" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('image','success')">Image Generation</a>
-          <a href="https://venice.ai" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('pro','success')">Venice Pro</a>
+          <a href="https://venice.ai/chat" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('chat','success')" data-i18n="success.link1">Try Venice Chat</a>
+          <a href="https://venice.ai/features" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('features','success')" data-i18n="success.link2">Learn more about Venice</a>
+          <a href="https://venice.ai" target="_blank" rel="noopener noreferrer" class="eco-link" onclick="trackClick('pro','success')" data-i18n="success.link3">Venice Pro</a>
         </div>
       </div>
     </div>
@@ -594,7 +594,10 @@ h1 .accent{color:var(--red);}
   <div id="adminUI" style="display:none;max-width:960px;margin:0 auto;padding:40px 28px 80px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
       <div><div style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--cream);">Admin Panel</div><div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.2em;text-transform:uppercase;margin-top:4px;">Venice Community · Internal</div></div>
-      <button onclick="closeAdmin()" style="background:var(--panel);border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;padding:9px 16px;cursor:pointer;border-radius:6px;">Close</button>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button onclick="toggleTheme()" title="Toggle dark/light mode" style="background:var(--panel);border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:14px;padding:7px 12px;cursor:pointer;border-radius:6px;line-height:1;transition:all 0.15s;" onmouseover="this.style.color='var(--cream)'" onmouseout="this.style.color='var(--sub)'">◐</button>
+        <button onclick="closeAdmin()" style="background:var(--panel);border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;padding:9px 16px;cursor:pointer;border-radius:6px;">Close</button>
+      </div>
     </div>
     <div style="display:flex;gap:4px;margin-bottom:28px;border-bottom:1px solid var(--border);flex-wrap:wrap;">
       <button class="admin-tab active" onclick="adminTab('dashboard')" data-tab="dashboard">📊 Dashboard</button>
@@ -747,7 +750,7 @@ const I18N = {
     'proof.sample':'Sample','form.note':'Stablecoin prizes are sent directly to your submitted EVM wallet.',
     'form.submit':'Submit My Entry',
     'closed.title':'Entries Closed','closed.body':'The submission window has ended. Keep an eye on the Venice community channels for winner announcements.',
-    'success.title':'Entry Received','success.body':'Your proof has been submitted. Winners will be contacted via X DM. Good luck.',
+    'success.title':'Entry Received','success.body':'Your proof has been submitted. Winners will receive their prize directly to the submitted wallet. Good luck! 🎉','success.link1':'Try Venice Chat','success.link2':'Learn more about Venice','success.link3':'Venice Pro',
     'foot.powered':'Powered by',
     'err.x':'X handle is required.',
     'err.venice_wallet':'Venice wallet address is required.',
@@ -791,7 +794,7 @@ const I18N = {
     'proof.sample':'샘플','form.note':'스테이블코인 상금은 제출한 EVM 지갑 주소로 직접 지급됩니다.',
     'form.submit':'참여 신청하기',
     'closed.title':'참여 접수 마감','closed.body':'제출 기간이 종료되었습니다. Venice 커뮤니티 채널에서 당첨자 발표를 확인해 주세요.',
-    'success.title':'참여 완료','success.body':'제출 완료! 당첨자는 X DM으로 개별 연락드립니다. 행운을 빌어요 🎉',
+    'success.title':'참여 완료','success.body':'제출 완료! 당첨자에게는 제출하신 지갑으로 직접 상금이 지급됩니다. 행운을 빌어요! 🎉','success.link1':'Venice 채팅 체험하기','success.link2':'Venice 더 알아보기','success.link3':'Venice Pro',
     'foot.powered':'제공',
     'err.x':'X 핸들을 입력해 주세요.',
     'err.venice_wallet':'EVM 지갑 주소를 입력해 주세요.',
@@ -956,7 +959,7 @@ async function submitEntry(){
     if (refEl)  refEl.textContent  = refId;
     if (timeEl) timeEl.textContent = refTime;
     const tweetText = encodeURIComponent(
-      'Just entered the @Venice_ai Korea prize pool — 100 winners, buy $VVV on Upbit to enter: https://venice-upbit-activation.vercel.app');
+      'Just entered the @Venice_ai Korea prize pool — bought $VVV on Upbit & signed up on @Venice_ai. 100 winners get a piece of the $1000 prize pool 👇\nhttps://venice-upbit-activation.vercel.app\n#VeniceKorea');
     const tweetBtn = document.getElementById('sf-tweet-btn');
     if (tweetBtn) tweetBtn.href = `https://twitter.com/intent/tweet?text=${tweetText}`;
 
