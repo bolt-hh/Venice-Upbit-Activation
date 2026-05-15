@@ -530,7 +530,7 @@ h1 .accent{color:var(--red);}
       <div class="state-card">
         <div class="state-icon">🔒</div>
         <div class="state-title" data-i18n="closed.title">Entries Closed</div>
-        <div class="state-body" data-i18n="closed.body">The submission window has ended. Keep an eye on the Venice community channels for winner announcements.</div>
+        <div class="state-body" data-i18n-html="closed.body">The submission window has ended. <a href="winners.html" target="_blank" rel="noopener noreferrer" style="color:var(--red);text-decoration:underline;text-underline-offset:3px;" data-i18n="closed.winners_link">Keep an eye on the Winners page</a> for announcements.</div>
       </div>
     </div>
 
@@ -550,6 +550,12 @@ h1 .accent{color:var(--red);}
           <a id="sf-tweet-btn" href="#" target="_blank" rel="noopener noreferrer" onclick="trackClick('share','success')" style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;padding:10px 20px;border-radius:8px;text-decoration:none;background:#000;color:#fff;border:1px solid rgba(255,255,255,0.14);transition:opacity 0.2s;" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">
             <svg viewBox="0 0 24 24" fill="currentColor" style="width:13px;height:13px;flex-shrink:0;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.738l7.737-8.835L1.254 2.25H8.08l4.259 5.635L18.243 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             Share on X
+          </a>
+        </div>
+        <!-- Winners link -->
+        <div style="margin-bottom:4px;">
+          <a href="winners.html" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.04em;padding:10px 22px;border-radius:8px;text-decoration:none;background:var(--red);color:#fff;transition:opacity 0.2s;" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">
+            🏆 <span data-i18n="success.winners_btn">View Winners</span>
           </a>
         </div>
         <div class="eco-links">
@@ -749,8 +755,8 @@ const I18N = {
     'proof.upload':'Click to upload',
     'proof.sample':'Sample','form.note':'Stablecoin prizes are sent directly to your submitted EVM wallet.',
     'form.submit':'Submit My Entry',
-    'closed.title':'Entries Closed','closed.body':'The submission window has ended. Keep an eye on the Venice community channels for winner announcements.',
-    'success.title':'Entry Received','success.body':'Your proof has been submitted. Winners will receive their prize directly to the submitted wallet. Good luck! 🎉','success.link1':'Try Venice Chat','success.link2':'Learn more about Venice','success.link3':'Venice Pro',
+    'closed.title':'Entries Closed','closed.body':'The submission window has ended. <a href="winners.html" target="_blank" rel="noopener noreferrer" style="color:var(--red);text-decoration:underline;text-underline-offset:3px;">Keep an eye on the Winners page</a> for announcements.','closed.winners_link':'Keep an eye on the Winners page',
+    'success.title':'Entry Received','success.body':'Your proof has been submitted. Winners will receive their prize directly to the submitted wallet. Good luck! 🎉','success.winners_btn':'View Winners','success.link1':'Try Venice Chat','success.link2':'Learn more about Venice','success.link3':'Venice Pro',
     'foot.powered':'Powered by',
     'err.x':'X handle is required.',
     'err.venice_wallet':'Venice wallet address is required.',
@@ -766,24 +772,24 @@ const I18N = {
     'nav.sub':'한국 커뮤니티 이벤트','about.b1':'채팅 내용, 프롬프트, 업로드 파일은 세션 밖으로 나가지 않습니다. 로그 저장 없음, AI 학습에 사용되지 않음.','about.b2':'검열 없이 최상위 오픈소스 AI 모델을 사용하세요. 채팅·이미지 생성·문서 분석·코드 작성을 한 곳에서.','about.b3':'$VVV는 Venice 네트워크를 지탱하는 토큰입니다. 보유자는 네트워크를 지원하고 플랫폼 수익의 일부를 받습니다.','about.b4':'광고 없음, 기업 편향 없음, 데이터 판매 없음. Venice는 오픈 모델로 브라우저·모바일에서 바로 실행됩니다.',
     'nav.live':'이벤트 진행 중',
     'hero.eyebrow':'한국 커뮤니티 이벤트 · 지금 진행 중',
-    'hero.title':'매수하세요. 가입하세요.<br><span class="accent">보상 받으세요.</span>',
+    'hero.title':'매수. 가입.<br><span class="accent">보상 받자.</span>',
     'hero.sub':'Upbit에서 <strong>$VVV</strong>를 매수하고, <strong>Venice.ai</strong> 계정을 만들어 한국 커뮤니티 상금 풀에 참여하세요.',
     'cta.upbit':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>Upbit에서 $VVV 매수',
     'cta.venice':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Venice.ai 회원가입',
-    'step.n1':'단계 01','step.n2':'단계 02','step.n3':'단계 03',
-    'step.t1':'Upbit에서 $VVV 매수','step.t2':'Venice.ai 회원가입','step.t3':'증거 제출',
+    'step.n1':'Step 01','step.n2':'Step 02','step.n3':'Step 03',
+    'step.t1':'Upbit에서 $VVV 매수','step.t2':'Venice.ai 회원가입','step.t3':'인증하기',
     'step.b1':'Upbit에서 $VVV를 매수하고, 체결 완료 화면을 스크린샷으로 저장하세요',
     'step.b2':'Venice.ai에서 회원가입 후, 프로필 페이지 스크린샷을 저장하세요',
     'step.b3':'아래에 두 스크린샷을 업로드하여 상금 풀에 참여하세요 — 총 100명 추첨',
     'prize.p1.title':'당첨자 100명','prize.p1.sub':'각 $10 스테이블코인',
     'prize.p2.title':'','prize.p2.sub':'',
     'prize.cd.label':'마감까지',
-    'form.section.label':'상금 풀 참여','form.section.title':'증거 제출',
-    'form.section.sub':'정보를 입력하고 두 스크린샷을 업로드하여 자격을 갖추세요',
+    'form.section.label':'이벤트 응모','form.section.title':'인증 제출',
+    'form.section.sub':'정보 입력 후 스크린샷 두 장을 올리면 응모 완료',
     'field.x':'X / 트위터 핸들','field.telegram':'텔레그램 핸들','field.venice_wallet':'EVM 지갑 주소','field.upbit_id':'Upbit 사용자 ID',
     'field.kol':'어느 KOL 채널에서 오셨나요?','field.kol.placeholder':'@kol_계정명',
     'field.confirm':'두 스크린샷이 진짜이며 저의 것임을 확인합니다.',
-    'proof.upbit.title':'$VVV 구매 증거','proof.venice.title':'Venice 가입 증거',
+    'proof.upbit.title':'$VVV 매수 인증','proof.venice.title':'Venice 가입 인증',
     'proof.upbit.l1':'거래내역 스크린샷 (투자내역 → 거래내역)','proof.upbit.slot1':'① 체결 내역','proof.upbit.slot2':'② 더보기 계정 페이지','err.upbit2':'Upbit 계정 페이지 스크린샷을 업로드해 주세요.',
     'proof.upbit.l2':'더보기 탭 계정 페이지 스크린샷',
     'proof.upbit.l3':'두 스크린샷 모두 Upbit 계정이 보여야 함',
@@ -792,14 +798,14 @@ const I18N = {
     'proof.venice.l3':'가입 후 venice.ai/chat 방문',
     'proof.upload':'클릭하여 업로드',
     'proof.sample':'샘플','form.note':'스테이블코인 상금은 제출한 EVM 지갑 주소로 직접 지급됩니다.',
-    'form.submit':'참여 신청하기',
-    'closed.title':'참여 접수 마감','closed.body':'제출 기간이 종료되었습니다. Venice 커뮤니티 채널에서 당첨자 발표를 확인해 주세요.',
-    'success.title':'참여 완료','success.body':'제출 완료! 당첨자에게는 제출하신 지갑으로 직접 상금이 지급됩니다. 행운을 빌어요! 🎉','success.link1':'Venice 채팅 체험하기','success.link2':'Venice 더 알아보기','success.link3':'Venice Pro',
+    'form.submit':'응모하기',
+    'closed.title':'참여 접수 마감','closed.body':'제출 기간이 종료되었습니다. <a href="winners.html" target="_blank" rel="noopener noreferrer" style="color:var(--red);text-decoration:underline;text-underline-offset:3px;">당첨자 페이지</a>에서 발표를 확인해 주세요.','closed.winners_link':'당첨자 페이지',
+    'success.title':'참여 완료','success.body':'제출 완료! 당첨자에게는 제출하신 지갑으로 직접 상금이 지급됩니다. 행운을 빌어요! 🎉','success.winners_btn':'당첨자 보기','success.link1':'Venice 채팅 체험하기','success.link2':'Venice 더 알아보기','success.link3':'Venice Pro',
     'foot.powered':'제공',
     'err.x':'X 핸들을 입력해 주세요.',
     'err.venice_wallet':'EVM 지갑 주소를 입력해 주세요.',
     'err.upbit_id':'Upbit 사용자 ID를 입력해 주세요.',
-    'err.upbit':'Upbit 구매 스크린샷을 업로드해 주세요.',
+    'err.upbit':'Upbit 매수 스크린샷을 업로드해 주세요.',
     'err.venice':'Venice 가입 스크린샷을 업로드해 주세요.',
     'err.filesize':'파일은 2MB 이하여야 합니다.','err.confirm':'제출을 확인해 주세요.',
     'err.kol':'본 이벤트를 알려준 KOL을 선택해 주세요.',
