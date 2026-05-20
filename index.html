@@ -225,7 +225,7 @@ h1 .accent{color:var(--red);}
 .winner-del-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;background:transparent;border:1px solid var(--border);color:var(--red);padding:4px 10px;border-radius:4px;cursor:pointer;transition:background 0.15s;}
 .winner-del-btn:hover{background:rgba(221,51,0,0.08);}
 
-@media(max-width:780px){.steps-bar{grid-template-columns:1fr;}.steps-bar::before{display:none;}.prize-bar{grid-template-columns:1fr;grid-template-rows:auto auto;}.prize-div{width:100%;height:1px;}.countdown-box{align-items:flex-start;padding:16px 20px;}.proof-grid{grid-template-columns:1fr;}.form-grid{grid-template-columns:1fr;}.hero-ctas{flex-direction:column;align-items:center;}}
+@media(max-width:780px){.steps-bar{grid-template-columns:1fr;}.steps-bar::before{display:none;}.prize-bar{grid-template-columns:1fr;grid-template-rows:auto auto;}.prize-div{width:100%;height:1px;}.countdown-box{align-items:flex-start;padding:16px 20px;}.proof-grid{grid-template-columns:1fr;}.form-grid{grid-template-columns:1fr;}.hero-ctas{flex-direction:column;align-items:center;}#veniceCard{flex-direction:column!important;min-height:unset!important;}#veniceCard>div:last-child{flex:0 0 200px!important;border-left:none!important;border-top:1px solid var(--border);}}
 @media(max-width:560px){.nav-inner{padding:10px 16px;}.wrap{padding:32px 16px 80px;}.live-badge{display:none;}.form-card{padding:20px;}}
 
 
@@ -471,34 +471,38 @@ h1 .accent{color:var(--red);}
             </div>
 
             <!-- Venice Proof -->
-            <label class="proof-card" id="veniceCard">
-              <div class="proof-card-head">
-                <div class="proof-card-platform">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                  Venice.ai
+            <label class="proof-card" id="veniceCard" style="flex-direction:row;align-items:stretch;min-height:260px;">
+              <!-- Left: info + upload -->
+              <div style="flex:1;min-width:0;padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;">
+                <div>
+                  <div class="proof-card-platform">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    Venice.ai
+                  </div>
+                  <div class="proof-card-title" data-i18n="proof.venice.title" style="margin:8px 0 10px;">Venice Sign-up Proof</div>
+                  <ul class="proof-card-desc">
+                    <li data-i18n="proof.venice.l1">Screenshot of your Venice profile</li>
+                    <li data-i18n="proof.venice.l2">Username must be clearly visible</li>
+                    <li data-i18n="proof.venice.l3">Visit venice.ai/chat after signing up</li>
+                  </ul>
                 </div>
-                <div class="proof-card-title" data-i18n="proof.venice.title">Venice Sign-up Proof</div>
-                <ul class="proof-card-desc">
-                  <li data-i18n="proof.venice.l1">Screenshot of your Venice profile</li>
-                  <li data-i18n="proof.venice.l2">Username must be clearly visible</li>
-                  <li data-i18n="proof.venice.l3">Visit venice.ai/chat after signing up</li>
-                </ul>
+                <!-- Upload button -->
+                <div class="proof-dropzone" style="margin-top:16px;">
+                  <div class="proof-dropzone-inner">
+                    <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
+                    <div class="proof-dropzone-lbl" id="veniceLbl" data-i18n="proof.upload">Click to upload</div>
+                    <div class="proof-dropzone-sub">PNG · JPG · max 2MB</div>
+                    <div class="proof-filename" id="veniceFilename"></div>
+                  </div>
+                  <input type="file" accept="image/*" id="sf-venice_screenshot" style="display:none;" onchange="handleProofFile('venice',this)">
+                </div>
               </div>
-              <!-- Sample: Venice profile -->
-              <div class="proof-sample-wrap" style="padding:8px 8px 0;">
-                <div class="proof-sample-label" data-i18n="proof.sample">Sample</div>
-                <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-venice-profile.jpg" target="_blank" rel="noopener noreferrer">
-                  <img class="proof-sample-img" src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-venice-profile.jpg" alt="Sample Venice profile" loading="lazy" onerror="this.closest('.proof-sample-wrap').style.display='none'" style="object-fit:contain;object-position:center;background:var(--bg-2);">
+              <!-- Right: sample image -->
+              <div style="flex:0 0 45%;position:relative;overflow:hidden;border-left:1px solid var(--border);">
+                <div class="proof-sample-label" style="position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:1;" data-i18n="proof.sample">Sample</div>
+                <a href="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-venice-profile.jpg" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;height:100%;">
+                  <img src="https://pub-a7954b786d394847a17127d1cf278881.r2.dev/sample-venice-profile.jpg" alt="Sample Venice profile" loading="lazy" onerror="this.closest('div').style.display='none'" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;">
                 </a>
-              </div>
-              <div class="proof-dropzone">
-                <div class="proof-dropzone-inner">
-                  <div class="proof-dropzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 8l5-5 5 5"/><path d="M4 21h16"/></svg></div>
-                  <div class="proof-dropzone-lbl" id="veniceLbl" data-i18n="proof.upload">Click to upload</div>
-                  <div class="proof-dropzone-sub">PNG · JPG · max 2MB</div>
-                  <div class="proof-filename" id="veniceFilename"></div>
-                </div>
-                <input type="file" accept="image/*" id="sf-venice_screenshot" style="display:none;" onchange="handleProofFile('venice',this)">
               </div>
             </label>
           </div>
