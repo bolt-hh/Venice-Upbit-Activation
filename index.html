@@ -90,6 +90,8 @@ body{background:var(--bg);min-height:100vh;font-family:'DM Sans',sans-serif;colo
 .eyebrow::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red);animation:pulse-live 2s infinite;}
 h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(46px,6.5vw,82px);font-weight:600;line-height:0.94;letter-spacing:-0.02em;color:var(--cream);margin-bottom:22px;}
 h1 .accent{color:var(--red);}
+.venice-desc{font-size:14px;color:var(--sub);line-height:1.7;max-width:540px;margin:10px auto 22px;font-weight:400;letter-spacing:0.01em;}
+.venice-desc strong{color:var(--cream);font-weight:600;}
 .hero-sub{font-size:17px;color:var(--sub);line-height:1.7;max-width:580px;margin:0 auto 32px;font-weight:300;}
 .hero-sub strong{color:var(--cream);font-weight:600;}
 .hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
@@ -325,16 +327,17 @@ h1 .accent{color:var(--red);}
       <img src="assets/venice-keys-red.svg" alt="Venice">
     </div>
     <div class="eyebrow" data-i18n="hero.eyebrow">Korea Community Activation · Live Now</div>
+    <p class="venice-desc" data-i18n-html="hero.venice_desc">Venice is a private AI trusted by <strong>3 million people</strong>, powered by <strong>230+ open-source models</strong>. Chat, generate images, and search the web. Nothing you use it for is ever stored or tracked.</p>
     <h1 data-i18n-html="hero.title">Verify your $VVV on Upbit.<br><span class="accent">Join the prize pool.</span></h1>
     <p class="hero-sub" data-i18n-html="hero.sub">Verify your <strong>$VVV</strong> holding on Upbit, sign up on <strong>Venice.ai</strong>, and submit your proof to enter the $1,000 prize pool.</p>
     <div class="hero-ctas">
-      <a href="https://www.upbit.com/exchange?code=CRIX.UPBIT.KRW-VVV" target="_blank" rel="noopener noreferrer" class="cta-btn cta-primary" onclick="trackClick('upbit','hero')" data-i18n-html="cta.upbit">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-        Buy $VVV on Upbit
-      </a>
-      <a href="https://venice.ai" target="_blank" rel="noopener noreferrer" class="cta-btn cta-secondary" onclick="trackClick('signup','hero')" data-i18n-html="cta.venice">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2zM11 11V7M16 11V7"/></svg>
+      <a href="https://venice.ai" target="_blank" rel="noopener noreferrer" class="cta-btn cta-primary" onclick="trackClick('signup','hero')" data-i18n-html="cta.venice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         Sign up on Venice.ai
+      </a>
+      <a href="https://www.upbit.com/exchange?code=CRIX.UPBIT.KRW-VVV" target="_blank" rel="noopener noreferrer" class="cta-btn cta-secondary" onclick="trackClick('upbit','hero')" data-i18n-html="cta.upbit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
+        Buy $VVV on Upbit
       </a>
     </div>
   </div>
@@ -726,6 +729,7 @@ const I18N = {
     'nav.sub':'Korea Community Activation','about.b1':'Your chats, prompts, and uploads never leave your session. Nothing is logged or used to train AI models.','about.b2':'Access top open-source models — chat, generate images, analyze documents, write code — all in one place, without censorship.','about.b3':'$VVV is the token that powers Venice. Holders support the network and earn a share of platform revenue.','about.b4':'No ads, no corporate agenda, no data sold. Venice runs on open models directly in your browser or mobile app.',
     'nav.live':'Activation Live',
     'hero.eyebrow':'Korea Community Activation · Live Now',
+    'hero.venice_desc':'Venice is a private AI trusted by <strong>3 million people</strong>, powered by <strong>230+ open-source models</strong>. Chat, generate images, and search the web. Nothing you use it for is ever stored or tracked.',
     'hero.title':'Verify your $VVV on Upbit.<br><span class="accent">Join the prize pool.</span>',
     'hero.sub':'Verify your <strong>$VVV</strong> holding on Upbit, sign up on <strong>Venice.ai</strong>, and submit your proof to enter the $1,000 prize pool.',
     'cta.upbit':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>Buy $VVV on Upbit',
@@ -770,6 +774,7 @@ const I18N = {
     'nav.sub':'한국 커뮤니티 이벤트','about.b1':'채팅 내용, 프롬프트, 업로드 파일은 세션 밖으로 나가지 않습니다. 로그 저장 없음, AI 학습에 사용되지 않음.','about.b2':'검열 없이 최상위 오픈소스 AI 모델을 사용하세요. 채팅·이미지 생성·문서 분석·코드 작성을 한 곳에서.','about.b3':'$VVV는 Venice 네트워크를 지탱하는 토큰입니다. 보유자는 네트워크를 지원하고 플랫폼 수익의 일부를 받습니다.','about.b4':'광고 없음, 기업 편향 없음, 데이터 판매 없음. Venice는 오픈 모델로 브라우저·모바일에서 바로 실행됩니다.',
     'nav.live':'이벤트 진행 중',
     'hero.eyebrow':'한국 커뮤니티 이벤트 · 지금 진행 중',
+    'hero.venice_desc':'Venice는 <strong>300만 명</strong>이 신뢰하는 프라이빗 AI로, <strong>230개 이상의 오픈소스 모델</strong>을 지원합니다. 채팅, 이미지 생성, 웹 검색까지 가능하며 사용한 내용은 절대 저장되거나 추적되지 않습니다.',
     'hero.title':'업비트에서 $VVV 홀더 인증하고<br><span class="accent">이벤트 참여하자!</span>',
     'hero.sub':'Upbit에서 <strong>$VVV</strong> 보유를 인증하고 <strong>Venice.ai</strong>에 가입한 뒤 스크린샷을 제출하면 $1,000 상금 풀 응모 완료.',
     'cta.upbit':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>Upbit에서 $VVV 매수',
