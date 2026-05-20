@@ -413,8 +413,8 @@ h1 .accent{color:var(--red);}
 
           <!-- Proof uploads -->
           <div class="proof-grid">
-            <!-- Upbit Proof — 2 uploads -->
-            <div class="proof-card" id="upbitCard" style="cursor:default;">
+            <!-- Upbit Proof — hidden (removed from UX, DB columns preserved) -->
+            <div class="proof-card" id="upbitCard" style="display:none;">
               <div class="proof-card-head">
                 <div class="proof-card-platform">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg>
@@ -890,10 +890,6 @@ async function submitEntry(){
   if (!xHandle)                          return sfShowError(_t('err.x'));
   if (!veniceWallet)                     return sfShowError(_t('err.venice_wallet'));
   if (!upbitId)                          return sfShowError(_t('err.upbit_id'));
-  if (!upbitFile)                        return sfShowError(_t('err.upbit'));
-  if (upbitFile.size > 2*1024*1024)      return sfShowError(_t('err.filesize'));
-  if (!upbit2File)                       return sfShowError(_t('err.upbit2'));
-  if (upbit2File.size > 2*1024*1024)     return sfShowError(_t('err.filesize'));
   if (!veniceFile)                       return sfShowError(_t('err.venice'));
   if (veniceFile.size > 2*1024*1024)     return sfShowError(_t('err.filesize'));
   if (!confirmed)                        return sfShowError(_t('err.confirm'));
@@ -923,22 +919,8 @@ async function submitEntry(){
       // RLS blocked the SELECT — proceed; DB unique constraint will catch real dupes
     }
 
-    // ── Upload Upbit proof ──
-    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (1/3)…' : 'Uploading proof (1/3)…';
-    const upbitName = `venice-upbit-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
-    const ur = await fetch(`${R2_UPLOAD_ENDPOINT}/${upbitName}`,{method:'PUT',headers:{'Content-Type':upbitFile.type||'image/png'},body:upbitFile});
-    if (!ur.ok) throw new Error(_t('err.upload'));
-    const upbitUrl = `${R2_PUBLIC_BASE_URL}/${upbitName}`;
-
-    // ── Upload Upbit account proof ──
-    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (2/3)…' : 'Uploading proof (2/3)…';
-    const upbit2Name = `venice-upbit-acct-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
-    const ur2 = await fetch(`${R2_UPLOAD_ENDPOINT}/${upbit2Name}`,{method:'PUT',headers:{'Content-Type':upbit2File.type||'image/png'},body:upbit2File});
-    if (!ur2.ok) throw new Error(_t('err.upload'));
-    const upbit2Url = `${R2_PUBLIC_BASE_URL}/${upbit2Name}`;
-
     // ── Upload Venice proof ──
-    btnSpan.textContent = currentLang==='ko' ? '업로드 중 (3/3)…' : 'Uploading proof (3/3)…';
+    btnSpan.textContent = currentLang==='ko' ? '업로드 중…' : 'Uploading proof…';
     const veniceName = `venice-signup-${Date.now()}-${xHandle.replace(/[^a-z0-9]/gi,'')}.png`;
     const vr = await fetch(`${R2_UPLOAD_ENDPOINT}/${veniceName}`,{method:'PUT',headers:{'Content-Type':veniceFile.type||'image/png'},body:veniceFile});
     if (!vr.ok) throw new Error(_t('err.upload'));
@@ -949,7 +931,7 @@ async function submitEntry(){
     const supaRes = await fetch(`${SUPABASE_URL}/rest/v1/venice_entries`,{
       method:'POST',
       headers:{'apikey':SUPABASE_ANON_KEY,'Authorization':`Bearer ${SUPABASE_ANON_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body: JSON.stringify({x_handle:xHandle,telegram_handle:telegramHandle,venice_wallet:veniceWallet,upbit_id:upbitId,upbit_proof_url:upbitUrl,upbit_account_url:upbit2Url,venice_proof_url:veniceUrl,kol_name:kolName})
+      body: JSON.stringify({x_handle:xHandle,telegram_handle:telegramHandle,venice_wallet:veniceWallet,upbit_id:upbitId,upbit_proof_url:null,upbit_account_url:null,venice_proof_url:veniceUrl,kol_name:kolName})
     });
     if (!supaRes.ok) {
       const errBody = await supaRes.json().catch(()=>({}));
