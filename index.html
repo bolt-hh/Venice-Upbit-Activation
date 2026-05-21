@@ -349,7 +349,7 @@ h1 .accent{color:var(--red);}
       <div class="step-num" data-i18n="step.n1">Step 01</div>
       <div class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></div>
       <div class="step-title" data-i18n="step.t1">Buy $VVV on Upbit</div>
-      <div class="step-body" data-i18n="step.b1">Purchase $VVV token on Upbit and note your Upbit User ID for verification</div>
+      <div class="step-body" data-i18n="step.b1">Purchase $VVV token on Upbit and note your Upbit nickname for verification</div>
       <a href="https://www.upbit.com/exchange?code=CRIX.UPBIT.KRW-VVV" target="_blank" rel="noopener noreferrer" class="step-link" onclick="trackClick('upbit','step')">upbit.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
     <div class="step-card">
@@ -405,8 +405,8 @@ h1 .accent{color:var(--red);}
             <input id="sf-venice_wallet" class="form-input" type="text" placeholder="0x..." autocomplete="off">
           </div>
           <div class="form-field">
-            <label class="form-label" for="sf-upbit_id" data-i18n="field.upbit_id">Upbit User ID</label>
-            <input id="sf-upbit_id" class="form-input" type="text" placeholder="your-upbit-id" autocomplete="off">
+            <label class="form-label" for="sf-upbit_id" data-i18n="field.upbit_id">Upbit Nickname</label>
+            <input id="sf-upbit_id" class="form-input" type="text" placeholder="your-upbit-nickname" autocomplete="off">
           </div>
 
           <div class="form-divider"></div>
@@ -740,7 +740,7 @@ const I18N = {
     'cta.venice':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Sign up on Venice.ai',
     'step.n1':'Step 01','step.n2':'Step 02','step.n3':'Step 03',
     'step.t1':'Buy $VVV on Upbit','step.t2':'Sign up on Venice.ai','step.t3':'Submit your proof',
-    'step.b1':'Purchase $VVV token on Upbit and note your Upbit User ID for verification',
+    'step.b1':'Purchase $VVV token on Upbit and note your Upbit nickname for verification',
     'step.b2':'Create your Venice account and screenshot your profile page to confirm sign-up',
     'step.b3':'Upload your Venice sign-up screenshot below and enter the prize pool — 100 winners selected',
     'prize.p1.title':'100 Winners','prize.p1.sub':'$10 stables each',
@@ -748,7 +748,7 @@ const I18N = {
     'prize.cd.label':'Entries close in',
     'form.section.label':'Enter the Prize Pool','form.section.title':'Submit your proof',
     'form.section.sub':'Fill in your details and upload your Venice sign-up screenshot to qualify',
-    'field.x':'X / Twitter Handle','field.telegram':'Telegram Handle','field.venice_wallet':'EVM Wallet Address','field.upbit_id':'Upbit User ID',
+    'field.x':'X / Twitter Handle','field.telegram':'Telegram Handle','field.venice_wallet':'EVM Wallet Address','field.upbit_id':'Upbit Nickname',
     'field.kol':'Which KOL channel brought you here?','field.kol.placeholder':'@kol_handle',
     'field.confirm':'I confirm that my Venice screenshot is authentic and belongs to me.',
     'proof.upbit.title':'$VVV Purchase Proof','proof.venice.title':'Venice Sign-up Proof',
@@ -766,7 +766,7 @@ const I18N = {
     'foot.powered':'Powered by',
     'err.x':'X handle is required.',
     'err.venice_wallet':'Venice wallet address is required.',
-    'err.upbit_id':'Upbit User ID is required.',
+    'err.upbit_id':'Upbit Nickname is required.',
     'err.upbit':'Please upload your Upbit purchase screenshot.',
     'err.venice':'Please upload your Venice sign-up screenshot.',
     'err.filesize':'File must be under 2MB.','err.confirm':'Please confirm your submission.',
@@ -785,7 +785,7 @@ const I18N = {
     'cta.venice':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Venice.ai 회원가입',
     'step.n1':'Step 01','step.n2':'Step 02','step.n3':'Step 03',
     'step.t1':'Upbit에서 $VVV 매수','step.t2':'Venice.ai 회원가입','step.t3':'인증하기',
-    'step.b1':'Upbit에서 $VVV를 매수하고, Upbit 아이디를 확인해 두세요',
+    'step.b1':'Upbit에서 $VVV를 매수하고, 업비트 닉네임을 확인해 두세요',
     'step.b2':'Venice.ai에서 회원가입 후, 프로필 페이지 스크린샷을 저장하세요',
     'step.b3':'아래에 Venice 가입 스크린샷을 업로드하여 상금 풀에 참여하세요 — 총 100명 추첨',
     'prize.p1.title':'당첨자 100명','prize.p1.sub':'각 $10 스테이블코인',
@@ -793,7 +793,7 @@ const I18N = {
     'prize.cd.label':'마감까지',
     'form.section.label':'이벤트 응모','form.section.title':'인증 제출',
     'form.section.sub':'정보 입력 후 Venice 스크린샷을 올리면 응모 완료',
-    'field.x':'X / 트위터 핸들','field.telegram':'텔레그램 핸들','field.venice_wallet':'EVM 지갑 주소','field.upbit_id':'Upbit 사용자 ID',
+    'field.x':'X / 트위터 핸들','field.telegram':'텔레그램 핸들','field.venice_wallet':'EVM 지갑 주소','field.upbit_id':'업비트 닉네임',
     'field.kol':'어느 KOL 채널에서 오셨나요?','field.kol.placeholder':'@kol_계정명',
     'field.confirm':'Venice 스크린샷이 진짜이며 저의 것임을 확인합니다.',
     'proof.upbit.title':'$VVV 매수 인증','proof.venice.title':'Venice 가입 인증',
@@ -811,7 +811,7 @@ const I18N = {
     'foot.powered':'제공',
     'err.x':'X 핸들을 입력해 주세요.',
     'err.venice_wallet':'EVM 지갑 주소를 입력해 주세요.',
-    'err.upbit_id':'Upbit 사용자 ID를 입력해 주세요.',
+    'err.upbit_id':'업비트 닉네임을 입력해 주세요.',
     'err.upbit':'Upbit 매수 스크린샷을 업로드해 주세요.',
     'err.venice':'Venice 가입 스크린샷을 업로드해 주세요.',
     'err.filesize':'파일은 2MB 이하여야 합니다.','err.confirm':'제출을 확인해 주세요.',
