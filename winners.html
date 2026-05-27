@@ -84,13 +84,6 @@ body{background:var(--bg);color:var(--cream);font-family:'DM Sans',sans-serif;mi
   </a>
 </div>
 
-<div id="controls" style="display:none;">
-  <div class="controls">
-    <span class="filter-label">Filter by KOL</span>
-    <button class="filter-btn active" data-kol="all" onclick="setFilter('all')">All</button>
-    <div id="kolFilters" style="display:contents;"></div>
-  </div>
-</div>
 
 <div id="main"></div>
 
@@ -99,7 +92,6 @@ const SUPABASE_URL = 'https://nhdktvsllunlgdsaninx.supabase.co';
 const ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5oZGt0dnNsbHVubGdkc2FuaW54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4NTIxMjgsImV4cCI6MjA5MTQyODEyOH0.GUFMjeDdphFeFp84jkeAtJNLX6-pi7KppEBdfDGXkhM';
 const H = {'apikey':ANON,'Authorization':'Bearer '+ANON};
 let allWinners = [];
-let activeFilter = 'all';
 
 function mask(w){
   if(!w||w.length<10) return w||'—';
@@ -116,54 +108,29 @@ async function load(){
     const published = Array.isArray(sd) && sd[0]?.value === 'true';
     if(!published){ renderLocked(el); return; }
 
-    const wr = await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?confirmed=eq.true&select=venice_wallet,prize_type,kol_name&order=kol_name,prize_type`,{headers:H});
+    const wr = await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?confirmed=eq.true&select=venice_wallet&order=id`,{headers:H});
     allWinners = await wr.json();
     if(!Array.isArray(allWinners)||!allWinners.length){ renderLocked(el); return; }
 
-    buildFilters();
-    document.getElementById('controls').style.display = '';
     renderWinners();
   }catch(e){ el.innerHTML='<div class="loader">Failed to load. Please refresh.</div>'; }
 }
 
-function buildFilters(){
-  const kols = [...new Set(allWinners.map(w=>w.kol_name||'(direct)'))].sort();
-  const wrap = document.getElementById('kolFilters');
-  wrap.innerHTML = kols.map(k=>
-    `<button class="filter-btn" data-kol="${k}" onclick="setFilter('${k.replace(/'/g,"\\'")}')">@${k}</button>`
-  ).join('');
-}
-
-function setFilter(kol){
-  activeFilter = kol;
-  document.querySelectorAll('.filter-btn').forEach(b=>{
-    b.classList.toggle('active', b.dataset.kol === kol);
-  });
-  renderWinners();
-}
-
 function renderWinners(){
   const el = document.getElementById('main');
-  const filtered = activeFilter === 'all'
-    ? allWinners
-    : allWinners.filter(w=>(w.kol_name||'(direct)') === activeFilter);
-
-  const cards = filtered.map((w,i)=>`
+  const cards = allWinners.map((w,i)=>`
     <div class="winner-card">
       <div class="winner-num">${String(i+1).padStart(2,'0')}</div>
       <div class="winner-info">
         <div class="winner-wallet">${mask(w.venice_wallet)}</div>
-        <div class="winner-kol">via @${w.kol_name||'direct'}</div>
       </div>
-      <div class="winner-prize">${prizeLabel(w.prize_type)}</div>
       <div class="trophy">🏆</div>
     </div>`).join('');
 
   el.innerHTML = `
     <div class="winners-wrap">
       <div class="winners-count">
-        Showing <span>${filtered.length}</span> winner${filtered.length!==1?'s':''}
-        ${activeFilter!=='all'?` · <span>@${activeFilter}</span>`:''}
+        <span>${allWinners.length}</span> winner${allWinners.length!==1?'s':''}
       </div>
       ${cards}
     </div>`;
