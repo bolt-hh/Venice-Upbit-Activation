@@ -1137,9 +1137,90 @@ async function adminTogglePublish(){
     alert(newVal==='true'?'✓ Winners are now live at winners.html':'✓ Winners page is now locked.');
   }catch(e){alert('Failed: '+e.message);}
 }
-async function adminPickWinners(){ const btn=$('adminPickBtn'); if(btn){btn.disabled=true;btn.textContent='Selecting…';} try{ const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,venice_wallet,upbit_id,venice_proof_url,kol_name`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const entries=await res.json(); if(!Array.isArray(entries)||!entries.length){alert('No entries found.');if(btn){btn.disabled=false;btn.textContent='Select Winners';}return;} const sh=[...entries].sort(()=>Math.random()-0.5); const sc=Math.min(100,sh.length); _wDraft=[...sh.slice(0,sc).map(e=>({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet,upbit_id:e.upbit_id,proof_url:e.venice_proof_url,kol_name:e.kol_name||'',prize_type:'stable_10',is_replacement:false}))]; _wPool=sh.slice(sc); renderWDraft(); }catch(e){alert('Failed: '+e.message);} if(btn){btn.disabled=false;btn.textContent='Re-pick';} }
+async function adminPickWinners(){
+  const btn=$('adminPickBtn'); if(btn){btn.disabled=true;btn.textContent='Selecting…';}
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,venice_wallet,upbit_id,venice_proof_url,kol_name`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}});
+    const entries=await res.json();
+    if(!Array.isArray(entries)||!entries.length){alert('No entries found.');if(btn){btn.disabled=false;btn.textContent='Select Winners';}return;}
+    const TOTAL_WINNERS=Math.min(100,entries.length);
+    // Group entries by KOL, shuffle each group
+    const groups={};
+    entries.forEach(e=>{
+      const k=e.kol_name||'(none)';
+      if(!groups[k]) groups[k]=[];
+      groups[k].push(e);
+    });
+    Object.values(groups).forEach(g=>g.sort(()=>Math.random()-0.5));
+    const kolNames=Object.keys(groups);
+    const total=entries.length;
+    // Proportional allocation via largest-remainder method
+    const exact=kolNames.map(k=>({k,exact:groups[k].length/total*TOTAL_WINNERS}));
+    const floors=exact.map(x=>({...x,alloc:Math.floor(x.exact),rem:x.exact-Math.floor(x.exact)}));
+    let assigned=floors.reduce((s,x)=>s+x.alloc,0);
+    let remainder=TOTAL_WINNERS-assigned;
+    floors.sort((a,b)=>b.rem-a.rem);
+    for(let i=0;i<remainder;i++) floors[i].alloc++;
+    // Build draft and pool
+    _wDraft=[]; _wPool=[];
+    floors.forEach(({k,alloc})=>{
+      const g=groups[k];
+      const winners=g.slice(0,alloc);
+      const leftovers=g.slice(alloc);
+      winners.forEach(e=>_wDraft.push({entry_id:e.id,x_handle:e.x_handle,venice_wallet:e.venice_wallet||'',upbit_id:e.upbit_id||'',proof_url:e.venice_proof_url||'',kol_name:k==='(none)'?'':k,prize_type:'stable_10',is_replacement:false}));
+      leftovers.forEach(e=>_wPool.push(e));
+    });
+    _wPool.sort(()=>Math.random()-0.5);
+    renderWDraft();
+  }catch(e){alert('Failed: '+e.message);}
+  if(btn){btn.disabled=false;btn.textContent='Re-pick';}
+}
 function renderWDraft(){ const c=$('adminWinnersContent'); if(!c) return; const sc=_wDraft.filter(w=>w.prize_type==='stable_10').length; c.innerHTML=`<div style="margin-bottom:16px;padding:12px 16px;background:rgba(221,51,0,0.06);border:1px solid var(--border);border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);">⚠ Draft — not confirmed. Click <strong style="color:var(--red);">Confirm Winners</strong> to save.<br><span style="color:var(--dim);">${sc} × $10 stable &nbsp;·&nbsp; ${_wPool.length} remaining in pool</span></div>${renderWTable(_wDraft)}<div style="margin-top:16px;display:flex;gap:10px;"><button onclick="adminConfirmWinners()" style="background:var(--red);border:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:12px 24px;cursor:pointer;border-radius:6px;">Confirm Winners</button><button onclick="adminPickWinners()" style="background:transparent;border:1px solid var(--border);color:var(--sub);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;padding:12px 20px;cursor:pointer;border-radius:6px;">Re-pick all</button></div>`; }
-async function adminDeleteWinner(dbId,prizeType,xHandle){ if(!dbId){ const idx=_wDraft.findIndex(w=>w.x_handle===xHandle&&w.prize_type===prizeType); if(idx!==-1){ if(_wPool.length===0){ _wDraft.splice(idx,1); } else { const r=_wPool.shift(); _wDraft[idx]={entry_id:r.id,x_handle:r.x_handle,venice_wallet:r.venice_wallet||'',upbit_id:r.upbit_id||'',proof_url:r.venice_proof_url||'',prize_type:prizeType,is_replacement:true}; } renderWDraft(); } return; } if(!confirm(`Remove @${xHandle}?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=eq.${dbId}`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); adminLoadWinners(); }catch(e){alert('Error: '+e.message);} }
+async function adminDeleteWinner(dbId,prizeType,xHandle){
+  // --- DRAFT state ---
+  if(!dbId){
+    const idx=_wDraft.findIndex(w=>w.x_handle===xHandle&&w.prize_type===prizeType);
+    if(idx===-1) return;
+    if(_wPool.length===0){ alert('No remaining entries in pool to use as replacement.'); return; }
+    const r=_wPool.shift();
+    _wDraft[idx]={entry_id:r.id,x_handle:r.x_handle,venice_wallet:r.venice_wallet||'',upbit_id:r.upbit_id||'',proof_url:r.venice_proof_url||'',kol_name:r.kol_name||'',prize_type:prizeType,is_replacement:true};
+    renderWDraft();
+    return;
+  }
+  // --- CONFIRMED state ---
+  if(!confirm(`Remove @${xHandle} and replace with a new winner?`)) return;
+  try{
+    // 1. Get removed winner's kol_name
+    const wrRes=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=eq.${dbId}&select=kol_name,entry_id`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}});
+    const wrData=await wrRes.json();
+    const removedKol=(Array.isArray(wrData)&&wrData[0]?.kol_name)||'';
+    // 2. Delete the winner
+    await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=eq.${dbId}`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}});
+    // 3. Get all current winner entry_ids to exclude
+    const allWRes=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?select=entry_id`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}});
+    const allW=await allWRes.json();
+    const usedIds=(Array.isArray(allW)?allW:[]).map(w=>w.entry_id).filter(Boolean);
+    // 4. Fetch pool: same KOL first, fall back to any KOL
+    let replacement=null;
+    if(removedKol){
+      const sameKolRes=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,venice_wallet,upbit_id,venice_proof_url,kol_name&kol_name=eq.${encodeURIComponent(removedKol)}`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}});
+      const sameKol=await sameKolRes.json();
+      const eligible=(Array.isArray(sameKol)?sameKol:[]).filter(e=>!usedIds.includes(e.id));
+      if(eligible.length) replacement=eligible[Math.floor(Math.random()*eligible.length)];
+    }
+    if(!replacement){
+      const anyRes=await fetch(`${SUPABASE_URL}/rest/v1/venice_entries?select=id,x_handle,venice_wallet,upbit_id,venice_proof_url,kol_name`,{headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}});
+      const any=await anyRes.json();
+      const eligible=(Array.isArray(any)?any:[]).filter(e=>!usedIds.includes(e.id));
+      if(eligible.length) replacement=eligible[Math.floor(Math.random()*eligible.length)];
+    }
+    if(!replacement){ alert('No eligible entries left to use as replacement.'); adminLoadWinners(); return; }
+    // 5. Insert replacement winner
+    const payload={entry_id:replacement.id,x_handle:replacement.x_handle,venice_wallet:replacement.venice_wallet||'',kol_name:replacement.kol_name||'',prize_type:prizeType,is_replacement:true,confirmed:true};
+    await fetch(`${SUPABASE_URL}/rest/v1/venice_winners`,{method:'POST',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(payload)});
+    adminLoadWinners();
+  }catch(e){alert('Error: '+e.message);}
+}
 async function adminConfirmWinners(){ if(!confirm(`Save ${_wDraft.length} winners?`)) return; try{ await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?confirmed=eq.false`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); const payload=_wDraft.map(w=>({entry_id:w.entry_id,x_handle:w.x_handle,venice_wallet:w.venice_wallet||'',kol_name:w.kol_name||'',prize_type:w.prize_type,is_replacement:w.is_replacement,confirmed:true})); const r=await fetch(`${SUPABASE_URL}/rest/v1/venice_winners`,{method:'POST',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(payload)}); if(!r.ok) throw new Error(`HTTP ${r.status}`); _wDraft=[]; _wPool=[]; adminLoadWinners(); }catch(e){alert('Failed: '+e.message);} }
 async function adminClearWinners(){ if(!confirm('Delete all winners?')) return; await fetch(`${SUPABASE_URL}/rest/v1/venice_winners?id=gt.0`,{method:'DELETE',headers:{'apikey':_adminServiceKey,'Authorization':`Bearer ${_adminServiceKey}`}}); _wDraft=[]; _wPool=[]; adminLoadWinners(); }
 
